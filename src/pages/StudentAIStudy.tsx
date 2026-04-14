@@ -54,13 +54,13 @@ export const StudentAIStudy = () => {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/ai/study-assistant', {
+      const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({
           message: userMessage.content,
-          history: messages.slice(-10),
+          type: 'study',
         }),
       });
 
@@ -69,7 +69,7 @@ export const StudentAIStudy = () => {
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: data.response,
+          content: data.reply,
           timestamp: new Date(),
         };
         setMessages(prev => [...prev, assistantMessage]);

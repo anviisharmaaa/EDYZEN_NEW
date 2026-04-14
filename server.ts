@@ -6,12 +6,10 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
+import chatRoute from "./routes/chat";
 
 dotenv.config();
-
-dotenv.config();
-
-// Global error handlers
+console.log("Gemini Key:", process.env.GEMINI_API_KEY);
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
 });
@@ -30,6 +28,9 @@ app.use(cors({
   origin: true,
   credentials: true,
 }));
+
+// Chat route for Claude AI
+app.use("/api", chatRoute);
 
 // Database import
 import { initDatabase, query, logActivity } from "./db.js";
@@ -55,6 +56,8 @@ let quizAttempts: any[] = [];
 let moodCheckins: any[] = [];
 let diaryEntries: any[] = [];
 let activityLogs: any[] = [];
+let materials: any[] = [];
+let studentNotes: any[] = [];
 
 // SHARED STUDENT DATA
 const STUDENTS = {
@@ -140,6 +143,16 @@ app.post("/api/login", async (req, res) => {
     console.error("Login error:", error);
     res.status(500).json({ message: "Login failed" });
   }
+});
+
+app.get("/api/me", authenticate, (req: any, res) => {
+  res.json({
+    id: req.user.id,
+    name: req.user.name,
+    role: req.user.role,
+    email: req.user.email,
+    organizationId: req.user.organizationId,
+  });
 });
 
 // POST /api/logout
@@ -481,30 +494,6 @@ app.post("/api/organizations", async (req, res) => {
   }
 });
 
-// ======================
-// TOPICS & QUIZZES
-// ======================
-
-app.get("/api/topics", (req, res) => {
-  res.json(topics);
-});
-
-app.get("/api/topics/:id", (req, res) => {
-  const topic = topics.find(t => t.id === req.params.id);
-  if (topic) {
-    res.json({
-      ...topic,
-      subTopics: [
-        { id: "s1", title: "Introduction", description: "Basic concepts and definitions", completed: true, materials: [] },
-        { id: "s2", title: "Practice Problems", description: "Work through example problems", completed: false, materials: [] },
-        { id: "s3", title: "Advanced Applications", description: "Real-world applications", completed: false, materials: [] },
-      ]
-    });
-  } else {
-    res.status(404).json({ error: "Topic not found" });
-  }
-});
-
 // --- Calendar Events ---
 app.get("/api/calendar", authenticate, (req: any, res) => {
   const today = new Date();
@@ -529,253 +518,6 @@ app.get("/api/assignments/:id", authenticate, (req: any, res) => {
   } else {
     res.status(404).json({ error: "Assignment not found" });
   }
-});
-
-app.get("/api/quizzes", (req, res) => {
-  res.json(quizzes);
-});
-
-app.get("/api/quizzes/:id", (req, res) => {
-  const quiz = quizzes.find(q => q.id === parseInt(req.params.id));
-  if (!quiz) return res.status(404).json({ error: "Quiz not found" });
-  const quizQuestions = questions.filter(q => q.quizId === quiz.id);
-  res.json({ ...quiz, questions: quizQuestions });
-});
-
-app.post("/api/quiz-attempts", authenticate, (req: any, res) => {
-  const { quizId, questionAttempts } = req.body;
-  const quiz = quizzes.find(q => q.id === quizId);
-  if (!quiz) return res.status(404).json({ error: "Quiz not found" });
-  
-  const quizQuestions = questions.filter(q => q.quizId === quizId);
-  let correct = 0;
-  
-  for (const qa of questionAttempts || []) {
-    const qn = quizQuestions.find(q => q.id === qa.questionId);
-    if (!qn) continue;
-    const isCorrect = qa.answer === qn.options[qn.correctIndex];
-    if (isCorrect) correct++;
-  }
-  
-  const pct = quizQuestions.length ? Math.round((correct / quizQuestions.length) * 100) : 0;
-  
-  const attempt = {
-    id: Date.now(),
-    studentId: req.user.id,
-    quizId,
-    score: correct,
-    totalQuestions: quizQuestions.length,
-    percent: pct,
-    completedAt: new Date().toISOString()
-  };
-  quizAttempts.push(attempt);
-  
-  logActivity(req.user.id, 'student', 'quiz_completed', { quizId, score: pct });
-  
-  res.json({
-    success: true,
-    score: correct,
-    total: quizQuestions.length,
-    percent: pct
-  });
-});
-
-// --- Mood Check-ins ---
-app.post("/api/mood-checkins", authenticate, (req: any, res) => {
-  const { mood, context } = req.body;
-  const checkin = {
-    id: Date.now(),
-    studentId: req.user.id,
-    mood,
-    context: context || 'daily',
-    timestamp: new Date().toISOString()
-  };
-  moodCheckins.push(checkin);
-  logActivity(req.user.id, 'student', 'mood_checkin', { mood });
-  res.json(checkin);
-});
-
-app.get("/api/students/me/mood/today", authenticate, (req: any, res) => {
-  const today = new Date().toISOString().split('T')[0];
-  const mood = moodCheckins.find(m => m.studentId === req.user.id && m.timestamp.startsWith(today));
-  res.json(mood || null);
-});
-
-// --- Diary ---
-app.get("/api/students/me/diary", authenticate, (req: any, res) => {
-  res.json(diaryEntries.filter(d => d.studentId === req.user.id));
-});
-
-app.post("/api/students/me/diary", authenticate, (req: any, res) => {
-  const { title, content, mood } = req.body;
-  const entry = {
-    id: Date.now(),
-    studentId: req.user.id,
-    title,
-    content,
-    mood,
-    timestamp: new Date().toISOString()
-  };
-  diaryEntries.push(entry);
-  logActivity(req.user.id, 'student', 'diary_entry', { title });
-  res.json(entry);
-});
-
-// --- Student Status ---
-app.get("/api/students/me/status", authenticate, (req: any, res) => {
-  res.json({
-    status: "active",
-    currentTopic: "Linear Equations",
-    nextMilestone: "Complete Quiz 2",
-    streak: 3,
-    weeklyProgress: [30, 45, 20, 60, 50, 0, 0],
-    achievements: ["Quick Learner", "Perfect Score"],
-  });
-});
-
-// --- Student Notes ---
-let studentNotes: any[] = [];
-
-app.get("/api/students/me/notes", authenticate, (req: any, res) => {
-  res.json(studentNotes.filter(n => n.studentId === req.user.id));
-});
-
-app.post("/api/students/me/notes", authenticate, (req: any, res) => {
-  const { title, content } = req.body;
-  const note = {
-    id: Date.now(),
-    studentId: req.user.id,
-    title,
-    content,
-    createdAt: new Date().toISOString()
-  };
-  studentNotes.push(note);
-  res.json(note);
-});
-
-app.delete("/api/students/me/notes/:id", authenticate, (req: any, res) => {
-  const noteId = parseInt(req.params.id);
-  studentNotes = studentNotes.filter(n => !(n.studentId === req.user.id && n.id === noteId));
-  res.json({ success: true });
-});
-
-// --- Student Behavior Summary ---
-app.get("/api/students/me/behavior-summary", authenticate, (req: any, res) => {
-  res.json({
-    totalTimeMin: 145,
-    totalClicks: 89,
-    quizAttempts: 3,
-    avgTimePerQuestion: 25,
-    focusScore: 82,
-    engagementTrend: "improving",
-  });
-});
-
-// --- Student Profile ---
-app.get("/api/students/me/profile", authenticate, (req: any, res) => {
-  res.json({
-    name: req.user.name,
-    classLabel: "Grade 7 - Mathematics",
-    learningType: "Visual Learner",
-    pace: "Fast",
-    preference: "Visual",
-    approach: ["Explorer", "Hands-on"],
-    performance: {
-      accuracy: 78,
-      byType: [
-        { type: "Visual", accuracy: 85 },
-        { type: "Analytical", accuracy: 72 },
-        { type: "Kinesthetic", accuracy: 75 }
-      ]
-    },
-    weakTopics: ["Linear Equations", "Quadratic Word Problems"],
-    strongTopics: ["Algebra Basics", "Number Patterns"],
-    cognitiveTestResults: [
-      { date: "2026-01-15", score: 85, description: "Strong visual-spatial reasoning" }
-    ]
-  });
-});
-
-// --- Student Personality ---
-app.get("/api/students/me/personality", authenticate, (req: any, res) => {
-  res.json({
-    type: "Explorer",
-    approachTag: "Hands-on Learner",
-    primaryStyle: "Visual",
-    motivations: ["Achievement", "Curiosity"],
-    optimalEnvironment: "Quiet with visual aids",
-  });
-});
-
-// --- Cognitive Results ---
-app.get("/api/students/me/cognitive-results", authenticate, (req: any, res) => {
-  res.json({
-    pace: "Fast",
-    preference: "Visual",
-    approach: ["Explorer", "Hands-on"],
-    scores: { visual: 85, auditory: 65, kinesthetic: 75 },
-  });
-});
-
-app.post("/api/students/me/cognitive-results", authenticate, (req: any, res) => {
-  const { pace, preference, approach } = req.body;
-  res.json({
-    pace,
-    preference,
-    approach,
-    scores: { visual: 85, auditory: 65, kinesthetic: 75 },
-    submittedAt: new Date().toISOString()
-  });
-});
-
-// --- Student Roadmap ---
-app.get("/api/students/me/roadmap", authenticate, (req: any, res) => {
-  res.json([
-    { id: "top1", title: "Algebra Basics", status: "completed", progress: 100, description: "Learn the basics of algebra", difficulty: "Easy", estMinutes: 45 },
-    { id: "top2", title: "Linear Equations", status: "current", progress: 60, description: "Solve for x and graph lines", difficulty: "Medium", estMinutes: 60 },
-    { id: "top3", title: "Quadratic Equations", status: "locked", progress: 0, description: "Learn about parabolas", difficulty: "Hard", estMinutes: 90 },
-  ]);
-});
-
-// --- Student Summary ---
-app.get("/api/students/me/summary", authenticate, (req: any, res) => {
-  const studentAttempts = quizAttempts.filter(a => a.studentId === req.user.id);
-  const acc = studentAttempts.length > 0
-    ? studentAttempts.reduce((sum, a) => sum + a.percent, 0) / studentAttempts.length
-    : 0;
-  
-  res.json({
-    greeting: "Hello",
-    mood: "ok",
-    progress: 40,
-    assignmentsDue: 2,
-    quizzesAvailable: 3,
-    dailyGoal: {
-      title: "Practice Linear Equations",
-      topicId: "top2",
-      progressPct: 35,
-      quizzesRemaining: 2,
-      minutesEstimate: 15,
-    },
-    insights: [
-      { type: "warning", text: "Spend extra time on weak topics to stay on track." },
-      { type: "info", text: "Your accuracy improved this week—keep going." },
-    ],
-    recommendations: [
-      "Review the example problems in the course map.",
-      "Try a short practice quiz after your next study session.",
-    ],
-    weakTopics: ["Linear equations"],
-    weeklyMinutes: [10, 20, 15, 30, 25, 0, 0],
-    behaviorSnapshot: {
-      timeSpentMin: 90,
-      clicks: 120,
-      quizAttempts: 2,
-    },
-    adaptiveHint: "more_practice",
-    risk: acc > 80 ? "low" : acc < 50 ? "high" : "medium",
-    streak: 3,
-  });
 });
 
 // --- Teacher APIs ---
@@ -834,12 +576,265 @@ app.get("/api/teachers/me/curriculum", authenticate, (req: any, res) => {
   res.json(topics);
 });
 
-// GET ALL STUDENTS (for teacher)
+app.get("/api/topics", (req, res) => {
+  res.json(topics);
+});
+
+app.get("/api/topics/:id", (req, res) => {
+  const topic = topics.find(t => t.id === req.params.id);
+  if (topic) {
+    res.json({
+      ...topic,
+      subTopics: [
+        { id: "s1", title: "Introduction", description: "Basic concepts and definitions", completed: true, materials: [] },
+        { id: "s2", title: "Practice Problems", description: "Work through example problems", completed: false, materials: [] },
+        { id: "s3", title: "Advanced Applications", description: "Real-world applications", completed: false, materials: [] },
+      ]
+    });
+  } else {
+    res.status(404).json({ error: "Topic not found" });
+  }
+});
+
+app.get("/api/quizzes", (req, res) => {
+  res.json(quizzes);
+});
+
+app.get("/api/quizzes/:id", (req, res) => {
+  const quiz = quizzes.find(q => q.id === parseInt(req.params.id));
+  if (!quiz) return res.status(404).json({ error: "Quiz not found" });
+  const quizQuestions = questions.filter(q => q.quizId === quiz.id);
+  res.json({ ...quiz, questions: quizQuestions });
+});
+
+app.post("/api/quiz-attempts", authenticate, (req: any, res) => {
+  const { quizId, questionAttempts } = req.body;
+  const quiz = quizzes.find(q => q.id === quizId);
+  if (!quiz) return res.status(404).json({ error: "Quiz not found" });
+  
+  const quizQuestions = questions.filter(q => q.quizId === quizId);
+  let correct = 0;
+  
+  for (const qa of questionAttempts || []) {
+    const qn = quizQuestions.find(q => q.id === qa.questionId);
+    if (!qn) continue;
+    const isCorrect = qa.answer === qn.options[qn.correctIndex];
+    if (isCorrect) correct++;
+  }
+  
+  const pct = quizQuestions.length ? Math.round((correct / quizQuestions.length) * 100) : 0;
+  
+  const attempt = {
+    id: Date.now(),
+    studentId: req.user.id,
+    quizId,
+    score: correct,
+    totalQuestions: quizQuestions.length,
+    percent: pct,
+    completedAt: new Date().toISOString()
+  };
+  quizAttempts.push(attempt);
+  
+  logActivity(req.user.id, 'student', 'quiz_completed', { quizId, score: pct });
+  
+  res.json({
+    success: true,
+    score: correct,
+    total: quizQuestions.length,
+    percent: pct
+  });
+});
+
+app.post("/api/mood-checkins", authenticate, (req: any, res) => {
+  const { mood, context } = req.body;
+  const checkin = {
+    id: Date.now(),
+    studentId: req.user.id,
+    mood,
+    context: context || 'daily',
+    timestamp: new Date().toISOString()
+  };
+  moodCheckins.push(checkin);
+  logActivity(req.user.id, 'student', 'mood_checkin', { mood });
+  res.json(checkin);
+});
+
+app.get("/api/students/me/mood/today", authenticate, (req: any, res) => {
+  const today = new Date().toISOString().split('T')[0];
+  const mood = moodCheckins.find(m => m.studentId === req.user.id && m.timestamp.startsWith(today));
+  res.json(mood || null);
+});
+
+app.get("/api/students/me/diary", authenticate, (req: any, res) => {
+  res.json(diaryEntries.filter(d => d.studentId === req.user.id));
+});
+
+app.post("/api/students/me/diary", authenticate, (req: any, res) => {
+  const { title, content, mood } = req.body;
+  const entry = {
+    id: Date.now(),
+    studentId: req.user.id,
+    title,
+    content,
+    mood,
+    timestamp: new Date().toISOString()
+  };
+  diaryEntries.push(entry);
+  logActivity(req.user.id, 'student', 'diary_entry', { title });
+  res.json(entry);
+});
+
+app.get("/api/students/me/status", authenticate, (req: any, res) => {
+  res.json({
+    status: "active",
+    currentTopic: "Linear Equations",
+    nextMilestone: "Complete Quiz 2",
+    streak: 3,
+    weeklyProgress: [30, 45, 20, 60, 50, 0, 0],
+    achievements: ["Quick Learner", "Perfect Score"],
+  });
+});
+
+app.get("/api/students/me/notes", authenticate, (req: any, res) => {
+  res.json(studentNotes.filter(n => n.studentId === req.user.id));
+});
+
+app.post("/api/students/me/notes", authenticate, (req: any, res) => {
+  const { title, content } = req.body;
+  const note = {
+    id: Date.now(),
+    studentId: req.user.id,
+    title,
+    content,
+    createdAt: new Date().toISOString()
+  };
+  studentNotes.push(note);
+  res.json(note);
+});
+
+app.delete("/api/students/me/notes/:id", authenticate, (req: any, res) => {
+  const noteId = parseInt(req.params.id);
+  studentNotes = studentNotes.filter(n => !(n.studentId === req.user.id && n.id === noteId));
+  res.json({ success: true });
+});
+
+app.get("/api/students/me/behavior-summary", authenticate, (req: any, res) => {
+  res.json({
+    totalTimeMin: 145,
+    totalClicks: 89,
+    quizAttempts: 3,
+    avgTimePerQuestion: 25,
+    focusScore: 82,
+    engagementTrend: "improving",
+  });
+});
+
+app.get("/api/students/me/profile", authenticate, (req: any, res) => {
+  res.json({
+    name: req.user.name,
+    classLabel: "Grade 7 - Mathematics",
+    learningType: "Visual Learner",
+    pace: "Fast",
+    preference: "Visual",
+    approach: ["Explorer", "Hands-on"],
+    performance: {
+      accuracy: 78,
+      byType: [
+        { type: "Visual", accuracy: 85 },
+        { type: "Analytical", accuracy: 72 },
+        { type: "Kinesthetic", accuracy: 75 }
+      ]
+    },
+    weakTopics: ["Linear Equations", "Quadratic Word Problems"],
+    strongTopics: ["Algebra Basics", "Number Patterns"],
+    cognitiveTestResults: [
+      { date: "2026-01-15", score: 85, description: "Strong visual-spatial reasoning" }
+    ]
+  });
+});
+
+app.get("/api/students/me/personality", authenticate, (req: any, res) => {
+  res.json({
+    type: "Explorer",
+    approachTag: "Hands-on Learner",
+    primaryStyle: "Visual",
+    motivations: ["Achievement", "Curiosity"],
+    optimalEnvironment: "Quiet with visual aids",
+  });
+});
+
+app.get("/api/students/me/cognitive-results", authenticate, (req: any, res) => {
+  res.json({
+    pace: "Fast",
+    preference: "Visual",
+    approach: ["Explorer", "Hands-on"],
+    scores: { visual: 85, auditory: 65, kinesthetic: 75 },
+  });
+});
+
+app.post("/api/students/me/cognitive-results", authenticate, (req: any, res) => {
+  const { pace, preference, approach } = req.body;
+  res.json({
+    pace,
+    preference,
+    approach,
+    scores: { visual: 85, auditory: 65, kinesthetic: 75 },
+    submittedAt: new Date().toISOString()
+  });
+});
+
+app.get("/api/students/me/roadmap", authenticate, (req: any, res) => {
+  res.json([
+    { id: "top1", title: "Algebra Basics", status: "completed", progress: 100, description: "Learn the basics of algebra", difficulty: "Easy", estMinutes: 45 },
+    { id: "top2", title: "Linear Equations", status: "current", progress: 60, description: "Solve for x and graph lines", difficulty: "Medium", estMinutes: 60 },
+    { id: "top3", title: "Quadratic Equations", status: "locked", progress: 0, description: "Learn about parabolas", difficulty: "Hard", estMinutes: 90 },
+  ]);
+});
+
+app.get("/api/students/me/summary", authenticate, (req: any, res) => {
+  const studentAttempts = quizAttempts.filter(a => a.studentId === req.user.id);
+  const acc = studentAttempts.length > 0
+    ? studentAttempts.reduce((sum, a) => sum + a.percent, 0) / studentAttempts.length
+    : 0;
+  
+  res.json({
+    greeting: "Hello",
+    mood: "ok",
+    progress: 40,
+    assignmentsDue: 2,
+    quizzesAvailable: 3,
+    dailyGoal: {
+      title: "Practice Linear Equations",
+      topicId: "top2",
+      progressPct: 35,
+      quizzesRemaining: 2,
+      minutesEstimate: 15,
+    },
+    insights: [
+      { type: "warning", text: "Spend extra time on weak topics to stay on track." },
+      { type: "info", text: "Your accuracy improved this week—keep going." },
+    ],
+    recommendations: [
+      "Review the example problems in the course map.",
+      "Try a short practice quiz after your next study session.",
+    ],
+    weakTopics: ["Linear equations"],
+    weeklyMinutes: [10, 20, 15, 30, 25, 0, 0],
+    behaviorSnapshot: {
+      timeSpentMin: 90,
+      clicks: 120,
+      quizAttempts: 2,
+    },
+    adaptiveHint: "more_practice",
+    risk: acc > 80 ? "low" : acc < 50 ? "high" : "medium",
+    streak: 3,
+  });
+});
+
 app.get("/api/students", authenticate, (req: any, res) => {
   res.json(Object.values(STUDENTS).map(s => ({ _id: s.id, name: s.name, email: s.email, accuracy: s.accuracy, mood: s.mood })));
 });
 
-// ATTENDANCE
 app.get("/api/attendance", authenticate, (req: any, res) => {
   res.json([
     { studentId: "s1", present: true, date: new Date().toISOString() },
@@ -856,7 +851,6 @@ app.get("/api/attendance/analytics", authenticate, (req: any, res) => {
   ]);
 });
 
-// --- Activity Logging ---
 app.get("/api/students/me/activity", authenticate, (req: any, res) => {
   const logs = activityLogs.filter(l => l.userId === req.user.id).slice(-50);
   res.json(logs);
@@ -868,33 +862,70 @@ app.post("/api/activity", authenticate, (req: any, res) => {
   res.json({ success: true });
 });
 
-// --- AI Mock Endpoints ---
-app.post("/api/ai/explain", authenticate, (req: any, res) => {
-  const { text } = req.body;
-  res.json({ 
-    explanation: `Here's an explanation of "${text}": This concept involves understanding the fundamental principles.`,
-    keyPoints: ["Step 1: Understand the basics", "Step 2: Practice with examples", "Step 3: Apply to problems"]
+app.post("/api/materials", authenticate, (req: any, res) => {
+  const { title, url, studentId } = req.body;
+  const material = {
+    id: Date.now(),
+    title,
+    url,
+    studentId,
+    createdAt: new Date().toISOString(),
+  };
+  materials.push(material);
+  res.json(material);
+});
+
+app.get("/api/teachers/me/students-overview", authenticate, (req: any, res) => {
+  const orgId = req.query.orgId;
+  const students = Object.values(STUDENTS)
+    .filter((s: any) => !orgId || s.organizationId == orgId)
+    .map((s: any) => ({ id: s.id, name: s.name, email: s.email, progress: s.progress || 0, accuracy: s.accuracy || 0, mood: s.mood || 'ok', weakTopics: s.weakTopics || [] }));
+  res.json(students.length ? students : Object.values(STUDENTS));
+});
+
+app.post("/api/students", authenticate, async (req: any, res) => {
+  const { name, email, password, orgId } = req.body;
+  const hashedPassword = bcrypt.hashSync(password || 'password', 10);
+  const result: any = await query(
+    "INSERT INTO users (name, email, password, role, organizationId) VALUES (?, ?, ?, ?, ?)",
+    [name, email, hashedPassword, 'student', orgId || null]
+  );
+  res.json({ id: result.insertId, name, email, role: 'student', organizationId: orgId || null });
+});
+
+app.get("/api/parents/me/children", authenticate, (req: any, res) => {
+  res.json([
+    { id: 's1', name: 'Anvi Sharma', mood: 'ok', progress: 75, lastActivity: '2 hours ago' },
+    { id: 's2', name: 'Jordan Smith', mood: 'stressed', progress: 45, lastActivity: '1 day ago' },
+  ]);
+});
+
+app.get("/api/parents/me/announcements", authenticate, (req: any, res) => {
+  res.json([
+    { id: 'n1', title: 'School closed on Friday', content: 'Due to maintenance, the school will be closed on Friday.', date: 'April 10, 2026', type: 'event', author: 'School Admin' },
+    { id: 'n2', title: 'New math resources available', content: 'Updated study materials are now available for your child.', date: 'April 8, 2026', type: 'general', author: 'Teacher Team' },
+  ]);
+});
+
+app.get("/api/parents/me/child-details", authenticate, (req: any, res) => {
+  const childId = req.query.childId || 's1';
+  const child = STUDENTS[childId as string] || STUDENTS['s1'];
+  res.json({
+    id: child.id,
+    name: child.name,
+    mood: child.mood,
+    progress: child.progress,
+    accuracy: child.accuracy,
+    timePerQuestion: child.timePerQuestion,
+    weakTopics: ["Linear equations", "Quadratic word problems"],
+    recentActivity: [
+      { id: 'a1', title: 'Algebra Quiz', type: 'quiz', date: 'Apr 3, 2026', score: 85 },
+      { id: 'a2', title: 'Linear Equations Lesson', type: 'lesson', date: 'Apr 2, 2026' },
+      { id: 'a3', title: 'Fractions Worksheet', type: 'assignment', date: 'Apr 1, 2026', score: 92 },
+    ]
   });
 });
 
-app.post("/api/ai/study-assistant", authenticate, (req: any, res) => {
-  const { question } = req.body;
-  res.json({ 
-    response: `I'd be happy to help you with "${question}". Based on what you're learning, here's a helpful explanation:`,
-    suggestions: ["Try breaking this into smaller parts", "Practice with similar problems"]
-  });
-});
-
-app.post("/api/ai/mental-evaluator", authenticate, (req: any, res) => {
-  const { mood } = req.body;
-  res.json({ 
-    evaluation: "Your emotional wellbeing is important.",
-    suggestions: ["Remember to take breaks", "Stay connected with friends"],
-    resources: ["Deep breathing exercises", "Journaling"]
-  });
-});
-
-// --- API 404 handler ---
 app.all("/api/*", (req, res) => {
   res.status(404).json({ error: "API route not found" });
 });
@@ -918,7 +949,19 @@ async function startServer() {
   } catch (error) {
     console.warn("MySQL not available, using fallback mode");
   }
-  
+
+  app.get("/test", async (req, res) => {
+    try {
+      const users = await query(`
+        SELECT id, name, email, role, organizationId, createdAt 
+        FROM users
+      `);
+      res.json(users);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  });
+
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
       server: { middlewareMode: true },

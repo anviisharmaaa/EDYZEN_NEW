@@ -24,13 +24,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const restoreSession = async () => {
+      try {
+        const res = await fetch("/api/me", {
+          credentials: "include",
+        });
 
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+        if (!res.ok) {
+          localStorage.removeItem("user");
+          setUser(null);
+          return;
+        }
 
-    setLoading(false);
+        const data = await res.json();
+        const normalized: User = {
+          id: String(data.id),
+          role: data.role,
+          name: data.name,
+          email: data.email,
+          organizationId: data.organizationId,
+        };
+        localStorage.setItem("user", JSON.stringify(normalized));
+        setUser(normalized);
+      } catch (error) {
+        localStorage.removeItem("user");
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    restoreSession();
   }, []);
 
 const login = async (email: string, password: string): Promise<User> => {
