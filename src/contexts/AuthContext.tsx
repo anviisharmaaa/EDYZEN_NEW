@@ -28,67 +28,52 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const restoreSession = async () => {
       try {
-        const res = await fetch("/api/me", {
-          credentials: "include",
-        });
-
+        const stored = localStorage.getItem("user");
+        if (stored) {
+          setUser(JSON.parse(stored));
+          setLoading(false);
+          return;
+        }
+        
+        // Fallback to API if no local cache (won't happen actively in demo)
+        const res = await fetch("/api/me", { credentials: "include" });
         if (!res.ok) {
-          localStorage.removeItem("user");
           setUser(null);
           return;
         }
-
         const data = await res.json();
         const normalized: User = {
-          id: String(data.id),
-          role: data.role,
-          name: data.name,
-          email: data.email,
-          organizationId: data.organizationId,
+          id: String(data.id), role: data.role, name: data.name, email: data.email, organizationId: data.organizationId,
         };
         localStorage.setItem("user", JSON.stringify(normalized));
         setUser(normalized);
       } catch (error) {
-        localStorage.removeItem("user");
         setUser(null);
       } finally {
         setLoading(false);
       }
     };
-
     restoreSession();
   }, []);
 
   const login = async (email: string, password: string): Promise<User> => {
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        email,
-        password
-      })
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.error || "Login failed");
+    // --- PROTOTYPE MAGIC LOGIN ---
+    let normalized: User | null = null;
+    const lowerEmail = email.toLowerCase();
+    
+    if (lowerEmail.includes("admin")) {
+      normalized = { id: "admin-1", role: "admin", name: "Global Admin", email: lowerEmail };
+    } else if (lowerEmail.includes("teacher")) {
+      normalized = { id: "teacher-1", role: "teacher", name: "Teacher Dave", email: lowerEmail };
+    } else if (lowerEmail.includes("parent")) {
+      normalized = { id: "parent-1", role: "parent", name: "Priya Sharma", email: lowerEmail };
+    } else {
+      // Default fallback to Anvi Sharma as the student
+      normalized = { id: "s1", role: "student", name: "Anvi Sharma", email: "anvi@edyzen.com" };
     }
 
-    const normalized: User = {
-      id: String(data.id),
-      role: data.role,
-      name: data.name,
-      email: data.email,
-      organizationId: data.organizationId
-    };
     localStorage.setItem("user", JSON.stringify(normalized));
-    if (data.organizationId) {
-      localStorage.setItem("orgId", String(data.organizationId));
-    }
+    localStorage.setItem("orgId", "1");
     setUser(normalized);
     return normalized;
   };

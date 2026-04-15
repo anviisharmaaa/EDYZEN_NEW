@@ -28,48 +28,34 @@ export const LoginPage = () => {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    fetch('/api/organizations', { credentials: 'include' })
-      .then(res => res.json())
-      .then(data => {
-        setOrganizations(Array.isArray(data) ? data : []);
-        if (data && data.length > 0) {
-          setSelectedOrg(data[0].id);
-        } else {
-          setShowCreateOrg(true);
-        }
-      })
-      .catch(() => setShowCreateOrg(true))
-      .finally(() => setLoading(false));
+    // Skip backend fetch for organizations during prototype
+    // Show mocked default organization
+    setOrganizations([{ id: 1, name: "Global Academy" }]);
+    setSelectedOrg(1);
+    setShowCreateOrg(false);
+    setLoading(false);
   }, []);
 
   const handleCreateOrg = async () => {
     if (!newOrgName.trim() || !adminName.trim() || !adminEmail.trim() || !adminPassword.trim()) return;
     setSaving(true);
-    try {
-      const res = await fetch('/api/admin/create-organization', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          name: newOrgName,
-          adminName,
-          adminEmail,
-          adminPassword
-        })
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.error || data.message || 'Failed to create organization');
-        return;
-      }
-      localStorage.setItem('user', JSON.stringify(data.user));
-      localStorage.setItem('orgId', String(data.organization.id));
-      navigate('/admin/dashboard');
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setSaving(false);
-    }
+    // --- PROTOTYPE MAGIC CREATE ORG ---
+    setTimeout(() => {
+      const normalized = {
+        id: "admin-1",
+        role: "admin",
+        name: adminName,
+        email: adminEmail,
+        organizationId: 1
+      };
+      
+      localStorage.setItem("user", JSON.stringify(normalized));
+      localStorage.setItem("orgId", "1");
+      
+      // Auto-refresh context by reloading or letting Context pick it up
+      // The easiest way for proto is to force-navigate and reload to sync context cleanly
+      window.location.href = "/admin/dashboard";
+    }, 600);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
