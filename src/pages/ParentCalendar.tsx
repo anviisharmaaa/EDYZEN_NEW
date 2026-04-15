@@ -7,8 +7,7 @@ import { cn } from '../lib/utils';
 interface ChildEvent {
   id: string;
   title: string;
-  start: string;
-  end: string;
+  date: string;
   type: 'study' | 'assignment' | 'quiz' | 'general';
   subject?: string;
   childId?: string;

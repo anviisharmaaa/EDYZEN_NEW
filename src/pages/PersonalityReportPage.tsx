@@ -117,7 +117,6 @@ const generateReport = async () => {
 `;
 
       setReport(report);
-      setGenerated(true);
     } catch (err) {
       console.error('Error generating report:', err);
     } finally {

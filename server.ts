@@ -167,7 +167,7 @@ app.post("/api/logout", authenticate, (req: any, res) => {
 // ======================
 
 // POST /api/admin/create-user - Only admin can create teacher or student
-app.post("/api/admin/create-user", authenticate, requireAdmin, async (req, res) => {
+app.post("/api/admin/create-user", authenticate, requireAdmin, async (req: any, res) => {
   try {
     const { name, email, password, role, organizationId } = req.body;
     
@@ -223,7 +223,7 @@ app.get("/api/admin/users", authenticate, requireAdmin, async (req, res) => {
 });
 
 // DELETE /api/admin/users/:id
-app.delete("/api/admin/users/:id", authenticate, requireAdmin, async (req, res) => {
+app.delete("/api/admin/users/:id", authenticate, requireAdmin, async (req: any, res) => {
   try {
     const userId = parseInt(req.params.id);
     

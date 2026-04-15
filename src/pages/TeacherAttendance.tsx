@@ -6,6 +6,7 @@ import { cn } from '../lib/utils';
 interface StudentAttendance {
   id: string;
   name: string;
+  email?: string;
   present: boolean;
   mood?: string;
   percentage?: number;   
