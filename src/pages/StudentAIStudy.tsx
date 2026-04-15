@@ -12,10 +12,10 @@ interface Message {
 }
 
 const QUICK_ACTIONS = [
-  { label: 'Roadmap', icon: BookOpen, path: '/student/roadmap', color: 'bg-violet-100 border-violet-400' },
-  { label: 'Calendar', icon: Calendar, path: '/student/calendar', color: 'bg-sky-100 border-sky-400' },
+  { label: 'Roadmap', icon: BookOpen, path: '/student/roadmap', color: 'bg-[var(--bg-tertiary)] border-violet-400' },
+  { label: 'Calendar', icon: Calendar, path: '/student/calendar', color: 'bg-[var(--bg-tertiary)] border-sky-400' },
   { label: 'Profile', icon: Brain, path: '/student/profile', color: 'bg-emerald-100 border-emerald-400' },
-  { label: 'Quizzes', icon: Target, path: '/student/quizzes', color: 'bg-amber-100 border-amber-400' },
+  { label: 'Quizzes', icon: Target, path: '/student/quizzes', color: 'bg-[var(--bg-warning)] border-[var(--border-warning)]' },
 ];
 
 export const StudentAIStudy = () => {
@@ -109,7 +109,7 @@ export const StudentAIStudy = () => {
         </div>
         <div>
           <h1 className="text-3xl font-black">Study Assistant</h1>
-          <p className="font-bold text-gray-600">
+          <p className="font-bold text-[var(--text-muted)]">
             Your AI tutor for learning and academic support
           </p>
         </div>
@@ -142,11 +142,11 @@ export const StudentAIStudy = () => {
               <div
                 className={`max-w-[80%] p-4 neo-border ${message.role === 'user'
                     ? 'bg-black text-white'
-                    : 'bg-white'
+                    : 'bg-[var(--surface-card)]'
                   }`}
               >
                 <p className="text-sm font-bold whitespace-pre-wrap">{message.content}</p>
-                <p className={`text-[10px] mt-2 ${message.role === 'user' ? 'text-gray-400' : 'text-gray-500'
+                <p className={`text-[10px] mt-2 ${message.role === 'user' ? 'text-gray-400' : 'text-[var(--text-muted)]'
                   }`}>
                   {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
@@ -163,7 +163,7 @@ export const StudentAIStudy = () => {
               <div className="w-8 h-8 bg-violet-400 rounded-full flex items-center justify-center shrink-0">
                 <Bot size={16} className="text-white" />
               </div>
-              <div className="p-4 neo-border bg-white">
+              <div className="p-4 neo-border bg-[var(--surface-card)]">
                 <Loader2 className="animate-spin text-violet-500" size={20} />
               </div>
             </div>
@@ -171,7 +171,7 @@ export const StudentAIStudy = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="p-4 border-t bg-white">
+        <div className="p-4 border-t bg-[var(--surface-card)]">
           <div className="flex gap-2">
             <input
               type="text"

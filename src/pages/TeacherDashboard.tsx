@@ -57,7 +57,7 @@ export const TeacherDashboard = () => {
       {/* Header */}
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">Welcome back, {user?.name}!</h1>
-        <p className="text-sm font-medium text-gray-600">Teacher Dashboard</p>
+        <p className="text-sm font-medium text-[var(--text-muted)]">Teacher Dashboard</p>
       </div>
 
       {/* Quick Actions */}
@@ -100,23 +100,23 @@ export const TeacherDashboard = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="text-center p-6">
           <Users size={24} className="text-blue-600 mx-auto mb-3" />
-          <p className="text-xs font-medium text-gray-600 mb-1">Total Students</p>
-          <p className="text-2xl font-bold text-gray-900">124</p>
+          <p className="text-xs font-medium text-[var(--text-muted)] mb-1">Total Students</p>
+          <p className="text-2xl font-bold text-[var(--text-primary)]">124</p>
         </Card>
         <Card className="text-center p-6">
-          <TrendingUp size={24} className="text-green-600 mx-auto mb-3" />
-          <p className="text-xs font-medium text-gray-600 mb-1">Avg Accuracy</p>
-          <p className="text-2xl font-bold text-gray-900">76%</p>
+          <TrendingUp size={24} className="text-[var(--text-success)] mx-auto mb-3" />
+          <p className="text-xs font-medium text-[var(--text-muted)] mb-1">Avg Accuracy</p>
+          <p className="text-2xl font-bold text-[var(--text-primary)]">76%</p>
         </Card>
         <Card className="text-center p-6">
           <MoodIcon mood="ok" size="md" />
-          <p className="text-xs font-medium text-gray-600 mb-1 mt-2">Overall Mood</p>
-          <p className="text-2xl font-bold text-gray-900">OK</p>
+          <p className="text-xs font-medium text-[var(--text-muted)] mb-1 mt-2">Overall Mood</p>
+          <p className="text-2xl font-bold text-[var(--text-primary)]">OK</p>
         </Card>
         <Card className="text-center p-6">
-          <AlertCircle size={24} className="text-red-600 mx-auto mb-3" />
-          <p className="text-xs font-medium text-gray-600 mb-1">Active Alerts</p>
-          <p className="text-2xl font-bold text-red-600">12</p>
+          <AlertCircle size={24} className="text-[var(--text-danger)] mx-auto mb-3" />
+          <p className="text-xs font-medium text-[var(--text-muted)] mb-1">Active Alerts</p>
+          <p className="text-2xl font-bold text-[var(--text-danger)]">12</p>
         </Card>
       </div>
 
@@ -132,21 +132,21 @@ export const TeacherDashboard = () => {
             {classes.map(cls => (
               <Card key={cls.id} className="flex items-center justify-between p-4 hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-4 flex-1">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-lg font-bold text-blue-600">
+                  <div className="w-12 h-12 bg-[var(--bg-tertiary)] rounded-lg flex items-center justify-center text-lg font-bold text-blue-600">
                     {cls.name.split(' ')[0][0]}
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900">{cls.name}</h3>
-                    <p className="text-sm text-gray-600">{cls.studentCount} students</p>
+                    <h3 className="font-semibold text-[var(--text-primary)]">{cls.name}</h3>
+                    <p className="text-sm text-[var(--text-muted)]">{cls.studentCount} students</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
                   <div>
-                    <p className="text-xs text-gray-600 text-center mb-1">Mood</p>
+                    <p className="text-xs text-[var(--text-muted)] text-center mb-1">Mood</p>
                     <MoodIcon mood={cls.avgMood} size="sm" />
                   </div>
                   <div className="text-center">
-                    <p className="text-xs text-gray-600 mb-1">Alerts</p>
+                    <p className="text-xs text-[var(--text-muted)] mb-1">Alerts</p>
                     <span className={cn(
                       "px-3 py-1 rounded-lg text-sm font-medium text-white",
                       cls.alerts > 0 ? "bg-red-600" : "bg-green-600"
@@ -179,11 +179,11 @@ export const TeacherDashboard = () => {
                 const dayEvents = calendarEvents.filter(e => e.date === date.toISOString().split('T')[0]);
                 return (
                   <div key={day} className="flex gap-2">
-                    <span className="font-medium text-gray-600 w-10">{day}</span>
+                    <span className="font-medium text-[var(--text-muted)] w-10">{day}</span>
                     <div className="flex-1 flex flex-wrap gap-1">
                       {dayEvents.length > 0 ? (
                         dayEvents.map(ev => (
-                          <span key={ev.id} className="text-xs px-2 py-1 rounded bg-gray-100 text-gray-700 truncate">
+                          <span key={ev.id} className="text-xs px-2 py-1 rounded bg-[var(--bg-tertiary)] text-[var(--text-secondary)] truncate">
                             {ev.type === 'quiz' && '📋'}
                             {ev.type === 'assignment' && '✏️'}
                             {ev.type === 'general' && '📅'}
@@ -213,15 +213,15 @@ export const TeacherDashboard = () => {
         {alerts.length > 0 ? (
           <div className="grid gap-3">
             {alerts.slice(0, 5).map((alert, idx) => (
-              <Card key={idx} className="p-4 border-l-4 border-l-red-600 bg-red-50">
+              <Card key={idx} className="p-4 border-l-4 border-l-red-600 bg-[var(--bg-danger)]">
                 <p className="font-medium text-red-900 mb-1">{alert.name}</p>
-                <p className="text-sm text-red-800">{alert.reason}</p>
+                <p className="text-sm text-[var(--text-danger)]">{alert.reason}</p>
               </Card>
             ))}
           </div>
         ) : (
           <Card className="p-6 text-center">
-            <p className="text-gray-600">No active alerts</p>
+            <p className="text-[var(--text-muted)]">No active alerts</p>
           </Card>
         )}
       </div>

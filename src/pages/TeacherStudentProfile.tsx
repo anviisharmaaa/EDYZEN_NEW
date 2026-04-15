@@ -116,19 +116,19 @@ export const TeacherStudentProfile = () => {
         </Button>
         <div>
           <h1 className="text-4xl font-black tracking-tighter">Student Profile: {profile.name}</h1>
-          <p className="font-bold text-gray-600">Class: {profile.className}</p>
+          <p className="font-bold text-[var(--text-muted)]">Class: {profile.className}</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-1 space-y-6">
           <Card className="p-8 flex flex-col items-center text-center space-y-4">
-            <div className="w-32 h-32 neo-border bg-blue-100 flex items-center justify-center text-5xl font-black rounded-full">
+            <div className="w-32 h-32 neo-border bg-[var(--bg-tertiary)] flex items-center justify-center text-5xl font-black rounded-full">
               {profile.name[0]}
             </div>
             <div>
               <h2 className="text-2xl font-black">{profile.name}</h2>
-              <div className="flex items-center justify-center gap-2 text-gray-500 font-bold text-sm">
+              <div className="flex items-center justify-center gap-2 text-[var(--text-muted)] font-bold text-sm">
                 <Mail size={16} /> {profile.email}
               </div>
             </div>
@@ -155,12 +155,12 @@ export const TeacherStudentProfile = () => {
             </div>
             <div className="w-full pt-6 border-t-2 border-black space-y-4">
               <div className="flex justify-between items-center">
-                <span className="font-black text-sm text-gray-500 uppercase">Current Mood</span>
+                <span className="font-black text-sm text-[var(--text-muted)] uppercase">Current Mood</span>
                 <MoodIcon mood={profile.mood} size="sm" />
               </div>
             {(profile.accuracy < 50 || profile.mood === "stressed") && (
-            <div className="p-4 bg-red-100 neo-border mt-4">
-              <p className="font-black text-red-700">
+            <div className="p-4 bg-[var(--bg-danger)] neo-border mt-4">
+              <p className="font-black text-[var(--text-danger)]">
                 ⚠️ High Risk Student
               </p>
               <p className="text-xs font-bold">
@@ -169,14 +169,14 @@ export const TeacherStudentProfile = () => {
             </div>
             )}
               <div className="flex justify-between items-center">
-                <span className="font-black text-sm text-gray-500 uppercase">Last Active</span>
+                <span className="font-black text-sm text-[var(--text-muted)] uppercase">Last Active</span>
                 <span className="font-bold">2 hours ago</span>
               </div>
             </div>
           </Card>
 
           {actionNotice && (
-            <p className="text-sm font-black text-indigo-900 bg-indigo-50 neo-border px-4 py-3">
+            <p className="text-sm font-black text-[var(--accent-blue)] bg-[var(--bg-tertiary)] neo-border px-4 py-3">
               {actionNotice}
             </p>
           )}
@@ -187,15 +187,15 @@ export const TeacherStudentProfile = () => {
             </h3>
             <div className="space-y-4">
               <div>
-                <p className="text-[10px] font-black uppercase text-gray-500">Learning Pace</p>
+                <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">Learning Pace</p>
                 <p className="font-bold">{profile.cognitiveStyle.pace}</p>
               </div>
               <div>
-                <p className="text-[10px] font-black uppercase text-gray-500">Preference</p>
+                <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">Preference</p>
                 <p className="font-bold">{profile.cognitiveStyle.preference}</p>
               </div>
               <div>
-                <p className="text-[10px] font-black uppercase text-gray-500">Approach</p>
+                <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">Approach</p>
                 <div className="flex flex-wrap gap-2 mt-1">
                   {profile.cognitiveStyle.approach.map(tag => (
                     <Tag key={tag} color="#ddd">{tag}</Tag>
@@ -213,16 +213,16 @@ export const TeacherStudentProfile = () => {
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <p className="text-[10px] font-black uppercase text-gray-500">Learning Type</p>
+                    <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">Learning Type</p>
                     <p className="font-bold text-lg text-violet-700">{profile.personalityReport.type}</p>
                   </div>
                   <div>
-                    <p className="text-[10px] font-black uppercase text-gray-500">Report</p>
+                    <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">Report</p>
                     <p className="font-bold text-sm">{profile.personalityReport.report}</p>
                   </div>
                 </div>
                 <div>
-                  <p className="text-[10px] font-black uppercase text-gray-500 mb-2">Strengths</p>
+                  <p className="text-[10px] font-black uppercase text-[var(--text-muted)] mb-2">Strengths</p>
                   <div className="flex flex-wrap gap-2">
                     {profile.personalityReport.strengths.map((s, i) => (
                       <Tag key={i} color="#dcfce7">{s}</Tag>
@@ -230,7 +230,7 @@ export const TeacherStudentProfile = () => {
                   </div>
                 </div>
                 <div>
-                  <p className="text-[10px] font-black uppercase text-gray-500 mb-2">Recommendations</p>
+                  <p className="text-[10px] font-black uppercase text-[var(--text-muted)] mb-2">Recommendations</p>
                   <ul className="space-y-1">
                     {profile.personalityReport.recommendations.map((r, i) => (
                       <li key={i} className="text-sm font-bold">• {r}</li>
@@ -244,7 +244,7 @@ export const TeacherStudentProfile = () => {
             {(profile.quizHistory) && (
               <Card className="p-8 space-y-6">
                 <h3 className="text-xl font-black flex items-center gap-2">
-                  <TrendingUp className="text-green-600" /> Progress Report
+                  <TrendingUp className="text-[var(--text-success)]" /> Progress Report
                 </h3>
                 <div className="h-48">
                   <ResponsiveContainer width="100%" height="100%">
@@ -284,19 +284,19 @@ export const TeacherStudentProfile = () => {
           </Card>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             
-            <Card className="bg-blue-50 border-blue-400 p-6 space-y-2">
+            <Card className="bg-[var(--bg-tertiary)] border-blue-400 p-6 space-y-2">
               <BarChart2 size={24} className="text-blue-600" />
-              <p className="text-xs font-black uppercase text-gray-500">Accuracy</p>
+              <p className="text-xs font-black uppercase text-[var(--text-muted)]">Accuracy</p>
               <p className="text-3xl font-black">{profile.accuracy}%</p>
             </Card>
-            <Card className="bg-green-50 border-green-400 p-6 space-y-2">
-              <TrendingUp size={24} className="text-green-600" />
-              <p className="text-xs font-black uppercase text-gray-500">Progress</p>
+            <Card className="bg-[var(--bg-tertiary)] border-[var(--border-success)] p-6 space-y-2">
+              <TrendingUp size={24} className="text-[var(--text-success)]" />
+              <p className="text-xs font-black uppercase text-[var(--text-muted)]">Progress</p>
               <p className="text-3xl font-black">{profile.progress}%</p>
             </Card>
-            <Card className="bg-purple-50 border-purple-400 p-6 space-y-2">
+            <Card className="bg-[var(--bg-tertiary)] border-purple-400 p-6 space-y-2">
               <Clock size={24} className="text-purple-600" />
-              <p className="text-xs font-black uppercase text-gray-500">Time / Q</p>
+              <p className="text-xs font-black uppercase text-[var(--text-muted)]">Time / Q</p>
               <p className="text-3xl font-black">{profile.timePerQuestion}s</p>
             </Card>
           </div>
@@ -307,25 +307,25 @@ export const TeacherStudentProfile = () => {
             </h3>
             <div className="space-y-4">
               {profile.recentActivity.map(activity => (
-                <div key={activity.id} className="flex items-center justify-between p-4 neo-border bg-gray-50">
+                <div key={activity.id} className="flex items-center justify-between p-4 neo-border bg-[var(--bg-secondary)]">
                   <div className="flex items-center gap-4">
                     <div className={cn(
                       "p-3 neo-border rounded-full",
-                      activity.type === 'quiz' ? "bg-purple-100" : "bg-blue-100"
+                      activity.type === 'quiz' ? "bg-[var(--bg-tertiary)]" : "bg-[var(--bg-tertiary)]"
                     )}>
                       {activity.type === 'quiz' ? <BarChart2 size={18} /> : <BookOpen size={18} />}
                     </div>
                     <div>
                       <h3 className="font-black">{activity.title}</h3>
-                      <p className="text-xs font-bold text-gray-500">{activity.date}</p>
+                      <p className="text-xs font-bold text-[var(--text-muted)]">{activity.date}</p>
                     </div>
                   </div>
                   {activity.score !== undefined && (
                     <div className="text-right">
-                      <p className="text-[10px] font-black uppercase text-gray-500">Score</p>
+                      <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">Score</p>
                       <p className={cn(
                         "font-black",
-                        activity.score >= 80 ? "text-green-600" : activity.score >= 50 ? "text-yellow-600" : "text-red-600"
+                        activity.score >= 80 ? "text-[var(--text-success)]" : activity.score >= 50 ? "text-yellow-600" : "text-[var(--text-danger)]"
                       )}>{activity.score}%</p>
                     </div>
                   )}
@@ -336,23 +336,23 @@ export const TeacherStudentProfile = () => {
 
           <Card className="p-8 space-y-6">
             <h3 className="text-2xl font-black flex items-center gap-2">
-              <AlertCircle className="text-red-600" /> Areas for Improvement
+              <AlertCircle className="text-[var(--text-danger)]" /> Areas for Improvement
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {profile.weakTopics.map(topic => (
-                <div key={topic} className="p-4 neo-border bg-red-50 flex items-center justify-between">
+                <div key={topic} className="p-4 neo-border bg-[var(--bg-danger)] flex items-center justify-between">
                   <span className="font-black">{topic}</span>
                   <Tag color="#f87171">Weak</Tag>
                 </div>
               ))}
             </div>
             <div className="pt-4 border-t-2 border-black space-y-3">
-              <p className="font-bold text-sm text-gray-600">
+              <p className="font-bold text-sm text-[var(--text-muted)]">
                 Recommendation: Assign extra practice materials for {profile.weakTopics.join(', ')}.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-black uppercase text-gray-500 block mb-1">
+                  <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">
                     Material title
                   </label>
                   <input
@@ -362,7 +362,7 @@ export const TeacherStudentProfile = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-black uppercase text-gray-500 block mb-1">
+                  <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">
                     Link / URL
                   </label>
                   <input

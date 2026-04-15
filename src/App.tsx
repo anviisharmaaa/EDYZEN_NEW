@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Component, ReactNode } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
 
@@ -25,10 +26,10 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
     if (this.state.hasError) {
 
       return (
-        <div className="min-h-screen flex items-center justify-center p-4 bg-white">
-          <div className="neo-card max-w-md text-center border-red-200 bg-red-50">
+        <div className="min-h-screen flex items-center justify-center p-4 bg-[var(--surface-card)]">
+          <div className="neo-card max-w-md text-center border-red-200 bg-[var(--bg-danger)]">
             <h1 className="text-2xl font-bold text-red-900 mb-4">Something went wrong</h1>
-            <p className="text-sm font-normal text-red-800 mb-6">Please refresh the page and try again.</p>
+            <p className="text-sm font-normal text-[var(--text-danger)] mb-6">Please refresh the page and try again.</p>
             <button
               onClick={() => window.location.reload()}
               className="neo-button-primary px-6 py-2 rounded-lg w-full"
@@ -78,10 +79,10 @@ import { AdminDashboard } from './pages/AdminDashboard';
 const AppContent = () => {
   const { user, loading } = useAuth();
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center bg-white">
+  if (loading) return <div className="min-h-screen flex items-center justify-center bg-[var(--surface-card)]">
     <div className="text-center">
-      <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-300 border-t-blue-600 mb-4"></div>
-      <p className="font-medium text-gray-600">Loading...</p>
+      <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[var(--border-color)] border-t-blue-600 mb-4"></div>
+      <p className="font-medium text-[var(--text-muted)]">Loading...</p>
     </div>
   </div>;
 
@@ -190,9 +191,11 @@ const AppContent = () => {
 export default function App() {
   return (
     <ErrorBoundary>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }

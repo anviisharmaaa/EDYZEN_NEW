@@ -96,7 +96,7 @@ export const StudentTopic = () => {
         </Button>
         <div>
           <h1 className="text-4xl font-black">{topic.title}</h1>
-          <p className="font-bold text-gray-600">{topic.description}</p>
+          <p className="font-bold text-[var(--text-muted)]">{topic.description}</p>
         </div>
       </div>
 
@@ -107,7 +107,7 @@ export const StudentTopic = () => {
           </h2>
 
           {topic.subTopics?.length === 0 ? (
-            <Card className="p-8 text-center text-gray-500">
+            <Card className="p-8 text-center text-[var(--text-muted)]">
               No subtopics available yet.
             </Card>
           ) : (
@@ -121,7 +121,7 @@ export const StudentTopic = () => {
                 return (
                   <Card key={subtopic.id} className="overflow-hidden">
                     <button
-                      className="w-full text-left p-4 flex items-center justify-between hover:bg-gray-50 transition"
+                      className="w-full text-left p-4 flex items-center justify-between hover:bg-[var(--bg-secondary)] transition"
                       onClick={() => toggleSubtopic(subtopic.id)}
                     >
                       <div className="flex items-center gap-4">
@@ -131,14 +131,14 @@ export const StudentTopic = () => {
                         />
                         <div>
                           <h3 className="font-black">{subtopic.title}</h3>
-                          <p className="text-sm text-gray-500">{subtopic.description}</p>
+                          <p className="text-sm text-[var(--text-muted)]">{subtopic.description}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-4">
-                        <span className="text-sm font-bold text-gray-500">
+                        <span className="text-sm font-bold text-[var(--text-muted)]">
                           {completedCount}/{totalCount}
                         </span>
-                        <div className="w-24 h-2 neo-border bg-white overflow-hidden rounded">
+                        <div className="w-24 h-2 neo-border bg-[var(--surface-card)] overflow-hidden rounded">
                           <div
                             className="h-full bg-black"
                             style={{ width: `${progress}%` }}
@@ -148,27 +148,27 @@ export const StudentTopic = () => {
                     </button>
 
                     {isExpanded && subtopic.materials && subtopic.materials.length > 0 && (
-                      <div className="border-t p-4 space-y-3 bg-gray-50">
+                      <div className="border-t p-4 space-y-3 bg-[var(--bg-secondary)]">
                         {subtopic.materials.map(material => (
                           <Card key={material.id} className={cn(
                             "flex items-center justify-between p-3 transition-all",
-                            material.completed ? "bg-green-50 opacity-80" : "bg-white"
+                            material.completed ? "bg-[var(--bg-tertiary)] opacity-80" : "bg-[var(--surface-card)]"
                           )}>
                             <div className="flex items-center gap-3">
                               <div className={cn(
                                 "p-2 neo-border rounded-full",
-                                material.type === 'video' ? "bg-red-100" : material.type === 'reading' ? "bg-blue-100" : "bg-purple-100"
+                                material.type === 'video' ? "bg-[var(--bg-danger)]" : material.type === 'reading' ? "bg-[var(--bg-tertiary)]" : "bg-[var(--bg-tertiary)]"
                               )}>
                                 {material.type === 'video' ? <Video size={16} /> : material.type === 'reading' ? <FileText size={16} /> : <Play size={16} />}
                               </div>
                               <div>
                                 <h4 className="font-bold text-sm">{material.title}</h4>
-                                <p className="text-xs font-black uppercase text-gray-500">{material.type}</p>
+                                <p className="text-xs font-black uppercase text-[var(--text-muted)]">{material.type}</p>
                               </div>
                             </div>
                             <div>
                               {material.completed ? (
-                                <CheckCircle className="text-green-600" size={20} />
+                                <CheckCircle className="text-[var(--text-success)]" size={20} />
                               ) : (
                                 <Button variant="primary" className="text-xs py-1">Start</Button>
                               )}
@@ -185,25 +185,25 @@ export const StudentTopic = () => {
         </div>
 
         <div className="space-y-6">
-          <Card className="bg-yellow-50 border-yellow-400 sticky top-4">
+          <Card className="bg-[var(--bg-warning)] border-[var(--border-warning)] sticky top-4">
             <h3 className="text-xl font-black mb-4">Topic Progress</h3>
             <div className="space-y-4">
               <div className="flex justify-between font-black text-sm">
                 <span>Overall Progress</span>
                 <span>{topicProgress}%</span>
               </div>
-              <div className="h-4 neo-border bg-white overflow-hidden">
+              <div className="h-4 neo-border bg-[var(--surface-card)] overflow-hidden">
                 <div className="h-full bg-black" style={{ width: `${topicProgress}%` }} />
               </div>
-              <p className="text-xs font-bold text-gray-600 italic">
+              <p className="text-xs font-bold text-[var(--text-muted)] italic">
                 Complete all materials to unlock the topic quiz!
               </p>
             </div>
           </Card>
 
-          <Card className="bg-purple-50 border-purple-400">
+          <Card className="bg-[var(--bg-tertiary)] border-purple-400">
             <h3 className="text-xl font-black mb-4">Topic Quiz</h3>
-            <p className="text-sm font-bold text-gray-600 mb-6">
+            <p className="text-sm font-bold text-[var(--text-muted)] mb-6">
               Ready to test your knowledge on {topic.title}?
             </p>
             <Button

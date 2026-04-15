@@ -66,7 +66,7 @@ export const AssignmentPage = () => {
             <Tag color={assignment.status === 'SUBMITTED' ? '#4ade80' : '#fbbf24'}>
               {assignment.status}
             </Tag>
-            <div className="flex items-center gap-2 neo-card bg-white px-4 py-2 font-black">
+            <div className="flex items-center gap-2 neo-card bg-[var(--surface-card)] px-4 py-2 font-black">
               <Clock className="text-red-500" /> Due: {new Date(assignment.dueDate).toLocaleDateString()}
             </div>
           </div>
@@ -77,19 +77,19 @@ export const AssignmentPage = () => {
           <div className="lg:col-span-1 space-y-6">
             <Card className="p-6 space-y-4">
               <h2 className="text-2xl font-black uppercase tracking-tight">Instructions</h2>
-              <p className="font-bold text-gray-700 leading-relaxed">{assignment.instructions}</p>
+              <p className="font-bold text-[var(--text-secondary)] leading-relaxed">{assignment.instructions}</p>
 
               <div className="pt-4 border-t-2 border-black">
                 <h3 className="text-lg font-black uppercase mb-2">Grading Rubric</h3>
-                <p className="text-sm font-bold text-gray-600">{assignment.rubric}</p>
+                <p className="text-sm font-bold text-[var(--text-muted)]">{assignment.rubric}</p>
               </div>
             </Card>
 
-            <Card className="p-6 bg-indigo-50 border-indigo-400 space-y-4">
+            <Card className="p-6 bg-[var(--bg-tertiary)] border-indigo-400 space-y-4">
               <h2 className="text-xl font-black flex items-center gap-2 text-indigo-700">
                 <Sparkles size={20} /> AI Assistant
               </h2>
-              <p className="text-sm font-bold text-indigo-900">Need help getting started? I can suggest a structure for your work.</p>
+              <p className="text-sm font-bold text-[var(--accent-blue)]">Need help getting started? I can suggest a structure for your work.</p>
               <Button onClick={handleAIHelp} className="w-full bg-indigo-600 hover:bg-indigo-700 flex items-center justify-center gap-2">
                 Help me structure <ArrowRight size={16} />
               </Button>
@@ -97,7 +97,7 @@ export const AssignmentPage = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-4 bg-white neo-border text-sm font-bold whitespace-pre-line"
+                  className="p-4 bg-[var(--surface-card)] neo-border text-sm font-bold whitespace-pre-line"
                 >
                   {aiHelp}
                 </motion.div>
@@ -110,7 +110,7 @@ export const AssignmentPage = () => {
             <Card className="p-8 space-y-6">
               <h1 className="text-4xl font-black uppercase tracking-tighter">{assignment.title}</h1>
 
-              <div className="flex flex-wrap gap-4 p-2 neo-border bg-gray-50">
+              <div className="flex flex-wrap gap-4 p-2 neo-border bg-[var(--bg-secondary)]">
                 {[
                   { id: 'text', icon: FileText, label: 'Text Editor' },
                   { id: 'file', icon: Upload, label: 'File Upload' },
@@ -120,7 +120,7 @@ export const AssignmentPage = () => {
                   <button
                     key={type.id}
                     onClick={() => setSubmissionType(type.id as any)}
-                    className={`flex-1 flex items-center justify-center gap-2 p-3 font-black transition-all ${submissionType === type.id ? 'bg-black text-white neo-card' : 'hover:bg-gray-200'
+                    className={`flex-1 flex items-center justify-center gap-2 p-3 font-black transition-all ${submissionType === type.id ? 'bg-black text-white neo-card' : 'hover:bg-[var(--bg-tertiary)]'
                       }`}
                   >
                     <type.icon size={18} /> {type.label}
@@ -138,9 +138,9 @@ export const AssignmentPage = () => {
                   />
                 )}
                 {submissionType === 'file' && (
-                  <div className="h-[300px] neo-border border-dashed border-4 border-gray-300 flex flex-col items-center justify-center gap-4 bg-gray-50">
+                  <div className="h-[300px] neo-border border-dashed border-4 border-[var(--border-color)] flex flex-col items-center justify-center gap-4 bg-[var(--bg-secondary)]">
                     <Upload size={48} className="text-gray-400" />
-                    <p className="font-black text-gray-500 uppercase">Drag & Drop or Click to Upload</p>
+                    <p className="font-black text-[var(--text-muted)] uppercase">Drag & Drop or Click to Upload</p>
                     <p className="text-xs font-bold text-gray-400">PDF, DOCX up to 500MB</p>
                     <input type="file" className="hidden" />
                     <Button variant="outline">Select File</Button>
@@ -148,7 +148,7 @@ export const AssignmentPage = () => {
                 )}
                 {submissionType === 'url' && (
                   <div className="space-y-4">
-                    <p className="font-black uppercase text-sm text-gray-500">External Link (e.g., Google Docs, GitHub)</p>
+                    <p className="font-black uppercase text-sm text-[var(--text-muted)]">External Link (e.g., Google Docs, GitHub)</p>
                     <input
                       type="url"
                       placeholder="https://..."
@@ -158,12 +158,12 @@ export const AssignmentPage = () => {
                 )}
                 {submissionType === 'media' && (
                   <div className="grid grid-cols-2 gap-6">
-                    <div className="p-8 neo-border bg-gray-50 flex flex-col items-center gap-4">
+                    <div className="p-8 neo-border bg-[var(--bg-secondary)] flex flex-col items-center gap-4">
                       <Mic size={32} className="text-blue-500" />
                       <p className="font-black">Record Audio</p>
                       <Button variant="outline">Start Recording</Button>
                     </div>
-                    <div className="p-8 neo-border bg-gray-50 flex flex-col items-center gap-4">
+                    <div className="p-8 neo-border bg-[var(--bg-secondary)] flex flex-col items-center gap-4">
                       <Video size={32} className="text-red-500" />
                       <p className="font-black">Record Video</p>
                       <Button variant="outline">Start Recording</Button>
@@ -185,13 +185,13 @@ export const AssignmentPage = () => {
             </Card>
 
             {assignment.submission && (
-              <Card className="p-6 bg-green-50 border-green-400 space-y-4">
-                <h2 className="text-2xl font-black flex items-center gap-2 text-green-700">
+              <Card className="p-6 bg-[var(--bg-tertiary)] border-[var(--border-success)] space-y-4">
+                <h2 className="text-2xl font-black flex items-center gap-2 text-[var(--text-success)]">
                   <MessageSquare /> Teacher Feedback
                 </h2>
-                <div className="p-4 bg-white neo-border space-y-4">
-                  <p className="font-bold text-gray-700">"Great work on the introduction! However, you could expand more on the modern applications section. See my highlights below."</p>
-                  <div className="p-4 bg-yellow-50 neo-border italic font-bold">
+                <div className="p-4 bg-[var(--surface-card)] neo-border space-y-4">
+                  <p className="font-bold text-[var(--text-secondary)]">"Great work on the introduction! However, you could expand more on the modern applications section. See my highlights below."</p>
+                  <div className="p-4 bg-[var(--bg-warning)] neo-border italic font-bold">
                     Annotated: <span className="bg-yellow-200 px-1">Algebra is used in computer science</span> to build complex algorithms.
                   </div>
                 </div>

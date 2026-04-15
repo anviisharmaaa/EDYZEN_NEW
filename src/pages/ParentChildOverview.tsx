@@ -109,42 +109,42 @@ export const ParentChildOverview = () => {
         </Button>
         <div>
           <h1 className="text-4xl font-black tracking-tighter">{child.name}'s Progress</h1>
-          <p className="font-bold text-gray-600">Detailed overview of learning performance and grades.</p>
+          <p className="font-bold text-[var(--text-muted)]">Detailed overview of learning performance and grades.</p>
         </div>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bg-blue-50 border-blue-400 p-6 space-y-2">
+        <Card className="bg-[var(--bg-tertiary)] border-blue-400 p-6 space-y-2">
           <div className="flex items-center justify-between">
             <BarChart2 size={24} className="text-blue-600" />
             <span className="text-xs font-black text-blue-600">Above Avg</span>
           </div>
-          <p className="text-xs font-black uppercase text-gray-500">Overall Accuracy</p>
+          <p className="text-xs font-black uppercase text-[var(--text-muted)]">Overall Accuracy</p>
           <p className="text-4xl font-black">{child.accuracy}%</p>
         </Card>
-        <Card className="bg-green-50 border-green-400 p-6 space-y-2">
+        <Card className="bg-[var(--bg-tertiary)] border-[var(--border-success)] p-6 space-y-2">
           <div className="flex items-center justify-between">
-            <TrendingUp size={24} className="text-green-600" />
-            <span className="text-xs font-black text-green-600">Improving</span>
+            <TrendingUp size={24} className="text-[var(--text-success)]" />
+            <span className="text-xs font-black text-[var(--text-success)]">Improving</span>
           </div>
-          <p className="text-xs font-black uppercase text-gray-500">Progress</p>
+          <p className="text-xs font-black uppercase text-[var(--text-muted)]">Progress</p>
           <p className="text-4xl font-black">{child.progress}%</p>
         </Card>
-        <Card className="bg-yellow-50 border-yellow-400 p-6 space-y-2">
+        <Card className="bg-[var(--bg-warning)] border-[var(--border-warning)] p-6 space-y-2">
           <div className="flex items-center justify-between">
             <MoodIcon mood={child.mood} size="sm" />
-            <span className="text-xs font-black text-gray-500 capitalize">{child.mood}</span>
+            <span className="text-xs font-black text-[var(--text-muted)] capitalize">{child.mood}</span>
           </div>
-          <p className="text-xs font-black uppercase text-gray-500">Current Mood</p>
+          <p className="text-xs font-black uppercase text-[var(--text-muted)]">Current Mood</p>
           <p className="text-4xl font-black uppercase">{child.mood}</p>
         </Card>
-        <Card className="bg-purple-50 border-purple-400 p-6 space-y-2">
+        <Card className="bg-[var(--bg-tertiary)] border-purple-400 p-6 space-y-2">
           <div className="flex items-center justify-between">
             <Clock size={24} className="text-purple-600" />
             <span className="text-xs font-black text-purple-600">Consistent</span>
           </div>
-          <p className="text-xs font-black uppercase text-gray-500">Avg Time / Question</p>
+          <p className="text-xs font-black uppercase text-[var(--text-muted)]">Avg Time / Question</p>
           <p className="text-4xl font-black">{child.timePerQuestion}s</p>
         </Card>
       </div>
@@ -157,19 +157,19 @@ export const ParentChildOverview = () => {
           </h2>
           <div className="space-y-3">
             {SUBJECT_GRADES.map(grade => (
-              <div key={grade.subject} className="flex items-center justify-between p-3 neo-border bg-white">
+              <div key={grade.subject} className="flex items-center justify-between p-3 neo-border bg-[var(--surface-card)]">
                 <div className="flex items-center gap-3">
                   <div className={cn(
                     "w-12 h-12 flex items-center justify-center rounded-full font-black",
-                    grade.score >= 80 ? "bg-green-100 text-green-700" :
-                      grade.score >= 60 ? "bg-yellow-100 text-yellow-700" :
-                        "bg-red-100 text-red-700"
+                    grade.score >= 80 ? "bg-[var(--bg-success)] text-[var(--text-success)]" :
+                      grade.score >= 60 ? "bg-[var(--bg-warning)] text-[var(--text-warning)]" :
+                        "bg-[var(--bg-danger)] text-[var(--text-danger)]"
                   )}>
                     {grade.score}
                   </div>
                   <div>
                     <p className="font-black">{grade.subject}</p>
-                    <p className="text-xs font-bold text-gray-500">{grade.date}</p>
+                    <p className="text-xs font-bold text-[var(--text-muted)]">{grade.date}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -185,7 +185,7 @@ export const ParentChildOverview = () => {
         {/* Progress Chart */}
         <Card className="p-6">
           <h2 className="text-xl font-black flex items-center gap-2 mb-4">
-            <TrendingUp className="text-green-600" /> Weekly Progress
+            <TrendingUp className="text-[var(--text-success)]" /> Weekly Progress
           </h2>
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
@@ -215,22 +215,22 @@ export const ParentChildOverview = () => {
                 <div className="flex items-center gap-4">
                   <div className={cn(
                     "p-3 neo-border rounded-full",
-                    activity.type === 'quiz' ? "bg-purple-100" : "bg-blue-100"
+                    activity.type === 'quiz' ? "bg-[var(--bg-tertiary)]" : "bg-[var(--bg-tertiary)]"
                   )}>
                     {activity.type === 'quiz' ? <BarChart2 size={18} /> : <BookOpen size={18} />}
                   </div>
                   <div>
                     <h3 className="font-black">{activity.title}</h3>
-                    <p className="text-xs font-bold text-gray-500">{activity.date}</p>
+                    <p className="text-xs font-bold text-[var(--text-muted)]">{activity.date}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-6">
                   {activity.score !== undefined && (
                     <div className="text-right">
-                      <p className="text-[10px] font-black uppercase text-gray-500">Score</p>
+                      <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">Score</p>
                       <p className={cn(
                         "font-black",
-                        activity.score >= 80 ? "text-green-600" : activity.score >= 50 ? "text-yellow-600" : "text-red-600"
+                        activity.score >= 80 ? "text-[var(--text-success)]" : activity.score >= 50 ? "text-yellow-600" : "text-[var(--text-danger)]"
                       )}>{activity.score}%</p>
                     </div>
                   )}
@@ -249,22 +249,22 @@ export const ParentChildOverview = () => {
           </h2>
           <div className="space-y-4">
             {child.weakTopics.map(topic => (
-              <Card key={topic} className="bg-red-50 border-red-400 p-6 space-y-4">
+              <Card key={topic} className="bg-[var(--bg-danger)] border-[var(--border-danger)] p-6 space-y-4">
                 <h3 className="text-xl font-black">{topic}</h3>
-                <p className="text-sm font-bold text-gray-600">
+                <p className="text-sm font-bold text-[var(--text-muted)]">
                   {child.name} is finding this topic challenging.
                 </p>
                 <div className="flex gap-2">
-                  <Button className="text-xs py-1 flex-1 bg-white" onClick={() => navigate(`/student/roadmap`)}>View Topic</Button>
+                  <Button className="text-xs py-1 flex-1 bg-[var(--surface-card)]" onClick={() => navigate(`/student/roadmap`)}>View Topic</Button>
                   <Button className="text-xs py-1 flex-1 bg-red-400 text-white">Get Help</Button>
                 </div>
               </Card>
             ))}
-            <Card className="bg-green-50 border-green-400 p-6 space-y-4">
-              <div className="flex items-center gap-2 font-black text-green-600">
+            <Card className="bg-[var(--bg-tertiary)] border-[var(--border-success)] p-6 space-y-4">
+              <div className="flex items-center gap-2 font-black text-[var(--text-success)]">
                 <Heart size={18} /> Study Tip
               </div>
-              <p className="text-sm font-bold text-gray-600">
+              <p className="text-sm font-bold text-[var(--text-muted)]">
                 Encourage {child.name} to practice daily for best results.
               </p>
             </Card>

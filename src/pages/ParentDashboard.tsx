@@ -45,7 +45,7 @@ export const ParentDashboard = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-4xl font-black tracking-tighter">Hello, {user?.name}!</h1>
-          <p className="font-bold text-gray-600 uppercase tracking-widest">Parent Dashboard Overview</p>
+          <p className="font-bold text-[var(--text-muted)] uppercase tracking-widest">Parent Dashboard Overview</p>
         </div>
         <div className="flex gap-4">
           <Button
@@ -78,14 +78,14 @@ export const ParentDashboard = () => {
               <Card key={child.id} className="p-8 hover:translate-x-2 transition-all">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                   <div className="flex items-center gap-6">
-                    <div className="w-20 h-20 neo-border bg-gray-100 flex items-center justify-center text-3xl font-black">
+                    <div className="w-20 h-20 neo-border bg-[var(--bg-tertiary)] flex items-center justify-center text-3xl font-black">
                       {child.name[0]}
                     </div>
                     <div>
                       <h3 className="text-2xl font-black">{child.name}</h3>
                       <div className="flex items-center gap-2 mt-1">
                         <MoodIcon mood={child.mood} size="sm" />
-                        <span className="font-bold text-gray-600 capitalize">{child.mood} today</span>
+                        <span className="font-bold text-[var(--text-muted)] capitalize">{child.mood} today</span>
                       </div>
                     </div>
                   </div>
@@ -95,7 +95,7 @@ export const ParentDashboard = () => {
                       <span>Overall Progress</span>
                       <span>{child.progress}%</span>
                     </div>
-                    <div className="h-4 neo-border bg-gray-100 overflow-hidden">
+                    <div className="h-4 neo-border bg-[var(--bg-tertiary)] overflow-hidden">
                       <div className="h-full bg-yellow-400" style={{ width: `${child.progress}%` }} />
                     </div>
                   </div>
@@ -111,21 +111,21 @@ export const ParentDashboard = () => {
                   <div className="flex items-center gap-3">
                     <BookOpen size={20} className="text-blue-500" />
                     <div>
-                      <p className="text-[10px] font-black uppercase text-gray-500">Last Topic</p>
+                      <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">Last Topic</p>
                       <p className="font-bold text-sm">Quadratic Equations</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <TrendingUp size={20} className="text-green-500" />
                     <div>
-                      <p className="text-[10px] font-black uppercase text-gray-500">Avg Accuracy</p>
+                      <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">Avg Accuracy</p>
                       <p className="font-bold text-sm">82%</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <Clock size={20} className="text-purple-500" />
                     <div>
-                      <p className="text-[10px] font-black uppercase text-gray-500">Last Active</p>
+                      <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">Last Active</p>
                       <p className="font-bold text-sm">2 hours ago</p>
                     </div>
                   </div>
@@ -141,21 +141,21 @@ export const ParentDashboard = () => {
           </h2>
           <div className="space-y-4">
             <Card
-              className="p-4 space-y-2 border-blue-400 bg-blue-50 cursor-pointer hover:bg-blue-100 transition-colors"
+              className="p-4 space-y-2 border-blue-400 bg-[var(--bg-tertiary)] cursor-pointer hover:bg-[var(--bg-tertiary)] transition-colors"
               onClick={() => navigate('/parent/announcements?id=1')}
             >
               <p className="text-xs font-black text-blue-600 uppercase">March 28, 2026</p>
               <h3 className="font-black">Parent-Teacher Meeting</h3>
-              <p className="text-sm font-bold text-gray-600">The next parent-teacher meeting is scheduled for April 5th. Please book your slot.</p>
+              <p className="text-sm font-bold text-[var(--text-muted)]">The next parent-teacher meeting is scheduled for April 5th. Please book your slot.</p>
               <Button className="text-xs py-1 w-full mt-2">Book Slot</Button>
             </Card>
             <Card
-              className="p-4 space-y-2 border-green-400 bg-green-50 cursor-pointer hover:bg-green-100 transition-colors"
+              className="p-4 space-y-2 border-[var(--border-success)] bg-[var(--bg-tertiary)] cursor-pointer hover:bg-[var(--bg-success)] transition-colors"
               onClick={() => navigate('/parent/announcements?id=2')}
             >
-              <p className="text-xs font-black text-green-600 uppercase">March 25, 2026</p>
+              <p className="text-xs font-black text-[var(--text-success)] uppercase">March 25, 2026</p>
               <h3 className="font-black">Spring Break Schedule</h3>
-              <p className="text-sm font-bold text-gray-600">Spring break starts from April 10th. View the revised schedule.</p>
+              <p className="text-sm font-bold text-[var(--text-muted)]">Spring break starts from April 10th. View the revised schedule.</p>
               <Button className="text-xs py-1 w-full mt-2">View Schedule</Button>
             </Card>
           </div>

@@ -15,10 +15,10 @@ interface ChildEvent {
 }
 
 const EVENT_TYPES = {
-  study: { label: 'Study Session', color: 'bg-blue-100 border-blue-400' },
-  assignment: { label: 'Assignment Due', color: 'bg-amber-100 border-amber-400' },
-  quiz: { label: 'Quiz', color: 'bg-purple-100 border-purple-400' },
-  general: { label: 'Event', color: 'bg-gray-100 border-gray-400' },
+  study: { label: 'Study Session', color: 'bg-[var(--bg-tertiary)] border-blue-400' },
+  assignment: { label: 'Assignment Due', color: 'bg-[var(--bg-warning)] border-[var(--border-warning)]' },
+  quiz: { label: 'Quiz', color: 'bg-[var(--bg-tertiary)] border-purple-400' },
+  general: { label: 'Event', color: 'bg-[var(--bg-tertiary)] border-gray-400' },
 };
 
 export const ParentCalendar = () => {
@@ -102,7 +102,7 @@ export const ParentCalendar = () => {
             <CalendarIcon className="text-blue-600" />
             Calendar
           </h1>
-          <p className="font-bold text-gray-600 mt-1">
+          <p className="font-bold text-[var(--text-muted)] mt-1">
             Track your child's activities and deadlines
           </p>
         </div>
@@ -136,7 +136,7 @@ export const ParentCalendar = () => {
 
             <div className="grid grid-cols-7 gap-1 mb-2">
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                <div key={day} className="text-center text-xs font-black text-gray-500 py-2">
+                <div key={day} className="text-center text-xs font-black text-[var(--text-muted)] py-2">
                   {day}
                 </div>
               ))}
@@ -154,9 +154,9 @@ export const ParentCalendar = () => {
                     className={cn(
                       "aspect-square p-1 flex flex-col items-center justify-start text-xs font-bold transition-all",
                       !day && "invisible",
-                      day && isToday(day) && "bg-blue-100 ring-2 ring-blue-500",
+                      day && isToday(day) && "bg-[var(--bg-tertiary)] ring-2 ring-blue-500",
                       day && selectedDate?.toDateString() === day.toDateString() && "bg-blue-500 text-white",
-                      day && !isToday(day) && selectedDate?.toDateString() !== day.toDateString() && "hover:bg-gray-100"
+                      day && !isToday(day) && selectedDate?.toDateString() !== day.toDateString() && "hover:bg-[var(--bg-tertiary)]"
                     )}
                   >
                     <span>{day?.getDate()}</span>
@@ -200,17 +200,17 @@ export const ParentCalendar = () => {
               Today
             </h3>
             {todayEvents.length === 0 ? (
-              <p className="text-sm font-bold text-gray-500">No events today</p>
+              <p className="text-sm font-bold text-[var(--text-muted)]">No events today</p>
             ) : (
               <div className="space-y-3">
                 {todayEvents.map(event => (
-                  <div key={event.id} className={cn("p-3 neo-border", EVENT_TYPES[event.type]?.color || 'bg-gray-100')}>
+                  <div key={event.id} className={cn("p-3 neo-border", EVENT_TYPES[event.type]?.color || 'bg-[var(--bg-tertiary)]')}>
                     <p className="font-black text-sm">{event.title}</p>
                     {event.childName && (
-                      <p className="text-xs font-bold text-gray-600 mt-1">Child: {event.childName}</p>
+                      <p className="text-xs font-bold text-[var(--text-muted)] mt-1">Child: {event.childName}</p>
                     )}
                     {event.subject && (
-                      <p className="text-xs font-bold text-gray-500">{event.subject}</p>
+                      <p className="text-xs font-bold text-[var(--text-muted)]">{event.subject}</p>
                     )}
                   </div>
                 ))}
@@ -225,19 +225,19 @@ export const ParentCalendar = () => {
                 {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
               </h3>
               {selectedDateEvents.length === 0 ? (
-                <p className="text-sm font-bold text-gray-500">No events on this day</p>
+                <p className="text-sm font-bold text-[var(--text-muted)]">No events on this day</p>
               ) : (
                 <div className="space-y-3">
                   {selectedDateEvents.map(event => (
-                    <div key={event.id} className={cn("p-3 neo-border", EVENT_TYPES[event.type]?.color || 'bg-gray-100')}>
+                    <div key={event.id} className={cn("p-3 neo-border", EVENT_TYPES[event.type]?.color || 'bg-[var(--bg-tertiary)]')}>
                       <p className="font-black">{event.title}</p>
                       {event.childName && (
-                        <p className="text-xs font-bold text-gray-600 mt-1">
+                        <p className="text-xs font-bold text-[var(--text-muted)] mt-1">
                           <Users size={12} className="inline" /> {event.childName}
                         </p>
                       )}
                       {event.subject && (
-                        <p className="text-xs font-bold text-gray-500">{event.subject}</p>
+                        <p className="text-xs font-bold text-[var(--text-muted)]">{event.subject}</p>
                       )}
                     </div>
                   ))}
@@ -260,7 +260,7 @@ export const ParentCalendar = () => {
                 .map(event => (
                   <div key={event.id} className="flex items-center justify-between text-sm">
                     <span className="font-bold truncate">{event.title}</span>
-                    <span className="text-xs font-black text-gray-500">
+                    <span className="text-xs font-black text-[var(--text-muted)]">
                       {new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                     </span>
                   </div>

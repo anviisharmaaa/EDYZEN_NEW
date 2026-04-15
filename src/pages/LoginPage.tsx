@@ -147,7 +147,7 @@ export const LoginPage = () => {
                 placeholder="Set admin password"
               />
             </div>
-            {error && <p className="text-red-600 font-bold text-sm">{error}</p>}
+            {error && <p className="text-[var(--text-danger)] font-bold text-sm">{error}</p>}
             <Button
               type="button"
               variant="primary"
@@ -209,7 +209,7 @@ export const LoginPage = () => {
               required
             />
           </div>
-          {error && <p className="text-red-600 font-bold text-sm bg-red-100 p-3 border border-red-400">{error}</p>}
+          {error && <p className="text-[var(--text-danger)] font-bold text-sm bg-[var(--bg-danger)] p-3 border border-[var(--border-danger)]">{error}</p>}
           <Button type="submit" variant="primary" className="w-full text-xl py-4">
             Login
           </Button>

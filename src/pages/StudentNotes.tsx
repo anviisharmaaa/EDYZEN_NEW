@@ -223,11 +223,11 @@ export const StudentNotes = () => {
           <h1 className="text-4xl font-black tracking-tight flex items-center gap-3">
             My Notes
           </h1>
-          <p className="font-bold text-gray-600 mt-1">
+          <p className="font-bold text-[var(--text-muted)] mt-1">
             Create, organize, and collaborate on notes
           </p>
           {filterHint && (
-            <div className="mt-3 rounded-2xl border border-violet-200 bg-violet-50 px-4 py-3 text-sm font-bold text-violet-700">
+            <div className="mt-3 rounded-2xl border border-violet-200 bg-[var(--bg-tertiary)] px-4 py-3 text-sm font-bold text-violet-700">
               Showing notes related to “{filterHint}”
             </div>
           )}
@@ -258,7 +258,7 @@ export const StudentNotes = () => {
                   "w-full text-left p-3 font-bold flex items-center gap-2 transition",
                   selectedFolder === folder.id
                     ? "bg-black text-white"
-                    : "hover:bg-gray-100"
+                    : "hover:bg-[var(--bg-tertiary)]"
                 )}
                 onClick={() => setSelectedFolder(folder.id)}
               >
@@ -272,14 +272,14 @@ export const StudentNotes = () => {
         <div className="lg:col-span-2 space-y-4">
           {pinnedNotes.length > 0 && (
             <div className="space-y-2">
-              <p className="text-xs font-black uppercase text-gray-500 flex items-center gap-2">
+              <p className="text-xs font-black uppercase text-[var(--text-muted)] flex items-center gap-2">
                 <Pin size={12} /> Pinned
               </p>
               {pinnedNotes.map(note => (
                 <Card
                   key={note.id}
                   className={cn(
-                    "p-4 cursor-pointer hover:bg-gray-50 transition",
+                    "p-4 cursor-pointer hover:bg-[var(--bg-secondary)] transition",
                     selectedNote?.id === note.id && "ring-2 ring-violet-500"
                   )}
                   onClick={() => handleSelectNote(note)}
@@ -287,7 +287,7 @@ export const StudentNotes = () => {
                   <div className="flex justify-between items-start">
                     <div>
                       <h3 className="font-black">{note.title}</h3>
-                      <p className="text-sm text-gray-500 line-clamp-2">{note.content}</p>
+                      <p className="text-sm text-[var(--text-muted)] line-clamp-2">{note.content}</p>
                     </div>
                     <button
                       onClick={e => { e.stopPropagation(); handleTogglePin(note); }}
@@ -305,7 +305,7 @@ export const StudentNotes = () => {
             <Card
               key={note.id}
               className={cn(
-                "p-4 cursor-pointer hover:bg-gray-50 transition",
+                "p-4 cursor-pointer hover:bg-[var(--bg-secondary)] transition",
                 selectedNote?.id === note.id && "ring-2 ring-violet-500"
               )}
               onClick={() => handleSelectNote(note)}
@@ -313,7 +313,7 @@ export const StudentNotes = () => {
               <div className="flex justify-between items-start">
                 <div>
                   <h3 className="font-black">{note.title}</h3>
-                  <p className="text-sm text-gray-500 line-clamp-2">{note.content}</p>
+                  <p className="text-sm text-[var(--text-muted)] line-clamp-2">{note.content}</p>
                 </div>
                 <div className="flex gap-2">
                   <button
@@ -334,7 +334,7 @@ export const StudentNotes = () => {
           ))}
 
           {filteredNotes.length === 0 && (
-            <Card className="p-12 text-center text-gray-500">
+            <Card className="p-12 text-center text-[var(--text-muted)]">
               <p className="font-bold">No notes yet</p>
               <p className="text-sm">Create your first note to get started</p>
             </Card>
@@ -378,28 +378,28 @@ export const StudentNotes = () => {
 
                   <div className="flex gap-2 flex-wrap">
                     <button
-                      className={cn("p-2 neo-border", showDrawing ? "bg-violet-100" : "bg-white")}
+                      className={cn("p-2 neo-border", showDrawing ? "bg-[var(--bg-tertiary)]" : "bg-[var(--surface-card)]")}
                       onClick={() => setShowDrawing(!showDrawing)}
                       title="Draw"
                     >
                       <Pencil size={16} />
                     </button>
-                    <button className="p-2 neo-border bg-white" title="Bold">
+                    <button className="p-2 neo-border bg-[var(--surface-card)]" title="Bold">
                       <Bold size={16} />
                     </button>
-                    <button className="p-2 neo-border bg-white" title="Italic">
+                    <button className="p-2 neo-border bg-[var(--surface-card)]" title="Italic">
                       <Italic size={16} />
                     </button>
-                    <button className="p-2 neo-border bg-white" title="List">
+                    <button className="p-2 neo-border bg-[var(--surface-card)]" title="List">
                       <List size={16} />
                     </button>
-                    <button className="p-2 neo-border bg-white" title="Checklist">
+                    <button className="p-2 neo-border bg-[var(--surface-card)]" title="Checklist">
                       <CheckSquare size={16} />
                     </button>
-                    <button className="p-2 neo-border bg-white" title="Image">
+                    <button className="p-2 neo-border bg-[var(--surface-card)]" title="Image">
                       <Image size={16} />
                     </button>
-                    <button className="p-2 neo-border bg-white" title="Audio">
+                    <button className="p-2 neo-border bg-[var(--surface-card)]" title="Audio">
                       <Mic size={16} />
                     </button>
                   </div>
@@ -410,14 +410,14 @@ export const StudentNotes = () => {
                         ref={canvasRef}
                         width={300}
                         height={200}
-                        className="neo-border bg-white cursor-crosshair"
+                        className="neo-border bg-[var(--surface-card)] cursor-crosshair"
                         onMouseDown={handleStartDraw}
                         onMouseMove={handleDraw}
                         onMouseUp={handleEndDraw}
                         onMouseLeave={handleEndDraw}
                       />
                       <button
-                        className="text-xs font-bold text-gray-500"
+                        className="text-xs font-bold text-[var(--text-muted)]"
                         onClick={clearCanvas}
                       >
                         Clear Drawing
@@ -438,8 +438,8 @@ export const StudentNotes = () => {
                 <div className="space-y-2">
                   <p className="whitespace-pre-wrap">{selectedNote.content}</p>
                   {selectedNote.handwriting && (
-                    <div className="mt-4 p-2 bg-gray-50">
-                      <p className="text-xs font-bold text-gray-500">Handwritten Notes</p>
+                    <div className="mt-4 p-2 bg-[var(--bg-secondary)]">
+                      <p className="text-xs font-bold text-[var(--text-muted)]">Handwritten Notes</p>
                     </div>
                   )}
                 </div>
@@ -447,20 +447,20 @@ export const StudentNotes = () => {
             </Card>
           )}
 
-          <Card className="p-4 bg-violet-50 border-violet-300">
+          <Card className="p-4 bg-[var(--bg-tertiary)] border-violet-300">
             <h4 className="font-black flex items-center gap-2 mb-2">
               <Lock size={16} /> Security
             </h4>
-            <p className="text-sm font-bold text-gray-600">
+            <p className="text-sm font-bold text-[var(--text-muted)]">
               Lock sensitive notes with password or biometrics
             </p>
           </Card>
 
-          <Card className="p-4 bg-blue-50 border-blue-300">
+          <Card className="p-4 bg-[var(--bg-tertiary)] border-blue-300">
             <h4 className="font-black flex items-center gap-2 mb-2">
               <Share2 size={16} /> Collaboration
             </h4>
-            <p className="text-sm font-bold text-gray-600">
+            <p className="text-sm font-bold text-[var(--text-muted)]">
               Share notes with teachers or parents
             </p>
           </Card>

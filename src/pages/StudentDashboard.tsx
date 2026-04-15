@@ -197,7 +197,7 @@ export const StudentDashboard = () => {
       {/* Header */}
       <div className="space-y-4">
         <div className="space-y-2">
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
             {summary.greeting}
           </p>
           <h1 className="text-3xl font-bold">
@@ -206,7 +206,7 @@ export const StudentDashboard = () => {
         </div>
 
         {weakTopics.length > 0 && (
-          <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+          <div className="p-4 bg-[var(--bg-danger)] border border-red-200 rounded-lg">
             <p className="text-sm font-medium text-red-900">
               <span className="font-semibold">Focus areas:</span> {weakTopics.join(', ')}
             </p>
@@ -219,23 +219,23 @@ export const StudentDashboard = () => {
         {/* Today's Goal Card */}
         <Card className="lg:col-span-2 space-y-5">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-2">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-2">
               Today's Learning Goal
             </p>
             <h2 className="text-xl font-bold mb-2">
               {dailyGoal.title}
             </h2>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-[var(--text-muted)]">
               {dailyGoal.quizzesRemaining} quiz{dailyGoal.quizzesRemaining === 1 ? '' : 'zes'} · ~{dailyGoal.minutesEstimate} min
             </p>
           </div>
 
           <div className="space-y-3">
-            <div className="flex justify-between text-sm font-medium text-gray-700 mb-1">
+            <div className="flex justify-between text-sm font-medium text-[var(--text-secondary)] mb-1">
               <span>Progress</span>
               <span>{dailyGoal.progressPct}%</span>
             </div>
-            <div className="w-full h-2 bg-gray-200 rounded overflow-hidden">
+            <div className="w-full h-2 bg-[var(--bg-tertiary)] rounded overflow-hidden">
               <div
                 className="h-full bg-blue-600 transition-all duration-700"
                 style={{ width: `${dailyGoal.progressPct}%` }}
@@ -255,28 +255,28 @@ export const StudentDashboard = () => {
         {/* Quick Info Card */}
         <Card className="space-y-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-3">
               Overview
             </p>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-700">Assignments Due</span>
+                <span className="text-sm text-[var(--text-secondary)]">Assignments Due</span>
                 <span className="text-lg font-bold text-blue-600">{assignmentsDue}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-700">Available Quizzes</span>
+                <span className="text-sm text-[var(--text-secondary)]">Available Quizzes</span>
                 <span className="text-lg font-bold text-blue-600">{quizzesAvailable}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-700">Mood Today</span>
+                <span className="text-sm text-[var(--text-secondary)]">Mood Today</span>
                 <MoodIcon mood={summary.mood as any || 'ok'} size="sm" />
               </div>
             </div>
           </div>
 
           {adaptiveHint && (
-            <div className="pt-3 border-t border-gray-200">
-              <p className="text-xs font-medium text-gray-600">
+            <div className="pt-3 border-t border-[var(--border-color)]">
+              <p className="text-xs font-medium text-[var(--text-muted)]">
                 💡 {adaptiveHint === 'more_practice' ? 'Extra practice recommended based on your recent performance.' : adaptiveHint}
               </p>
             </div>
@@ -287,39 +287,39 @@ export const StudentDashboard = () => {
       {/* Quick Actions */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card
-          className="cursor-pointer hover:bg-gray-50 transition-colors text-center p-4"
+          className="cursor-pointer hover:bg-[var(--bg-secondary)] transition-colors text-center p-4"
           onClick={() => navigate(continuePath)}
         >
           <PlayCircle className="text-blue-600 mb-2 mx-auto" size={24} />
           <p className="font-semibold text-sm">Resume</p>
-          <p className="text-xs text-gray-600 mt-1">Last topic</p>
+          <p className="text-xs text-[var(--text-muted)] mt-1">Last topic</p>
         </Card>
 
         <Card
-          className="cursor-pointer hover:bg-gray-50 transition-colors text-center p-4"
+          className="cursor-pointer hover:bg-[var(--bg-secondary)] transition-colors text-center p-4"
           onClick={() => navigate('/student/quizzes')}
         >
-          <ClipboardList className="text-green-600 mb-2 mx-auto" size={24} />
+          <ClipboardList className="text-[var(--text-success)] mb-2 mx-auto" size={24} />
           <p className="font-semibold text-sm">Quizzes</p>
-          <p className="text-xs text-gray-600 mt-1">{quizzesAvailable} available</p>
+          <p className="text-xs text-[var(--text-muted)] mt-1">{quizzesAvailable} available</p>
         </Card>
 
         <Card
-          className="cursor-pointer hover:bg-gray-50 transition-colors text-center p-4"
+          className="cursor-pointer hover:bg-[var(--bg-secondary)] transition-colors text-center p-4"
           onClick={() => navigate('/student/profile')}
         >
           <Target className="text-orange-600 mb-2 mx-auto" size={24} />
           <p className="font-semibold text-sm">Analysis</p>
-          <p className="text-xs text-gray-600 mt-1">Weak areas</p>
+          <p className="text-xs text-[var(--text-muted)] mt-1">Weak areas</p>
         </Card>
 
         <Card
-          className="cursor-pointer hover:bg-gray-50 transition-colors text-center p-4"
+          className="cursor-pointer hover:bg-[var(--bg-secondary)] transition-colors text-center p-4"
           onClick={() => navigate('/student/roadmap')}
         >
           <BookOpen className="text-purple-600 mb-2 mx-auto" size={24} />
           <p className="font-semibold text-sm">Roadmap</p>
-          <p className="text-xs text-gray-600 mt-1">Full path</p>
+          <p className="text-xs text-[var(--text-muted)] mt-1">Full path</p>
         </Card>
       </div>
 
@@ -334,17 +334,17 @@ export const StudentDashboard = () => {
             {insights.length > 0 ? insights.map((ins, i) => (
               <div
                 key={i}
-                className="flex gap-3 text-sm p-3 bg-gray-50 rounded-lg"
+                className="flex gap-3 text-sm p-3 bg-[var(--bg-secondary)] rounded-lg"
               >
                 {ins.type === 'warning' ? (
                   <AlertTriangle className="text-amber-600 shrink-0" size={18} />
                 ) : (
-                  <CheckCircle2 className="text-green-600 shrink-0" size={18} />
+                  <CheckCircle2 className="text-[var(--text-success)] shrink-0" size={18} />
                 )}
-                <span className="text-gray-700">{ins.text}</span>
+                <span className="text-[var(--text-secondary)]">{ins.text}</span>
               </div>
             )) : (
-              <p className="text-sm text-gray-500">No insights at this time.</p>
+              <p className="text-sm text-[var(--text-muted)]">No insights at this time.</p>
             )}
           </div>
         </Card>
@@ -353,12 +353,12 @@ export const StudentDashboard = () => {
           <h3 className="font-semibold text-base mb-4">Recommended For You</h3>
           <ul className="space-y-2">
             {recommendations.length > 0 ? recommendations.map((r, i) => (
-              <li key={i} className="text-sm text-gray-700 flex gap-2 items-start">
+              <li key={i} className="text-sm text-[var(--text-secondary)] flex gap-2 items-start">
                 <span className="text-blue-600 shrink-0">→</span>
                 <span>{r}</span>
               </li>
             )) : (
-              <p className="text-sm text-gray-500">No recommendations yet.</p>
+              <p className="text-sm text-[var(--text-muted)]">No recommendations yet.</p>
             )}
           </ul>
         </Card>
@@ -368,7 +368,7 @@ export const StudentDashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <h3 className="font-semibold text-base mb-4 flex items-center gap-2">
-            <TrendingUp size={18} className="text-green-600" />
+            <TrendingUp size={18} className="text-[var(--text-success)]" />
             Weekly Minutes
           </h3>
           {weekData.length > 0 ? (
@@ -403,20 +403,20 @@ export const StudentDashboard = () => {
             Activity Summary
           </h3>
           <div className="grid grid-cols-3 gap-4">
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
-              <Clock size={20} className="mx-auto mb-2 text-gray-600" />
-              <p className="text-lg font-bold text-gray-900">{behaviorSnapshot.timeSpentMin}</p>
-              <p className="text-xs text-gray-600 font-medium">minutes</p>
+            <div className="text-center p-3 bg-[var(--bg-secondary)] rounded-lg">
+              <Clock size={20} className="mx-auto mb-2 text-[var(--text-muted)]" />
+              <p className="text-lg font-bold text-[var(--text-primary)]">{behaviorSnapshot.timeSpentMin}</p>
+              <p className="text-xs text-[var(--text-muted)] font-medium">minutes</p>
             </div>
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
-              <MousePointer2 size={20} className="mx-auto mb-2 text-gray-600" />
-              <p className="text-lg font-bold text-gray-900">{behaviorSnapshot.clicks}</p>
-              <p className="text-xs text-gray-600 font-medium">interactions</p>
+            <div className="text-center p-3 bg-[var(--bg-secondary)] rounded-lg">
+              <MousePointer2 size={20} className="mx-auto mb-2 text-[var(--text-muted)]" />
+              <p className="text-lg font-bold text-[var(--text-primary)]">{behaviorSnapshot.clicks}</p>
+              <p className="text-xs text-[var(--text-muted)] font-medium">interactions</p>
             </div>
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
-              <ClipboardList size={20} className="mx-auto mb-2 text-gray-600" />
-              <p className="text-lg font-bold text-gray-900">{behaviorSnapshot.quizAttempts}</p>
-              <p className="text-xs text-gray-600 font-medium">attempts</p>
+            <div className="text-center p-3 bg-[var(--bg-secondary)] rounded-lg">
+              <ClipboardList size={20} className="mx-auto mb-2 text-[var(--text-muted)]" />
+              <p className="text-lg font-bold text-[var(--text-primary)]">{behaviorSnapshot.quizAttempts}</p>
+              <p className="text-xs text-[var(--text-muted)] font-medium">attempts</p>
             </div>
           </div>
         </Card>

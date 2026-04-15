@@ -49,7 +49,7 @@ export const ParentAnnouncements = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-4xl font-black tracking-tighter">School Announcements</h1>
-          <p className="font-bold text-gray-600">Stay updated with the latest news and events from the school.</p>
+          <p className="font-bold text-[var(--text-muted)]">Stay updated with the latest news and events from the school.</p>
         </div>
         <div className="flex gap-4">
           <Button variant="primary" className="bg-purple-400 hover:bg-purple-500 flex items-center gap-2">
@@ -75,17 +75,17 @@ export const ParentAnnouncements = () => {
         {filteredAnnouncements.map(announcement => (
           <Card key={announcement.id} className={cn(
             "p-8 space-y-6 transition-all",
-            announcement.type === 'urgent' ? "bg-red-50 border-red-400" :
-              announcement.type === 'event' ? "bg-blue-50 border-blue-400" : "bg-white"
+            announcement.type === 'urgent' ? "bg-[var(--bg-danger)] border-[var(--border-danger)]" :
+              announcement.type === 'event' ? "bg-[var(--bg-tertiary)] border-blue-400" : "bg-[var(--surface-card)]"
           )}>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div className={cn(
                   "p-3 neo-border rounded-full",
-                  announcement.type === 'urgent' ? "bg-red-100" :
-                    announcement.type === 'event' ? "bg-blue-100" : "bg-gray-100"
+                  announcement.type === 'urgent' ? "bg-[var(--bg-danger)]" :
+                    announcement.type === 'event' ? "bg-[var(--bg-tertiary)]" : "bg-[var(--bg-tertiary)]"
                 )}>
-                  {announcement.type === 'urgent' ? <Bell size={24} className="text-red-600" /> :
+                  {announcement.type === 'urgent' ? <Bell size={24} className="text-[var(--text-danger)]" /> :
                     announcement.type === 'event' ? <Calendar size={24} className="text-blue-600" /> : <Bell size={24} />}
                 </div>
                 <div>
@@ -98,7 +98,7 @@ export const ParentAnnouncements = () => {
                       {announcement.type}
                     </Tag>
                   </div>
-                  <div className="flex items-center gap-4 text-xs font-black text-gray-500 uppercase mt-1">
+                  <div className="flex items-center gap-4 text-xs font-black text-[var(--text-muted)] uppercase mt-1">
                     <span className="flex items-center gap-1"><Calendar size={14} /> {announcement.date}</span>
                     <span className="flex items-center gap-1"><User size={14} /> {announcement.author}</span>
                   </div>
@@ -109,15 +109,15 @@ export const ParentAnnouncements = () => {
               </Button>
             </div>
 
-            <p className="font-bold text-gray-700 leading-relaxed">
+            <p className="font-bold text-[var(--text-secondary)] leading-relaxed">
               {announcement.content}
             </p>
 
             <div className="flex items-center gap-4 pt-4 border-t-2 border-black">
-              <Button className="text-xs py-1 bg-white flex items-center gap-2">
+              <Button className="text-xs py-1 bg-[var(--surface-card)] flex items-center gap-2">
                 <Heart size={14} /> Acknowledge
               </Button>
-              <Button className="text-xs py-1 bg-white flex items-center gap-2">
+              <Button className="text-xs py-1 bg-[var(--surface-card)] flex items-center gap-2">
                 Reply to School
               </Button>
             </div>
@@ -127,7 +127,7 @@ export const ParentAnnouncements = () => {
 
       {filteredAnnouncements.length === 0 && (
         <div className="text-center py-12">
-          <p className="font-black text-gray-500 text-xl">No announcements found matching "{searchTerm}"</p>
+          <p className="font-black text-[var(--text-muted)] text-xl">No announcements found matching "{searchTerm}"</p>
         </div>
       )}
     </div>

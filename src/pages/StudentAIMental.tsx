@@ -101,7 +101,7 @@ export const StudentAIMental = () => {
         </div>
         <div>
           <h1 className="text-3xl font-black">Mental Evaluator</h1>
-          <p className="font-bold text-gray-600">
+          <p className="font-bold text-[var(--text-muted)]">
             Your AI companion for emotional well-being
           </p>
         </div>
@@ -122,11 +122,11 @@ export const StudentAIMental = () => {
               <div
                 className={`max-w-[80%] p-4 neo-border ${message.role === 'user'
                     ? 'bg-black text-white'
-                    : 'bg-white'
+                    : 'bg-[var(--surface-card)]'
                   }`}
               >
                 <p className="text-sm font-bold whitespace-pre-wrap">{message.content}</p>
-                <p className={`text-[10px] mt-2 ${message.role === 'user' ? 'text-gray-400' : 'text-gray-500'
+                <p className={`text-[10px] mt-2 ${message.role === 'user' ? 'text-gray-400' : 'text-[var(--text-muted)]'
                   }`}>
                   {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
@@ -143,7 +143,7 @@ export const StudentAIMental = () => {
               <div className="w-8 h-8 bg-rose-400 rounded-full flex items-center justify-center shrink-0">
                 <Bot size={16} className="text-white" />
               </div>
-              <div className="p-4 neo-border bg-white">
+              <div className="p-4 neo-border bg-[var(--surface-card)]">
                 <Loader2 className="animate-spin text-rose-500" size={20} />
               </div>
             </div>
@@ -151,7 +151,7 @@ export const StudentAIMental = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="p-4 border-t bg-white">
+        <div className="p-4 border-t bg-[var(--surface-card)]">
           <div className="flex gap-2">
             <input
               type="text"

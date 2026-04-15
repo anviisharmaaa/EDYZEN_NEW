@@ -99,19 +99,19 @@ export const CourseMapPage = () => {
             <ChevronLeft size={18} /> Back to Dashboard
           </Button>
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 neo-card bg-white px-4 py-2 font-black">
+            <div className="flex items-center gap-2 neo-card bg-[var(--surface-card)] px-4 py-2 font-black">
               <Award className="text-yellow-500" /> 1250 pts
             </div>
-            <div className="flex items-center gap-2 neo-card bg-white px-4 py-2 font-black">
+            <div className="flex items-center gap-2 neo-card bg-[var(--surface-card)] px-4 py-2 font-black">
               <Clock className="text-blue-500" /> 5 Day Streak
             </div>
           </div>
         </div>
 
-        <Card className="p-6 neo-border bg-white hover:shadow-lg transition space-y-6">
+        <Card className="p-6 neo-border bg-[var(--surface-card)] hover:shadow-lg transition space-y-6">
           <div className="space-y-6">
             <h1 className="text-2xl font-black tracking-tight">{topicData.title}</h1>
-            <p className="text-gray-600 font-bold leading-relaxed">
+            <p className="text-[var(--text-muted)] font-bold leading-relaxed">
               {topicData.description ||
                 'Work through each lesson below. Use AI for a quick plain-language recap anytime.'}
             </p>
@@ -119,12 +119,12 @@ export const CourseMapPage = () => {
               {topicData.lessons.map((lesson: any, index: number) => (
                 <div
                   key={lesson.id}
-                  className="p-6 neo-border bg-white hover:shadow-lg transition"
+                  className="p-6 neo-border bg-[var(--surface-card)] hover:shadow-lg transition"
                 >
                   <h3 className="font-black">
                     Lesson {index + 1}: {lesson.title}
                   </h3>
-                  <p className="text-sm text-gray-500 font-bold mt-1">
+                  <p className="text-sm text-[var(--text-muted)] font-bold mt-1">
                     {lesson.description ||
                       (typeof lesson.content === 'string'
                         ? lesson.content.slice(0, 120) +
@@ -165,16 +165,16 @@ export const CourseMapPage = () => {
               ))}
             </div>
             {(aiLoading || aiExplanation || aiExplainError) && (
-              <div className="p-6 neo-border bg-blue-50 mt-6">
+              <div className="p-6 neo-border bg-[var(--bg-tertiary)] mt-6">
                 <h3 className="text-2xl font-black tracking-tight mb-2">
                   AI explanation
                 </h3>
                 {aiExplainError ? (
-                  <p className="text-sm font-bold text-red-700">{aiExplainError}</p>
+                  <p className="text-sm font-bold text-[var(--text-danger)]">{aiExplainError}</p>
                 ) : aiLoading ? (
-                  <p className="text-sm font-bold text-gray-600">Loading explanation…</p>
+                  <p className="text-sm font-bold text-[var(--text-muted)]">Loading explanation…</p>
                 ) : (
-                  <p className="text-sm font-bold text-gray-800 leading-relaxed">
+                  <p className="text-sm font-bold text-[var(--text-primary)] leading-relaxed">
                     {aiExplanation}
                   </p>
                 )}
@@ -195,21 +195,21 @@ export const CourseMapPage = () => {
                 {topicData.lessons.map((lesson: any, idx: number) => (
                   <div key={lesson.id} className="relative flex items-center gap-4">
                     <div className={`w-10 h-10 rounded-full neo-border flex items-center justify-center font-black z-10 ${lesson.status === 'completed' ? 'bg-green-400' :
-                        lesson.status === 'in-progress' ? 'bg-blue-400' : 'bg-gray-200'
+                        lesson.status === 'in-progress' ? 'bg-blue-400' : 'bg-[var(--bg-tertiary)]'
                       }`}>
                       {lesson.status === 'completed' ? <CheckCircle size={20} /> : idx + 1}
                     </div>
                     <button
                       onClick={() => lesson.status !== 'locked' && setSelectedLesson(lesson)}
                       className={`flex-1 text-left p-4 neo-card transition-all ${selectedLesson?.id === lesson.id ? 'bg-black text-white translate-x-2' :
-                          lesson.status === 'locked' ? 'opacity-50 cursor-not-allowed' : 'bg-white hover:translate-x-1'
+                          lesson.status === 'locked' ? 'opacity-50 cursor-not-allowed' : 'bg-[var(--surface-card)] hover:translate-x-1'
                         }`}
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-black">{lesson.title}</span>
                         {lesson.status === 'locked' && <Lock size={16} />}
                       </div>
-                      <p className={`text-xs mt-1 ${selectedLesson?.id === lesson.id ? 'text-gray-400' : 'text-gray-500'}`}>
+                      <p className={`text-xs mt-1 ${selectedLesson?.id === lesson.id ? 'text-gray-400' : 'text-[var(--text-muted)]'}`}>
                         {lesson.type === 'quiz' ? 'Assessment' : 'Lesson Content'}
                       </p>
                     </button>
@@ -251,19 +251,19 @@ export const CourseMapPage = () => {
                       </div>
                     )}
 
-                    <div className="prose prose-xl max-w-none font-bold text-gray-800 leading-relaxed">
+                    <div className="prose prose-xl max-w-none font-bold text-[var(--text-primary)] leading-relaxed">
                       {selectedLesson.content}
                     </div>
 
                     {/* Interactive Bit */}
-                    <div className="p-6 neo-border bg-yellow-50 space-y-4">
+                    <div className="p-6 neo-border bg-[var(--bg-warning)] space-y-4">
                       <h3 className="text-xl font-black flex items-center gap-2">
                         <Play size={20} className="text-yellow-600" /> Quick Check
                       </h3>
                       <p className="font-bold">What is a variable in algebra?</p>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {['A fixed number', 'A symbol for a number', 'A type of equation', 'A mathematical rule'].map((opt, i) => (
-                          <button key={i} className="p-4 neo-card bg-white hover:bg-black hover:text-white font-black text-left transition-colors">
+                          <button key={i} className="p-4 neo-card bg-[var(--surface-card)] hover:bg-black hover:text-white font-black text-left transition-colors">
                             {opt}
                           </button>
                         ))}
@@ -273,7 +273,7 @@ export const CourseMapPage = () => {
                     <div className="flex justify-between items-center pt-6 border-t-4 border-black">
                       <div className="flex gap-2">
                         {highlights.length > 0 && (
-                          <div className="flex items-center gap-2 neo-card bg-indigo-50 px-3 py-1 text-xs font-black">
+                          <div className="flex items-center gap-2 neo-card bg-[var(--bg-tertiary)] px-3 py-1 text-xs font-black">
                             <Highlighter size={14} /> {highlights.length} Highlights
                           </div>
                         )}
@@ -311,7 +311,7 @@ export const CourseMapPage = () => {
                   <input
                     type="text"
                     aria-label="Question for AI"
-                    className="w-full p-4 neo-border bg-white text-black font-bold outline-none"
+                    className="w-full p-4 neo-border bg-[var(--surface-card)] text-black font-bold outline-none"
                     onKeyDown={(e) =>
                       e.key === 'Enter' &&
                       handleAskAI((e.target as HTMLInputElement).value)
@@ -331,7 +331,7 @@ export const CourseMapPage = () => {
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
-                  className="p-6 bg-white text-black neo-border space-y-4"
+                  className="p-6 bg-[var(--surface-card)] text-black neo-border space-y-4"
                 >
                   <div className="space-y-2">
                     <p className="text-xs font-black uppercase text-indigo-600">AI Explanation</p>
@@ -339,15 +339,15 @@ export const CourseMapPage = () => {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <p className="text-xs font-black uppercase text-green-600">Examples</p>
+                      <p className="text-xs font-black uppercase text-[var(--text-success)]">Examples</p>
                       <ul className="list-disc list-inside font-bold">
                         {aiResponse.examples.map((ex: string, i: number) => <li key={i}>{ex}</li>)}
                       </ul>
                     </div>
                     <div className="space-y-2">
-                      <p className="text-xs font-black uppercase text-red-600">Practice</p>
+                      <p className="text-xs font-black uppercase text-[var(--text-danger)]">Practice</p>
                       {aiResponse.practiceQuestions.map((q: any, i: number) => (
-                        <div key={i} className="text-sm font-bold p-2 bg-gray-50 neo-border">
+                        <div key={i} className="text-sm font-bold p-2 bg-[var(--bg-secondary)] neo-border">
                           Q: {q.question}
                         </div>
                       ))}

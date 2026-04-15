@@ -95,17 +95,17 @@ export const TeacherAttendance = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-4xl font-black tracking-tighter">Daily Attendance</h1>
-          <p className="font-bold text-gray-600 flex items-center gap-2">
+          <p className="font-bold text-[var(--text-muted)] flex items-center gap-2">
             <CalendarIcon size={18} /> {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           </p>
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           {saveMessage && (
-            <p className="text-sm font-black text-green-700 neo-border bg-green-50 px-3 py-2">
+            <p className="text-sm font-black text-[var(--text-success)] neo-border bg-[var(--bg-tertiary)] px-3 py-2">
               {saveMessage}
             </p>
           )}
-          <Button onClick={() => markAll(true)} className="bg-green-100 text-green-700 border-green-400">Mark All Present</Button>
+          <Button onClick={() => markAll(true)} className="bg-[var(--bg-success)] text-[var(--text-success)] border-[var(--border-success)]">Mark All Present</Button>
           <Button
             variant="primary"
             onClick={() => {
@@ -142,7 +142,7 @@ export const TeacherAttendance = () => {
       </div>
 
       <Card className="p-4 space-y-2">
-        <label className="text-xs font-black uppercase text-gray-500 block pl-1">
+        <label className="text-xs font-black uppercase text-[var(--text-muted)] block pl-1">
           Search students
         </label>
         <div className="relative">
@@ -166,29 +166,28 @@ export const TeacherAttendance = () => {
               onClick={() => window.location.href = `/teacher/student/${student.id}`}
               className={cn(
                 "cursor-pointer",
-
                 student.alert === "high"
-                  ? "bg-red-200 border-red-500"
+                  ? "bg-[var(--bg-danger)] border-[var(--border-danger)]"
                   : student.alert === "medium"
-                    ? "bg-yellow-200 border-yellow-500"
-                    : "bg-white"
+                    ? "bg-[var(--bg-warning)] border-[var(--border-warning)]"
+                    : "bg-[var(--surface-card)]"
               )}
             >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 neo-border bg-blue-100 flex items-center justify-center rounded-full">
+                <div className="w-12 h-12 neo-border bg-[var(--bg-tertiary)] flex items-center justify-center rounded-full">
                   <User size={24} />
                 </div>
                 <div>
                   <h3 className="font-black">{student.name}</h3>
 
                   {student.alert === "high" && (
-                    <p className="text-red-700 text-xs font-black">
+                    <p className="text-[var(--text-danger)] text-xs font-black">
                       ⚠️ High Risk Student
                     </p>
                   )}
 
                   {student.alert === "medium" && (
-                    <p className="text-yellow-700 text-xs font-black">
+                    <p className="text-[var(--text-warning)] text-xs font-black">
                       ⚠️ Needs Attention
                     </p>
                   )}
@@ -197,17 +196,17 @@ export const TeacherAttendance = () => {
                     {student.percentage ? `${student.percentage}% - ${student.status}` : ""}
                   </p>
                   {student.alert === "high" && (
-                    <p className="text-[10px] font-bold text-gray-700">
+                    <p className="text-[10px] font-bold text-[var(--text-secondary)]">
                       Low attendance or negative mood detected.
                     </p>
                   )}
                   {student.status === "good" && (
-                    <p className="text-green-700 text-xs font-bold">
+                    <p className="text-[var(--text-success)] text-xs font-bold">
                       ✅ Excellent attendance
                     </p>
                   )}
                   {student.status === "warning" && (
-                    <p className="text-yellow-700 text-xs font-bold">
+                    <p className="text-[var(--text-warning)] text-xs font-bold">
                       ⚠️ Attendance dropping
                     </p>
                   )}
@@ -215,7 +214,7 @@ export const TeacherAttendance = () => {
                     {student.mood ? (
                       <>
                         <MoodIcon mood={student.mood} size="xs" />
-                        <span className="text-[10px] font-black uppercase text-gray-500">{student.mood}</span>
+                        <span className="text-[10px] font-black uppercase text-[var(--text-muted)]">{student.mood}</span>
                       </>
                     ) : (
                       <span className="text-[10px] font-black uppercase text-gray-400 italic">No mood check-in</span>
@@ -243,7 +242,7 @@ export const TeacherAttendance = () => {
 
       {filteredStudents.length === 0 && (
         <div className="text-center py-12">
-          <p className="font-black text-gray-500 text-xl">No students found matching "{searchTerm}"</p>
+          <p className="font-black text-[var(--text-muted)] text-xl">No students found matching "{searchTerm}"</p>
         </div>
       )}
     </div>

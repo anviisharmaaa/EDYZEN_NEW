@@ -77,25 +77,25 @@ export const StudentQuizzes = () => {
             <ClipboardList size={40} className="text-violet-600" />
             Quizzes
           </h1>
-          <p className="font-bold text-gray-500 text-sm">
+          <p className="font-bold text-[var(--text-muted)] text-sm">
             Structured checks that power your recommendations
           </p>
         </div>
 
         <div className="flex gap-4">
-          <div className="neo-card bg-white px-6 py-3 text-center neo-card-interactive">
+          <div className="neo-card bg-[var(--surface-card)] px-6 py-3 text-center neo-card-interactive">
             <p className="text-2xl font-black">
               {quizzes.filter((q) => q.status === 'completed').length}
             </p>
-            <p className="text-[10px] font-black uppercase text-gray-500">
+            <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">
               Completed
             </p>
           </div>
-          <div className="neo-card bg-white px-6 py-3 text-center neo-card-interactive">
+          <div className="neo-card bg-[var(--surface-card)] px-6 py-3 text-center neo-card-interactive">
             <p className="text-2xl font-black">
               {quizzes.filter((q) => q.status === 'available').length}
             </p>
-            <p className="text-[10px] font-black uppercase text-gray-500">
+            <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">
               Available
             </p>
           </div>
@@ -118,7 +118,7 @@ export const StudentQuizzes = () => {
                   'p-3 neo-border rounded-full',
                   quiz.status === 'completed'
                     ? 'bg-emerald-100'
-                    : 'bg-violet-100'
+                    : 'bg-[var(--bg-tertiary)]'
                 )}
               >
                 <ClipboardList
@@ -139,7 +139,7 @@ export const StudentQuizzes = () => {
 
             <div className="space-y-2">
               <h3 className="text-lg font-black leading-tight">{quiz.title}</h3>
-              <p className="text-xs font-bold text-gray-500">
+              <p className="text-xs font-bold text-[var(--text-muted)]">
                 Topic ID: {quiz.topicId}
               </p>
               <div className="flex flex-wrap gap-2">
@@ -149,7 +149,7 @@ export const StudentQuizzes = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 text-xs font-black uppercase text-gray-500">
+            <div className="flex items-center gap-4 text-xs font-black uppercase text-[var(--text-muted)]">
               <div className="flex items-center gap-1">
                 <Clock size={14} />~{quiz.estMinutes ?? 5} min
               </div>
@@ -160,7 +160,7 @@ export const StudentQuizzes = () => {
 
             {quiz.status === 'completed' ? (
               <div className="space-y-3">
-                <div className="h-2 neo-border bg-white overflow-hidden rounded-sm">
+                <div className="h-2 neo-border bg-[var(--surface-card)] overflow-hidden rounded-sm">
                   <div
                     className="h-full bg-emerald-500"
                     style={{ width: `${quiz.score || 0}%` }}

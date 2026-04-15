@@ -153,7 +153,7 @@ export const TeacherStudents = () => {
           <Card className="w-full max-w-md p-6 space-y-4">
             <h2 className="text-2xl font-black">Add New Student</h2>
             <div>
-              <label className="text-xs font-black uppercase text-gray-500 block mb-1">Student Name</label>
+              <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Student Name</label>
               <input
                 type="text"
                 className="w-full px-4 py-3 neo-border font-bold"
@@ -163,7 +163,7 @@ export const TeacherStudents = () => {
               />
             </div>
             <div>
-              <label className="text-xs font-black uppercase text-gray-500 block mb-1">Email</label>
+              <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Email</label>
               <input
                 type="email"
                 className="w-full px-4 py-3 neo-border font-bold"
@@ -173,7 +173,7 @@ export const TeacherStudents = () => {
               />
             </div>
             <div>
-              <label className="text-xs font-black uppercase text-gray-500 block mb-1">Password</label>
+              <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Password</label>
               <input
                 type="password"
                 className="w-full px-4 py-3 neo-border font-bold"
@@ -206,7 +206,7 @@ export const TeacherStudents = () => {
             <Users className="text-blue-600" />
             Students
           </h1>
-          <p className="font-bold text-gray-600 mt-1">
+          <p className="font-bold text-[var(--text-muted)] mt-1">
             View and track all your students' progress
           </p>
         </div>
@@ -219,18 +219,18 @@ export const TeacherStudents = () => {
       {(highRiskStudents.length > 0 || mediumRiskStudents.length > 0) && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {highRiskStudents.length > 0 && (
-            <Card className="p-4 bg-red-50 border-red-400">
-              <div className="flex items-center gap-2 font-black text-red-700">
+            <Card className="p-4 bg-[var(--bg-danger)] border-[var(--border-danger)]">
+              <div className="flex items-center gap-2 font-black text-[var(--text-danger)]">
                 <AlertCircle size={18} /> High Risk Students
               </div>
-              <p className="text-sm font-bold text-red-600 mt-1">
+              <p className="text-sm font-bold text-[var(--text-danger)] mt-1">
                 {highRiskStudents.length} student(s) need immediate attention
               </p>
             </Card>
           )}
           {mediumRiskStudents.length > 0 && (
-            <Card className="p-4 bg-yellow-50 border-yellow-400">
-              <div className="flex items-center gap-2 font-black text-yellow-700">
+            <Card className="p-4 bg-[var(--bg-warning)] border-[var(--border-warning)]">
+              <div className="flex items-center gap-2 font-black text-[var(--text-warning)]">
                 <AlertCircle size={18} /> At Risk Students
               </div>
               <p className="text-sm font-bold text-yellow-600 mt-1">
@@ -287,20 +287,20 @@ export const TeacherStudents = () => {
               key={student.id}
               className={cn(
                 "p-6 cursor-pointer hover:translate-x-1 transition-all",
-                alert === 'high' && 'border-red-400 bg-red-50',
-                alert === 'medium' && 'border-yellow-400 bg-yellow-50'
+                alert === 'high' && 'border-[var(--border-danger)] bg-[var(--bg-danger)]',
+                alert === 'medium' && 'border-[var(--border-warning)] bg-[var(--bg-warning)]'
               )}
               onClick={() => navigate(`/teacher/student/${student.id}`)}
             >
               {/* Student Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-14 h-14 neo-border bg-blue-100 rounded-full flex items-center justify-center">
+                  <div className="w-14 h-14 neo-border bg-[var(--bg-tertiary)] rounded-full flex items-center justify-center">
                     <span className="text-xl font-black">{student.name[0]}</span>
                   </div>
                   <div>
                     <h3 className="font-black text-lg">{student.name}</h3>
-                    <p className="text-xs font-bold text-gray-500">{student.email}</p>
+                    <p className="text-xs font-bold text-[var(--text-muted)]">{student.email}</p>
                   </div>
                 </div>
                 <MoodIcon mood={student.mood} />
@@ -312,7 +312,7 @@ export const TeacherStudents = () => {
                   <span>Progress</span>
                   <span>{student.progress}%</span>
                 </div>
-                <div className="h-2 neo-border bg-white overflow-hidden rounded-sm">
+                <div className="h-2 neo-border bg-[var(--surface-card)] overflow-hidden rounded-sm">
                   <div
                     className={cn(
                       "h-full transition-all",
@@ -328,11 +328,11 @@ export const TeacherStudents = () => {
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="text-center">
                   <p className="text-2xl font-black">{student.accuracy}%</p>
-                  <p className="text-[10px] font-black uppercase text-gray-500">Accuracy</p>
+                  <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">Accuracy</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-black">{student.attendance || 0}%</p>
-                  <p className="text-[10px] font-black uppercase text-gray-500">Attendance</p>
+                  <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">Attendance</p>
                 </div>
               </div>
 
@@ -340,7 +340,7 @@ export const TeacherStudents = () => {
               <div className="space-y-2">
                 {student.weakTopics.length > 0 && (
                   <div>
-                    <p className="text-[10px] font-black uppercase text-red-600">Needs Help</p>
+                    <p className="text-[10px] font-black uppercase text-[var(--text-danger)]">Needs Help</p>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {student.weakTopics.map(topic => (
                         <Tag key={topic} color="#fee2e2">{topic}</Tag>
@@ -350,7 +350,7 @@ export const TeacherStudents = () => {
                 )}
                 {student.strongTopics.length > 0 && (
                   <div>
-                    <p className="text-[10px] font-black uppercase text-green-600">Strong In</p>
+                    <p className="text-[10px] font-black uppercase text-[var(--text-success)]">Strong In</p>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {student.strongTopics.map(topic => (
                         <Tag key={topic} color="#dcfce7">{topic}</Tag>
@@ -361,7 +361,7 @@ export const TeacherStudents = () => {
               </div>
 
               {/* Last Active */}
-              <div className="flex items-center gap-2 mt-4 pt-4 border-t text-xs font-bold text-gray-500">
+              <div className="flex items-center gap-2 mt-4 pt-4 border-t text-xs font-bold text-[var(--text-muted)]">
                 <Clock size={12} />
                 <span>Last active: {student.lastActive}</span>
               </div>
@@ -380,8 +380,8 @@ export const TeacherStudents = () => {
       {filteredStudents.length === 0 && (
         <Card className="p-12 text-center">
           <Users size={48} className="mx-auto text-gray-300 mb-4" />
-          <p className="text-lg font-black text-gray-600">No students found</p>
-          <p className="font-bold text-gray-500">Try Adjusting your filters</p>
+          <p className="text-lg font-black text-[var(--text-muted)]">No students found</p>
+          <p className="font-bold text-[var(--text-muted)]">Try Adjusting your filters</p>
         </Card>
       )}
     </div>

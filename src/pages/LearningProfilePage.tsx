@@ -80,7 +80,7 @@ export const LearningProfilePage = () => {
         </div>
         <div>
           <h1 className="text-3xl sm:text-4xl font-black">Learning profile</h1>
-          <p className="font-bold text-gray-600 text-sm">
+          <p className="font-bold text-[var(--text-muted)] text-sm">
             Accuracy, pace, and AI-inferred style
           </p>
         </div>
@@ -122,12 +122,12 @@ export const LearningProfilePage = () => {
         </div>
       </Card>
 
-      <Card className="bg-indigo-50 border-indigo-400 neo-card-interactive flex flex-col md:flex-row items-center justify-between gap-6">
+      <Card className="bg-[var(--bg-tertiary)] border-indigo-400 neo-card-interactive flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="space-y-2">
           <h2 className="text-2xl font-black flex items-center gap-2">
             <Sparkles /> Cognitive Test
           </h2>
-          <p className="font-bold text-gray-700 max-w-xl text-sm">
+          <p className="font-bold text-[var(--text-secondary)] max-w-xl text-sm">
             Take a cognitive test to assess your learning abilities and get personalized recommendations.
           </p>
         </div>
@@ -147,16 +147,16 @@ export const LearningProfilePage = () => {
         <div className="space-y-3">
           {profile.cognitiveTestResults?.length ? (
             profile.cognitiveTestResults.map((result: any, idx: number) => (
-              <div key={idx} className="neo-card p-4 bg-white">
+              <div key={idx} className="neo-card p-4 bg-[var(--surface-card)]">
                 <div className="flex justify-between font-bold">
                   <span>{result.date}</span>
                   <span className="text-emerald-600">{result.score}%</span>
                 </div>
-                <p className="text-sm text-gray-600 mt-1">{result.description}</p>
+                <p className="text-sm text-[var(--text-muted)] mt-1">{result.description}</p>
               </div>
             ))
           ) : (
-            <p className="text-sm font-bold text-gray-500">
+            <p className="text-sm font-bold text-[var(--text-muted)]">
               No cognitive tests taken yet. Take a test to see your results here.
             </p>
           )}
@@ -170,23 +170,23 @@ export const LearningProfilePage = () => {
           </h2>
           <div className="space-y-3 text-sm">
             <div>
-              <p className="text-[10px] font-black uppercase text-gray-500 mb-1">
+              <p className="text-[10px] font-black uppercase text-[var(--text-muted)] mb-1">
                 Pace
               </p>
-              <div className="neo-card p-3 bg-blue-50 font-bold capitalize">
+              <div className="neo-card p-3 bg-[var(--bg-tertiary)] font-bold capitalize">
                 {profile.pace}
               </div>
             </div>
             <div>
-              <p className="text-[10px] font-black uppercase text-gray-500 mb-1">
+              <p className="text-[10px] font-black uppercase text-[var(--text-muted)] mb-1">
                 Preference
               </p>
-              <div className="neo-card p-3 bg-green-50 font-bold capitalize">
+              <div className="neo-card p-3 bg-[var(--bg-tertiary)] font-bold capitalize">
                 {profile.preference}
               </div>
             </div>
             <div>
-              <p className="text-[10px] font-black uppercase text-gray-500 mb-1">
+              <p className="text-[10px] font-black uppercase text-[var(--text-muted)] mb-1">
                 Tags
               </p>
               <div className="flex flex-wrap gap-2">
@@ -206,7 +206,7 @@ export const LearningProfilePage = () => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
             <div className="neo-card p-6 text-center bg-emerald-50/80">
-              <p className="text-[10px] font-black uppercase text-gray-500 mb-2">
+              <p className="text-[10px] font-black uppercase text-[var(--text-muted)] mb-2">
                 Accuracy
               </p>
               <p className="text-4xl font-black text-emerald-600">
@@ -217,7 +217,7 @@ export const LearningProfilePage = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <p className="font-black uppercase text-xs text-gray-500 flex items-center gap-2">
+              <p className="font-black uppercase text-xs text-[var(--text-muted)] flex items-center gap-2">
                 <Target size={14} className="text-emerald-600" />
                 Strong topics
               </p>
@@ -231,14 +231,14 @@ export const LearningProfilePage = () => {
                   </span>
                 ))}
                 {!profile.strongTopics?.length && (
-                  <span className="text-sm font-bold text-gray-500">
+                  <span className="text-sm font-bold text-[var(--text-muted)]">
                     Complete more quizzes to populate this.
                   </span>
                 )}
               </div>
             </div>
             <div className="space-y-2">
-              <p className="font-black uppercase text-xs text-gray-500 flex items-center gap-2">
+              <p className="font-black uppercase text-xs text-[var(--text-muted)] flex items-center gap-2">
                 <AlertTriangle size={14} className="text-rose-600" />
                 Weak topics
               </p>
@@ -256,7 +256,7 @@ export const LearningProfilePage = () => {
           </div>
 
           <div className="space-y-3">
-            <p className="font-black uppercase text-xs text-gray-500">
+            <p className="font-black uppercase text-xs text-[var(--text-muted)]">
               Accuracy by question type
             </p>
             <div className="space-y-3">
@@ -266,7 +266,7 @@ export const LearningProfilePage = () => {
                     <span>{item.type}</span>
                     <span>{item.accuracy}%</span>
                   </div>
-                  <div className="h-2.5 neo-border bg-gray-100 overflow-hidden rounded-sm">
+                  <div className="h-2.5 neo-border bg-[var(--bg-tertiary)] overflow-hidden rounded-sm">
                     <div
                       className="h-full bg-violet-600 transition-all duration-1000"
                       style={{ width: `${item.accuracy}%` }}

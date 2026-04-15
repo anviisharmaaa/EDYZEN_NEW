@@ -128,7 +128,7 @@ export const PersonalityReportPage = () => {
   if (!behaviorData) {
     return (
       <div className="min-h-screen bg-report-bg flex items-center justify-center p-12">
-        <p className="font-black text-gray-500 animate-pulse">
+        <p className="font-black text-[var(--text-muted)] animate-pulse">
           Loading behavioral data…
         </p>
       </div>
@@ -139,12 +139,12 @@ export const PersonalityReportPage = () => {
 
   return (
     <div className="min-h-screen bg-report-bg text-report-ink selection:bg-lilac pb-20">
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 min-h-16 flex flex-wrap items-center justify-between gap-3 px-6 md:px-12 py-3">
+      <header className="sticky top-0 z-50 bg-[var(--surface-card)]/80 backdrop-blur-md border-b border-[var(--border-color)] min-h-16 flex flex-wrap items-center justify-between gap-3 px-6 md:px-12 py-3">
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="pill-tag border-gray-200 hover:bg-gray-50 flex items-center gap-2"
+            className="pill-tag border-[var(--border-color)] hover:bg-[var(--bg-secondary)] flex items-center gap-2"
           >
             <ChevronLeft size={14} /> Back
           </button>
@@ -161,7 +161,7 @@ export const PersonalityReportPage = () => {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            className="pill-tag border-gray-200 hover:bg-gray-50 flex items-center gap-2"
+            className="pill-tag border-[var(--border-color)] hover:bg-[var(--bg-secondary)] flex items-center gap-2"
           >
             <Download size={14} /> Export PDF
           </button>
@@ -187,7 +187,7 @@ export const PersonalityReportPage = () => {
             </div>
             <div className="flex flex-wrap gap-2">
               {aiPersonalityPills.map((pill) => (
-                <span key={pill} className="pill-tag bg-white/50 border-transparent">
+                <span key={pill} className="pill-tag bg-[var(--surface-card)]/50 border-transparent">
                   {pill}
                 </span>
               ))}
@@ -200,7 +200,7 @@ export const PersonalityReportPage = () => {
           </div>
 
           <div className="relative h-40 w-40 flex items-center justify-center shrink-0">
-            <div className="z-10 w-32 h-32 bg-white rounded-full border-4 border-ink flex flex-col items-center justify-center text-center p-4 shadow-xl">
+            <div className="z-10 w-32 h-32 bg-[var(--surface-card)] rounded-full border-4 border-ink flex flex-col items-center justify-center text-center p-4 shadow-xl">
               <span className="text-[10px] font-black uppercase tracking-widest opacity-50 mb-1">
                 Core
               </span>
@@ -216,7 +216,7 @@ export const PersonalityReportPage = () => {
             </div>
             <div className="max-w-md space-y-4">
               <h2 className="text-3xl font-black">Ready to dive deep?</h2>
-              <p className="text-gray-600 font-medium">
+              <p className="text-[var(--text-muted)] font-medium">
                 We&apos;ll synthesize your clicks, quiz attempts, and mood signals into strengths,
                 weaknesses, study tips, and actionable advice for {displayName}.
               </p>
@@ -244,7 +244,7 @@ export const PersonalityReportPage = () => {
           <div className="space-y-10">
             <section className="report-card">
               <h2 className="text-2xl font-black mb-2">Your AI report</h2>
-              <p className="text-sm font-bold text-gray-500 mb-6">
+              <p className="text-sm font-bold text-[var(--text-muted)] mb-6">
                 Strengths, weaknesses, study tips, and actionable advice — personalized for{' '}
                 {displayName}.
               </p>
@@ -280,7 +280,7 @@ export const PersonalityReportPage = () => {
                     </RadarChart>
                   </ResponsiveContainer>
                 </div>
-                <ul className="space-y-3 text-sm font-bold text-gray-700">
+                <ul className="space-y-3 text-sm font-bold text-[var(--text-secondary)]">
                   <li className="flex gap-2">
                     <TrendingUp className="text-mint shrink-0" size={18} />
                     Attempts logged: {behaviorData.stats?.totalAttempts ?? 0}
@@ -303,7 +303,7 @@ export const PersonalityReportPage = () => {
                 <h3 className="font-black flex items-center gap-2">
                   <Users size={18} className="text-periwinkle" /> Strengths (quick view)
                 </h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-sm text-[var(--text-muted)] leading-relaxed">
                   {displayName}, you show strong persistence when problems feel meaningful. Lean into
                   visual maps and worked examples before timed quizzes.
                 </p>
@@ -312,7 +312,7 @@ export const PersonalityReportPage = () => {
                 <h3 className="font-black flex items-center gap-2">
                   <Book size={18} className="text-periwinkle" /> Study tips
                 </h3>
-                <ul className="text-sm font-bold text-gray-700 space-y-2">
+                <ul className="text-sm font-bold text-[var(--text-secondary)] space-y-2">
                   <li>• Study in short bursts with a visible timer.</li>
                   <li>• Alternate reading with practice problems.</li>
                   <li>• Summarize each lesson in 3 bullet points.</li>
@@ -322,14 +322,14 @@ export const PersonalityReportPage = () => {
                 <h3 className="font-black flex items-center gap-2">
                   <Heart size={18} className="text-periwinkle" /> Well-being
                 </h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-sm text-[var(--text-muted)] leading-relaxed">
                   Pair challenge with recovery: after a hard quiz, take a short walk or journal one win
                   from the session.
                 </p>
               </div>
             </section>
 
-            <footer className="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between gap-4 items-center text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+            <footer className="pt-8 border-t border-[var(--border-color)] flex flex-col md:flex-row justify-between gap-4 items-center text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
               <span>Generated by EDYZEN – Learning &amp; well-being engine</span>
               <span>{new Date().toLocaleDateString()}</span>
               <span className="text-center md:text-right">

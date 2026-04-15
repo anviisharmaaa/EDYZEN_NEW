@@ -226,7 +226,7 @@ export const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-[var(--bg-secondary)] p-8">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -236,7 +236,7 @@ export const AdminDashboard = () => {
               <Building2 className="text-blue-600" />
               {org?.name || 'Organisation'}
             </h1>
-            <p className="font-bold text-gray-600 mt-1">Manage your organisation members</p>
+            <p className="font-bold text-[var(--text-muted)] mt-1">Manage your organisation members</p>
           </div>
           <Button onClick={handleLogout} className="flex items-center gap-2">
             <LogOut size={18} /> Logout
@@ -247,12 +247,12 @@ export const AdminDashboard = () => {
         <Card className="p-6">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-purple-100 rounded-full">
+              <div className="p-3 bg-[var(--bg-tertiary)] rounded-full">
                 <Users className="text-purple-600" size={24} />
               </div>
               <div>
                 <h2 className="text-2xl font-black">Teachers</h2>
-                <p className="font-bold text-gray-500">{teachers.length} teacher(s) in your organisation</p>
+                <p className="font-bold text-[var(--text-muted)]">{teachers.length} teacher(s) in your organisation</p>
               </div>
             </div>
             <Button variant="primary" className="bg-purple-600" onClick={() => setShowAddTeacher(true)}>
@@ -261,17 +261,17 @@ export const AdminDashboard = () => {
           </div>
 
           {teachers.length === 0 ? (
-            <div className="text-center py-8 text-gray-500 font-bold">No teachers added yet</div>
+            <div className="text-center py-8 text-[var(--text-muted)] font-bold">No teachers added yet</div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {(Array.isArray(teachers) ? teachers : []).map(teacher => (
-                <div key={teacher._id} className="p-4 neo-border bg-white flex items-center justify-between">
+                <div key={teacher._id} className="p-4 neo-border bg-[var(--surface-card)] flex items-center justify-between">
                   <div>
                     <h3 className="font-black">{teacher.name}</h3>
-                    <p className="text-sm font-bold text-gray-500">{teacher.email}</p>
+                    <p className="text-sm font-bold text-[var(--text-muted)]">{teacher.email}</p>
                     {teacher.classId && <Tag color="#ede9fe">Class: {teacher.classId}</Tag>}
                   </div>
-                  <button onClick={() => handleDeleteTeacher(teacher._id)} className="text-red-500 hover:text-red-700">
+                  <button onClick={() => handleDeleteTeacher(teacher._id)} className="text-red-500 hover:text-[var(--text-danger)]">
                     <Trash2 size={18} />
                   </button>
                 </div>
@@ -284,12 +284,12 @@ export const AdminDashboard = () => {
         <Card className="p-6">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-green-100 rounded-full">
-                <GraduationCap className="text-green-600" size={24} />
+              <div className="p-3 bg-[var(--bg-success)] rounded-full">
+                <GraduationCap className="text-[var(--text-success)]" size={24} />
               </div>
               <div>
                 <h2 className="text-2xl font-black">Students</h2>
-                <p className="font-bold text-gray-500">{students.length} student(s) in your organisation</p>
+                <p className="font-bold text-[var(--text-muted)]">{students.length} student(s) in your organisation</p>
               </div>
             </div>
             <Button variant="primary" className="bg-green-600" onClick={() => setShowAddStudent(true)}>
@@ -298,17 +298,17 @@ export const AdminDashboard = () => {
           </div>
 
           {students.length === 0 ? (
-            <div className="text-center py-8 text-gray-500 font-bold">No students added yet</div>
+            <div className="text-center py-8 text-[var(--text-muted)] font-bold">No students added yet</div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {(Array.isArray(students) ? students : []).map(student => (
-                <div key={student._id} className="p-4 neo-border bg-white flex items-center justify-between">
+                <div key={student._id} className="p-4 neo-border bg-[var(--surface-card)] flex items-center justify-between">
                   <div>
                     <h3 className="font-black">{student.name}</h3>
-                    <p className="text-sm font-bold text-gray-500">{student.email}</p>
+                    <p className="text-sm font-bold text-[var(--text-muted)]">{student.email}</p>
                     {student.classId && <Tag color="#dcfce7">Class: {student.classId}</Tag>}
                   </div>
-                  <button onClick={() => handleDeleteStudent(student._id)} className="text-red-500 hover:text-red-700">
+                  <button onClick={() => handleDeleteStudent(student._id)} className="text-red-500 hover:text-[var(--text-danger)]">
                     <Trash2 size={18} />
                   </button>
                 </div>
@@ -326,7 +326,7 @@ export const AdminDashboard = () => {
               </div>
               <div>
                 <h2 className="text-2xl font-black">Parents</h2>
-                <p className="font-bold text-gray-500">{parents.length} parent(s) in your organisation</p>
+                <p className="font-bold text-[var(--text-muted)]">{parents.length} parent(s) in your organisation</p>
               </div>
             </div>
             <Button variant="primary" className="bg-orange-600" onClick={() => setShowAddParent(true)}>
@@ -335,16 +335,16 @@ export const AdminDashboard = () => {
           </div>
 
           {parents.length === 0 ? (
-            <div className="text-center py-8 text-gray-500 font-bold">No parents added yet</div>
+            <div className="text-center py-8 text-[var(--text-muted)] font-bold">No parents added yet</div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {(Array.isArray(parents) ? parents : []).map(parent => (
-                <div key={parent._id} className="p-4 neo-border bg-white flex items-center justify-between">
+                <div key={parent._id} className="p-4 neo-border bg-[var(--surface-card)] flex items-center justify-between">
                   <div>
                     <h3 className="font-black">{parent.name}</h3>
-                    <p className="text-sm font-bold text-gray-500">{parent.email}</p>
+                    <p className="text-sm font-bold text-[var(--text-muted)]">{parent.email}</p>
                   </div>
-                  <button onClick={() => handleDeleteParent(parent._id)} className="text-red-500 hover:text-red-700">
+                  <button onClick={() => handleDeleteParent(parent._id)} className="text-red-500 hover:text-[var(--text-danger)]">
                     <Trash2 size={18} />
                   </button>
                 </div>
@@ -359,7 +359,7 @@ export const AdminDashboard = () => {
             <Card className="w-full max-w-md p-6 space-y-4">
               <h2 className="text-2xl font-black">Add New Teacher</h2>
               <div>
-                <label className="text-xs font-black uppercase text-gray-500 block mb-1">Name</label>
+                <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Name</label>
                 <input
                   type="text"
                   className="w-full px-4 py-3 neo-border font-bold"
@@ -369,7 +369,7 @@ export const AdminDashboard = () => {
                 />
               </div>
               <div>
-                <label className="text-xs font-black uppercase text-gray-500 block mb-1">Email</label>
+                <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Email</label>
                 <input
                   type="email"
                   className="w-full px-4 py-3 neo-border font-bold"
@@ -379,7 +379,7 @@ export const AdminDashboard = () => {
                 />
               </div>
               <div>
-                <label className="text-xs font-black uppercase text-gray-500 block mb-1">Password</label>
+                <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Password</label>
                 <input
                   type="password"
                   className="w-full px-4 py-3 neo-border font-bold"
@@ -389,7 +389,7 @@ export const AdminDashboard = () => {
                 />
               </div>
               <div>
-                <label className="text-xs font-black uppercase text-gray-500 block mb-1">Class (Optional)</label>
+                <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Class (Optional)</label>
                 <input
                   type="text"
                   className="w-full px-4 py-3 neo-border font-bold"
@@ -419,7 +419,7 @@ export const AdminDashboard = () => {
             <Card className="w-full max-w-md p-6 space-y-4">
               <h2 className="text-2xl font-black">Add New Student</h2>
               <div>
-                <label className="text-xs font-black uppercase text-gray-500 block mb-1">Name</label>
+                <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Name</label>
                 <input
                   type="text"
                   className="w-full px-4 py-3 neo-border font-bold"
@@ -429,7 +429,7 @@ export const AdminDashboard = () => {
                 />
               </div>
               <div>
-                <label className="text-xs font-black uppercase text-gray-500 block mb-1">Email</label>
+                <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Email</label>
                 <input
                   type="email"
                   className="w-full px-4 py-3 neo-border font-bold"
@@ -439,7 +439,7 @@ export const AdminDashboard = () => {
                 />
               </div>
               <div>
-                <label className="text-xs font-black uppercase text-gray-500 block mb-1">Password</label>
+                <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Password</label>
                 <input
                   type="password"
                   className="w-full px-4 py-3 neo-border font-bold"
@@ -449,7 +449,7 @@ export const AdminDashboard = () => {
                 />
               </div>
               <div>
-                <label className="text-xs font-black uppercase text-gray-500 block mb-1">Class (Optional)</label>
+                <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Class (Optional)</label>
                 <input
                   type="text"
                   className="w-full px-4 py-3 neo-border font-bold"
@@ -479,7 +479,7 @@ export const AdminDashboard = () => {
             <Card className="w-full max-w-md p-6 space-y-4">
               <h2 className="text-2xl font-black">Add New Parent</h2>
               <div>
-                <label className="text-xs font-black uppercase text-gray-500 block mb-1">Name</label>
+                <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Name</label>
                 <input
                   type="text"
                   className="w-full px-4 py-3 neo-border font-bold"
@@ -489,7 +489,7 @@ export const AdminDashboard = () => {
                 />
               </div>
               <div>
-                <label className="text-xs font-black uppercase text-gray-500 block mb-1">Email</label>
+                <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Email</label>
                 <input
                   type="email"
                   className="w-full px-4 py-3 neo-border font-bold"
@@ -499,7 +499,7 @@ export const AdminDashboard = () => {
                 />
               </div>
               <div>
-                <label className="text-xs font-black uppercase text-gray-500 block mb-1">Password</label>
+                <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Password</label>
                 <input
                   type="password"
                   className="w-full px-4 py-3 neo-border font-bold"
@@ -509,7 +509,7 @@ export const AdminDashboard = () => {
                 />
               </div>
               <div>
-                <label className="text-xs font-black uppercase text-gray-500 block mb-1">Child Email (Optional)</label>
+                <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">Child Email (Optional)</label>
                 <input
                   type="email"
                   className="w-full px-4 py-3 neo-border font-bold"

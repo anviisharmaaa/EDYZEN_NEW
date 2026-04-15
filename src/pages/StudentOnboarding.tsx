@@ -10,21 +10,21 @@ const STEPS = [
     description: 'How fast do you usually like to go through new topics?',
     options: ['Slow & Steady', 'Moderate', 'Fast-Paced'],
     icon: Zap,
-    color: 'bg-blue-100 text-blue-600'
+    color: 'bg-[var(--bg-tertiary)] text-blue-600'
   },
   {
     title: 'Learning Preference',
     description: 'How do you understand new things best?',
     options: ['Visual (Videos/Images)', 'Reading (Text/Articles)', 'Interactive (Quizzes/Tasks)'],
     icon: Brain,
-    color: 'bg-purple-100 text-purple-600'
+    color: 'bg-[var(--bg-tertiary)] text-purple-600'
   },
   {
     title: 'Your Approach',
     description: 'What describes your study style best? (Select all that apply)',
     options: ['Detail-Oriented', 'Big-Picture', 'Hands-On', 'Theoretical'],
     icon: Target,
-    color: 'bg-green-100 text-green-600',
+    color: 'bg-[var(--bg-success)] text-[var(--text-success)]',
     multi: true
   }
 ];
@@ -95,11 +95,11 @@ export const StudentOnboarding = () => {
     <div className="max-w-2xl mx-auto py-12 space-y-8">
       <div className="text-center space-y-4">
         <h1 className="text-5xl font-black tracking-tighter">Welcome to EDYZEN</h1>
-        <p className="font-bold text-gray-600">Let's personalize your learning experience in just 3 steps.</p>
+        <p className="font-bold text-[var(--text-muted)]">Let's personalize your learning experience in just 3 steps.</p>
       </div>
 
       <div className="space-y-2">
-        <div className="flex justify-between font-black text-sm uppercase text-gray-500">
+        <div className="flex justify-between font-black text-sm uppercase text-[var(--text-muted)]">
           <span>Step {currentStep + 1} of {STEPS.length}</span>
           <span>{Math.round(((currentStep + 1) / STEPS.length) * 100)}%</span>
         </div>
@@ -113,7 +113,7 @@ export const StudentOnboarding = () => {
           </div>
           <div>
             <h2 className="text-3xl font-black">{step.title}</h2>
-            <p className="font-bold text-gray-600">{step.description}</p>
+            <p className="font-bold text-[var(--text-muted)]">{step.description}</p>
           </div>
         </div>
 
@@ -124,7 +124,7 @@ export const StudentOnboarding = () => {
               onClick={() => handleSelect(option)}
               className={cn(
                 "p-6 text-left font-black neo-border transition-all flex items-center justify-between",
-                isSelected(option) ? "bg-black text-white translate-x-2" : "bg-white hover:bg-gray-50"
+                isSelected(option) ? "bg-black text-white translate-x-2" : "bg-[var(--surface-card)] hover:bg-[var(--bg-secondary)]"
               )}
             >
               <span className="text-xl">{option}</span>

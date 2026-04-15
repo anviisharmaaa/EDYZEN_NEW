@@ -165,7 +165,7 @@ const statusMeta = {
 
 const diffColor: Record<string, string> = {
   Easy: 'bg-emerald-100 text-emerald-900 border-emerald-500',
-  Medium: 'bg-amber-100 text-amber-950 border-amber-500',
+  Medium: 'bg-[var(--bg-warning)] text-amber-950 border-amber-500',
   Hard: 'bg-rose-100 text-rose-900 border-rose-500',
 };
 
@@ -232,7 +232,7 @@ export const StudentRoadmap = () => {
           <BookOpen className="text-violet-600" />
           Your path
         </h1>
-        <p className="font-bold text-gray-600 max-w-md mx-auto text-sm">
+        <p className="font-bold text-[var(--text-muted)] max-w-md mx-auto text-sm">
           Complete each node to unlock the next — like a skill tree, but for
           class.
         </p>
@@ -265,7 +265,7 @@ export const StudentRoadmap = () => {
                       className={cn(
                         'w-full neo-card-interactive transition-all duration-200 cursor-pointer',
                         topic.status === 'current' &&
-                        'ring-2 ring-violet-500 ring-offset-2 bg-violet-50/80',
+                        'ring-2 ring-violet-500 ring-offset-2 bg-[var(--bg-tertiary)]/80',
                         topic.status === 'completed' && 'bg-emerald-50/70',
                         topic.status === 'locked' && 'opacity-75 grayscale-[0.3]'
                       )}
@@ -299,7 +299,7 @@ export const StudentRoadmap = () => {
                             className={cn(
                               'text-[10px] font-black uppercase px-2 py-0.5 border-2 border-black rounded',
                               diffColor[topic.difficulty] ||
-                              'bg-gray-100 text-gray-800'
+                              'bg-[var(--bg-tertiary)] text-[var(--text-primary)]'
                             )}
                           >
                             {topic.difficulty}
@@ -315,16 +315,16 @@ export const StudentRoadmap = () => {
                       <h3 className="text-xl font-black leading-tight">
                         {topic.title}
                       </h3>
-                      <p className="text-sm font-bold text-gray-600 mt-2 leading-snug">
+                      <p className="text-sm font-bold text-[var(--text-muted)] mt-2 leading-snug">
                         {topic.description}
                       </p>
-                      <div className="mt-4 flex items-center gap-3 text-xs font-black text-gray-500">
+                      <div className="mt-4 flex items-center gap-3 text-xs font-black text-[var(--text-muted)]">
                         <Clock size={14} />
                         ~{topic.estMinutes ?? 45} min
                         <span className="text-gray-300">|</span>
                         {topic.progress}% done
                       </div>
-                      <div className="mt-3 h-2 neo-border bg-white overflow-hidden rounded-sm">
+                      <div className="mt-3 h-2 neo-border bg-[var(--surface-card)] overflow-hidden rounded-sm">
                         <div
                           className={cn(
                             'h-full transition-all duration-500',
@@ -368,7 +368,7 @@ export const StudentRoadmap = () => {
                     </Card>
 
                     {expandedTopicId === topic.id && (
-                      <div className="mt-4 rounded-3xl border border-violet-200 bg-violet-50/80 p-4 shadow-sm">
+                      <div className="mt-4 rounded-3xl border border-violet-200 bg-[var(--bg-tertiary)]/80 p-4 shadow-sm">
                         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                           <div>
                             <p className="text-xs font-black uppercase tracking-[0.2em] text-violet-600">
@@ -380,16 +380,16 @@ export const StudentRoadmap = () => {
                             to={`/student/notes?query=${encodeURIComponent(topic.title)}&topic=${encodeURIComponent(topic.title)}`}
                             onClick={(e) => e.stopPropagation()}
                           >
-                            <Button variant="outline" className="text-xs py-2 px-3 text-violet-700 border-violet-700 hover:bg-violet-50">
+                            <Button variant="outline" className="text-xs py-2 px-3 text-violet-700 border-violet-700 hover:bg-[var(--bg-tertiary)]">
                               Notes for topic
                             </Button>
                           </Link>
                         </div>
                         <div className="space-y-4">
                           {(TOPIC_SUBTOPICS[topic.id] || []).map((section) => (
-                            <div key={section.title} className="space-y-2 rounded-2xl bg-white p-4 border border-violet-100">
+                            <div key={section.title} className="space-y-2 rounded-2xl bg-[var(--surface-card)] p-4 border border-violet-100">
                               <div className="flex items-center justify-between gap-3">
-                                <p className="font-bold text-sm uppercase tracking-[0.15em] text-gray-500">
+                                <p className="font-bold text-sm uppercase tracking-[0.15em] text-[var(--text-muted)]">
                                   {section.title}
                                 </p>
                                 <Link
@@ -400,7 +400,7 @@ export const StudentRoadmap = () => {
                                   Notes
                                 </Link>
                               </div>
-                              <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+                              <ul className="list-disc list-inside space-y-1 text-sm text-[var(--text-secondary)]">
                                 {section.items.map((item) => (
                                   <li key={item} className="flex items-center justify-between gap-3">
                                     <span>{item}</span>
@@ -456,12 +456,12 @@ export const StudentRoadmap = () => {
         </ul>
       </div>
 
-      <Card className="text-center bg-violet-50 border-violet-400 neo-card-interactive">
+      <Card className="text-center bg-[var(--bg-tertiary)] border-violet-400 neo-card-interactive">
         <p className="font-black text-lg">
           {roadmap.filter((t) => t.status === 'completed').length}/
           {roadmap.length} topics complete
         </p>
-        <p className="text-sm font-bold text-gray-600 mt-1">
+        <p className="text-sm font-bold text-[var(--text-muted)] mt-1">
           Steady progress beats perfect plans.
         </p>
       </Card>

@@ -99,7 +99,7 @@ export const DiaryPage = () => {
             <BookHeart className="text-violet-600" />
             My Diary
           </h1>
-          <p className="font-bold text-gray-600 mt-1">
+          <p className="font-bold text-[var(--text-muted)] mt-1">
             Reflect on your learning journey
           </p>
         </div>
@@ -114,9 +114,9 @@ export const DiaryPage = () => {
       </div>
 
       {showForm && (
-        <Card className="p-6 space-y-4 border-violet-400 bg-violet-50">
+        <Card className="p-6 space-y-4 border-violet-400 bg-[var(--bg-tertiary)]">
           <div>
-            <label className="text-xs font-black uppercase text-gray-500 block mb-1">
+            <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">
               Title
             </label>
             <input
@@ -129,7 +129,7 @@ export const DiaryPage = () => {
           </div>
 
           <div>
-            <label className="text-xs font-black uppercase text-gray-500 block mb-1">
+            <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">
               How are you feeling?
             </label>
             <div className="flex flex-wrap gap-2">
@@ -139,7 +139,7 @@ export const DiaryPage = () => {
                   type="button"
                   className={`px-3 py-2 neo-border font-bold text-sm transition-all ${newEntry.mood === mood.value
                       ? 'bg-violet-400 text-white border-violet-600'
-                      : 'bg-white hover:bg-violet-100'
+                      : 'bg-[var(--surface-card)] hover:bg-[var(--bg-tertiary)]'
                     }`}
                   onClick={() => setNewEntry({ ...newEntry, mood: mood.value })}
                 >
@@ -150,7 +150,7 @@ export const DiaryPage = () => {
           </div>
 
           <div>
-            <label className="text-xs font-black uppercase text-gray-500 block mb-1">
+            <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">
               Your thoughts
             </label>
             <textarea
@@ -177,8 +177,8 @@ export const DiaryPage = () => {
         {entries.length === 0 ? (
           <Card className="p-12 text-center space-y-4">
             <BookHeart size={48} className="mx-auto text-violet-300" />
-            <p className="text-lg font-black text-gray-600">No diary entries yet</p>
-            <p className="font-bold text-gray-500">
+            <p className="text-lg font-black text-[var(--text-muted)]">No diary entries yet</p>
+            <p className="font-bold text-[var(--text-muted)]">
               Start writing to track your thoughts and feelings
             </p>
             <Button
@@ -197,7 +197,7 @@ export const DiaryPage = () => {
                   <span className="text-3xl">{getMoodEmoji(entry.mood)}</span>
                   <div>
                     <h3 className="text-xl font-black">{entry.title}</h3>
-                    <div className="flex items-center gap-2 mt-1 text-xs font-bold text-gray-500">
+                    <div className="flex items-center gap-2 mt-1 text-xs font-bold text-[var(--text-muted)]">
                       <Clock size={12} />
                       {new Date(entry.timestamp).toLocaleDateString('en-US', {
                         weekday: 'short',
@@ -210,7 +210,7 @@ export const DiaryPage = () => {
                   </div>
                 </div>
               </div>
-              <p className="mt-4 text-gray-700 font-bold whitespace-pre-wrap">{entry.content}</p>
+              <p className="mt-4 text-[var(--text-secondary)] font-bold whitespace-pre-wrap">{entry.content}</p>
             </Card>
           ))
         )}

@@ -26,10 +26,10 @@ const fetchOpts: RequestInit = { credentials: 'include' };
 
 const EVENT_TYPES = {
 
-  study: { label: 'Study Session', color: 'bg-blue-100 border-blue-400 text-blue-700' },
-  assignment: { label: 'Assignment Due', color: 'bg-amber-100 border-amber-400 text-amber-700' },
-  quiz: { label: 'Quiz', color: 'bg-purple-100 border-purple-400 text-purple-700' },
-  general: { label: 'Event', color: 'bg-gray-100 border-gray-400 text-gray-700' },
+  study: { label: 'Study Session', color: 'bg-[var(--bg-tertiary)] border-blue-400 text-blue-700' },
+  assignment: { label: 'Assignment Due', color: 'bg-[var(--bg-warning)] border-[var(--border-warning)] text-[var(--text-warning)]' },
+  quiz: { label: 'Quiz', color: 'bg-[var(--bg-tertiary)] border-purple-400 text-purple-700' },
+  general: { label: 'Event', color: 'bg-[var(--bg-tertiary)] border-gray-400 text-[var(--text-secondary)]' },
 };
 
 const VISIBILITY_OPTIONS = [
@@ -165,7 +165,7 @@ export const CalendarPage = () => {
             <CalendarIcon className="text-sky-600" />
             Calendar & Diary
           </h1>
-          <p className="font-bold text-gray-600 mt-1">
+          <p className="font-bold text-[var(--text-muted)] mt-1">
             Your schedule, entries, and assignments
           </p>
         </div>
@@ -189,7 +189,7 @@ export const CalendarPage = () => {
 
             <div className="grid grid-cols-7 gap-1 mb-2">
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                <div key={day} className="text-center text-xs font-black text-gray-500 py-2">
+                <div key={day} className="text-center text-xs font-black text-[var(--text-muted)] py-2">
                   {day}
                 </div>
               ))}
@@ -210,9 +210,9 @@ export const CalendarPage = () => {
                     className={cn(
                       "aspect-square p-1 flex flex-col items-center justify-start text-xs font-bold transition-all relative",
                       !day && "invisible",
-                      day && isToday(day) && "bg-sky-100 ring-2 ring-sky-500",
+                      day && isToday(day) && "bg-[var(--bg-tertiary)] ring-2 ring-sky-500",
                       day && selectedDate?.toDateString() === day.toDateString() && "bg-sky-500 text-white",
-                      day && !isToday(day) && selectedDate?.toDateString() !== day.toDateString() && "hover:bg-gray-100"
+                      day && !isToday(day) && selectedDate?.toDateString() !== day.toDateString() && "hover:bg-[var(--bg-tertiary)]"
                     )}
                   >
                     <span>{day?.getDate()}</span>
@@ -264,7 +264,7 @@ export const CalendarPage = () => {
                 : 'Today'
               }
             </h3>
-            <p className="text-sm font-bold text-gray-500">
+            <p className="text-sm font-bold text-[var(--text-muted)]">
               {selectedDate ? 'Select a date from the calendar' : 'Viewing today\'s details'}
             </p>
           </Card>
@@ -297,7 +297,7 @@ export const CalendarPage = () => {
             {showDiaryForm ? (
               <div className="space-y-4">
                 <div>
-                  <label className="text-xs font-black uppercase text-gray-500 block mb-1">
+                  <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">
                     Title
                   </label>
                   <input
@@ -309,7 +309,7 @@ export const CalendarPage = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-black uppercase text-gray-500 block mb-1">
+                  <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">
                     Visibility
                   </label>
                   <div className="flex flex-wrap gap-2">
@@ -321,7 +321,7 @@ export const CalendarPage = () => {
                           "px-2 py-1 text-xs font-bold border-2 transition-all",
                           newDiaryEntry.visibility === opt.value
                             ? 'bg-violet-400 border-violet-600 text-white'
-                            : 'bg-white border-gray-300 hover:bg-violet-50'
+                            : 'bg-[var(--surface-card)] border-[var(--border-color)] hover:bg-[var(--bg-tertiary)]'
                         )}
                         onClick={() => setNewDiaryEntry({ ...newDiaryEntry, visibility: opt.value as any })}
                       >
@@ -331,7 +331,7 @@ export const CalendarPage = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs font-black uppercase text-gray-500 block mb-1">
+                  <label className="text-xs font-black uppercase text-[var(--text-muted)] block mb-1">
                     Your thoughts
                   </label>
                   <textarea
@@ -364,9 +364,9 @@ export const CalendarPage = () => {
               selectedDateDiary.length > 0 ? (
                 <div className="space-y-3">
                   {selectedDateDiary.map(entry => (
-                    <div key={entry.id} className="p-3 neo-border bg-violet-50 rounded-lg">
+                    <div key={entry.id} className="p-3 neo-border bg-[var(--bg-tertiary)] rounded-lg">
                       <p className="font-bold">{entry.title}</p>
-                      <p className="text-xs text-gray-600 mt-1">{entry.content}</p>
+                      <p className="text-xs text-[var(--text-muted)] mt-1">{entry.content}</p>
                       <div className="flex gap-2 mt-2">
                         <Tag color="#ede9fe">{entry.visibility}</Tag>
                       </div>
@@ -374,20 +374,20 @@ export const CalendarPage = () => {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm font-bold text-gray-500">No diary entries for this date</p>
+                <p className="text-sm font-bold text-[var(--text-muted)]">No diary entries for this date</p>
               )
             ) : (
               todayDiary.length > 0 ? (
                 <div className="space-y-3">
                   {todayDiary.map(entry => (
-                    <div key={entry.id} className="p-3 neo-border bg-violet-50 rounded-lg">
+                    <div key={entry.id} className="p-3 neo-border bg-[var(--bg-tertiary)] rounded-lg">
                       <p className="font-bold">{entry.title}</p>
-                      <p className="text-xs text-gray-600 mt-1">{entry.content}</p>
+                      <p className="text-xs text-[var(--text-muted)] mt-1">{entry.content}</p>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm font-bold text-gray-500">No diary entries today. Click + to add one.</p>
+                <p className="text-sm font-bold text-[var(--text-muted)]">No diary entries today. Click + to add one.</p>
               )
             )}
           </Card>
@@ -402,7 +402,7 @@ export const CalendarPage = () => {
               selectedDateEvents.length > 0 ? (
                 <div className="space-y-3">
                   {selectedDateEvents.filter(e => e.type !== 'assignment').map(event => (
-                    <div key={event.id} className={cn("p-3 neo-border", EVENT_TYPES[event.type]?.color || 'bg-gray-100')}>
+                    <div key={event.id} className={cn("p-3 neo-border", EVENT_TYPES[event.type]?.color || 'bg-[var(--bg-tertiary)]')}>
                       <p className="font-black text-sm">{event.title}</p>
                       <p className="text-xs font-bold mt-1">
                         {new Date(event.start).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
@@ -412,13 +412,13 @@ export const CalendarPage = () => {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm font-bold text-gray-500">No classes scheduled</p>
+                <p className="text-sm font-bold text-[var(--text-muted)]">No classes scheduled</p>
               )
             ) : (
               todayEvents.length > 0 ? (
                 <div className="space-y-3">
                   {todayEvents.filter(e => e.type !== 'assignment').map(event => (
-                    <div key={event.id} className={cn("p-3 neo-border", EVENT_TYPES[event.type]?.color || 'bg-gray-100')}>
+                    <div key={event.id} className={cn("p-3 neo-border", EVENT_TYPES[event.type]?.color || 'bg-[var(--bg-tertiary)]')}>
                       <p className="font-black text-sm">{event.title}</p>
                       <p className="text-xs font-bold mt-1">
                         {new Date(event.start).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
@@ -428,13 +428,13 @@ export const CalendarPage = () => {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm font-bold text-gray-500">No classes today</p>
+                <p className="text-sm font-bold text-[var(--text-muted)]">No classes today</p>
               )
             )}
           </Card>
 
           {/* Panel 4: Assignments Due */}
-          <Card className="p-6 border-amber-400">
+          <Card className="p-6 border-[var(--border-warning)]">
             <h3 className="text-lg font-black flex items-center gap-2 mb-4">
               <ClipboardList size={18} className="text-amber-600" />
               Assignments Due
@@ -443,31 +443,31 @@ export const CalendarPage = () => {
               selectedDateAssignments.length > 0 ? (
                 <div className="space-y-3">
                   {selectedDateAssignments.map(assignment => (
-                    <div key={assignment.id} className="p-3 neo-border bg-amber-50">
+                    <div key={assignment.id} className="p-3 neo-border bg-[var(--bg-warning)]">
                       <p className="font-black">{assignment.title}</p>
-                      <p className="text-xs font-bold text-amber-700 mt-1">
+                      <p className="text-xs font-bold text-[var(--text-warning)] mt-1">
                         Due: {new Date(assignment.start).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
                       </p>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm font-bold text-gray-500">No assignments due</p>
+                <p className="text-sm font-bold text-[var(--text-muted)]">No assignments due</p>
               )
             ) : (
               events.filter(e => e.type === 'assignment').length > 0 ? (
                 <div className="space-y-3">
                   {events.filter(e => e.type === 'assignment').slice(0, 5).map(assignment => (
-                    <div key={assignment.id} className="p-3 neo-border bg-amber-50">
+                    <div key={assignment.id} className="p-3 neo-border bg-[var(--bg-warning)]">
                       <p className="font-black">{assignment.title}</p>
-                      <p className="text-xs font-bold text-amber-700 mt-1">
+                      <p className="text-xs font-bold text-[var(--text-warning)] mt-1">
                         Due: {new Date(assignment.start).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                       </p>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm font-bold text-gray-500">No upcoming assignments</p>
+                <p className="text-sm font-bold text-[var(--text-muted)]">No upcoming assignments</p>
               )
             )}
           </Card>

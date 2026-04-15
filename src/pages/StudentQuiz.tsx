@@ -235,15 +235,15 @@ export const StudentQuiz = () => {
             Score: {result.score}/{result.total}
           </h1>
           {result.riskLevel && (
-            <p className="text-sm font-black uppercase text-gray-500">
+            <p className="text-sm font-black uppercase text-[var(--text-muted)]">
               Learning risk (rule engine):{' '}
               <span
                 className={
                   result.riskLevel === 'high'
-                    ? 'text-red-600'
+                    ? 'text-[var(--text-danger)]'
                     : result.riskLevel === 'low'
                       ? 'text-emerald-600'
-                      : 'text-amber-700'
+                      : 'text-[var(--text-warning)]'
                 }
               >
                 {result.riskLevel}
@@ -254,11 +254,11 @@ export const StudentQuiz = () => {
           <div className="space-y-2">
             <h3 className="font-black text-lg">Weak areas</h3>
             {result.weakAreas.length === 0 ? (
-              <p className="text-green-600 font-bold">No weak areas 🎉</p>
+              <p className="text-[var(--text-success)] font-bold">No weak areas 🎉</p>
             ) : (
               <ul className="space-y-1">
                 {result.weakAreas.map((w: string) => (
-                  <li key={w} className="font-bold text-gray-800 neo-border bg-white px-3 py-2">
+                  <li key={w} className="font-bold text-[var(--text-primary)] neo-border bg-[var(--surface-card)] px-3 py-2">
                     {w}
                   </li>
                 ))}
@@ -266,9 +266,9 @@ export const StudentQuiz = () => {
             )}
           </div>
 
-          <div className="p-4 bg-yellow-100 neo-border">
-            <p className="font-bold text-gray-900">{result.recommendation}</p>
-            <p className="text-xs font-bold text-gray-600 mt-2">
+          <div className="p-4 bg-[var(--bg-warning)] neo-border">
+            <p className="font-bold text-[var(--text-primary)]">{result.recommendation}</p>
+            <p className="text-xs font-bold text-[var(--text-muted)] mt-2">
               This result is stored for your profile and smart recommendations.
             </p>
           </div>
@@ -304,7 +304,7 @@ export const StudentQuiz = () => {
                   'p-4 neo-border transition-all rounded-lg',
                   postQuizMood === mood
                     ? 'bg-black text-white scale-105'
-                    : 'bg-white hover:bg-gray-100'
+                    : 'bg-[var(--surface-card)] hover:bg-[var(--bg-tertiary)]'
                 )}
               >
                 <MoodIcon mood={mood} size="md" />
@@ -333,43 +333,43 @@ export const StudentQuiz = () => {
       <div className="max-w-xl mx-auto py-12 px-4">
         <Card className="space-y-8 neo-card-interactive">
           <div className="flex justify-center">
-            <div className="p-6 bg-violet-100 neo-border rounded-full">
+            <div className="p-6 bg-[var(--bg-tertiary)] neo-border rounded-full">
               <ClipboardList size={56} className="text-violet-700" />
             </div>
           </div>
           <div className="text-center space-y-2">
-            <p className="text-xs font-black uppercase tracking-widest text-gray-500">
+            <p className="text-xs font-black uppercase tracking-widest text-[var(--text-muted)]">
               Topic
             </p>
             <h1 className="text-3xl font-black">
               {quiz.topicTitle || quiz.title}
             </h1>
-            <p className="font-bold text-gray-600 text-sm">
+            <p className="font-bold text-[var(--text-muted)] text-sm">
               {quiz.title}
             </p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-            <div className="neo-border bg-gray-50 p-4 rounded-lg">
-              <p className="text-[10px] font-black uppercase text-gray-500">
+            <div className="neo-border bg-[var(--bg-secondary)] p-4 rounded-lg">
+              <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">
                 Questions
               </p>
               <p className="text-2xl font-black">{quiz.questions.length}</p>
             </div>
-            <div className="neo-border bg-gray-50 p-4 rounded-lg">
-              <p className="text-[10px] font-black uppercase text-gray-500">
+            <div className="neo-border bg-[var(--bg-secondary)] p-4 rounded-lg">
+              <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">
                 Time
               </p>
               <p className="text-2xl font-black">~{est} min</p>
             </div>
-            <div className="neo-border bg-gray-50 p-4 rounded-lg col-span-2 sm:col-span-1">
-              <p className="text-[10px] font-black uppercase text-gray-500">
+            <div className="neo-border bg-[var(--bg-secondary)] p-4 rounded-lg col-span-2 sm:col-span-1">
+              <p className="text-[10px] font-black uppercase text-[var(--text-muted)]">
                 Difficulty
               </p>
               <p className="text-lg font-black">
                 {quiz.difficulty || 'Medium'}
               </p>
             </div>
-            <div className="neo-border bg-violet-50 p-4 rounded-lg col-span-2 sm:col-span-1">
+            <div className="neo-border bg-[var(--bg-tertiary)] p-4 rounded-lg col-span-2 sm:col-span-1">
               <p className="text-[10px] font-black uppercase text-violet-700">
                 Tip
               </p>
@@ -419,7 +419,7 @@ export const StudentQuiz = () => {
         </div>
       </div>
 
-      <div className="h-2.5 neo-border bg-gray-100 overflow-hidden rounded-sm">
+      <div className="h-2.5 neo-border bg-[var(--bg-tertiary)] overflow-hidden rounded-sm">
         <div
           className="h-full bg-violet-600 transition-all duration-500"
           style={{ width: `${progress}%` }}
@@ -442,7 +442,7 @@ export const StudentQuiz = () => {
                 {showHint ? 'Hide hint' : 'Need a hint?'}
               </button>
               {showHint && (
-                <div className="mt-2 p-3 bg-violet-50 neo-border border-violet-200 text-sm italic font-medium">
+                <div className="mt-2 p-3 bg-[var(--bg-tertiary)] neo-border border-violet-200 text-sm italic font-medium">
                   {currentQuestion.hint}
                 </div>
               )}
@@ -460,15 +460,15 @@ export const StudentQuiz = () => {
                 'p-4 text-left font-bold neo-border transition-all flex items-center gap-4 rounded-lg',
                 answers[currentQuestion.id] === option
                   ? 'bg-black text-white translate-x-1 shadow-[4px_4px_0_0_rgba(0,0,0,0.2)]'
-                  : 'bg-white hover:bg-gray-50 neo-card-interactive'
+                  : 'bg-[var(--surface-card)] hover:bg-[var(--bg-secondary)] neo-card-interactive'
               )}
             >
               <div
                 className={cn(
                   'w-9 h-9 neo-border flex items-center justify-center flex-shrink-0 font-black text-sm',
                   answers[currentQuestion.id] === option
-                    ? 'bg-white text-black'
-                    : 'bg-gray-100'
+                    ? 'bg-[var(--surface-card)] text-black'
+                    : 'bg-[var(--bg-tertiary)]'
                 )}
               >
                 {String.fromCharCode(65 + idx)}

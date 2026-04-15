@@ -13,10 +13,10 @@ interface TeacherEvent {
 }
 
 const EVENT_TYPES = {
-  lecture: { label: 'Lecture', color: 'bg-blue-100 border-blue-400' },
-  exam: { label: 'Exam/Quiz', color: 'bg-purple-100 border-purple-400' },
-  meeting: { label: 'Meeting', color: 'bg-green-100 border-green-400' },
-  assignment: { label: 'Assignment Due', color: 'bg-amber-100 border-amber-400' },
+  lecture: { label: 'Lecture', color: 'bg-[var(--bg-tertiary)] border-blue-400' },
+  exam: { label: 'Exam/Quiz', color: 'bg-[var(--bg-tertiary)] border-purple-400' },
+  meeting: { label: 'Meeting', color: 'bg-[var(--bg-success)] border-[var(--border-success)]' },
+  assignment: { label: 'Assignment Due', color: 'bg-[var(--bg-warning)] border-[var(--border-warning)]' },
 };
 
 export const TeacherCalendar = () => {
@@ -99,7 +99,7 @@ export const TeacherCalendar = () => {
             <CalendarIcon className="text-violet-600" />
             Calendar
           </h1>
-          <p className="font-bold text-gray-600 mt-1">
+          <p className="font-bold text-[var(--text-muted)] mt-1">
             Manage your classes, exams, and meetings
           </p>
         </div>
@@ -126,7 +126,7 @@ export const TeacherCalendar = () => {
 
             <div className="grid grid-cols-7 gap-1 mb-2">
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                <div key={day} className="text-center text-xs font-black text-gray-500 py-2">
+                <div key={day} className="text-center text-xs font-black text-[var(--text-muted)] py-2">
                   {day}
                 </div>
               ))}
@@ -144,9 +144,9 @@ export const TeacherCalendar = () => {
                     className={cn(
                       "aspect-square p-1 flex flex-col items-center justify-start text-xs font-bold transition-all",
                       !day && "invisible",
-                      day && isToday(day) && "bg-violet-100 ring-2 ring-violet-500",
+                      day && isToday(day) && "bg-[var(--bg-tertiary)] ring-2 ring-violet-500",
                       day && selectedDate?.toDateString() === day.toDateString() && "bg-violet-500 text-white",
-                      day && !isToday(day) && selectedDate?.toDateString() !== day.toDateString() && "hover:bg-gray-100"
+                      day && !isToday(day) && selectedDate?.toDateString() !== day.toDateString() && "hover:bg-[var(--bg-tertiary)]"
                     )}
                   >
                     <span>{day?.getDate()}</span>
@@ -190,14 +190,14 @@ export const TeacherCalendar = () => {
               Today's Schedule
             </h3>
             {todayEvents.length === 0 ? (
-              <p className="text-sm font-bold text-gray-500">No events today</p>
+              <p className="text-sm font-bold text-[var(--text-muted)]">No events today</p>
             ) : (
               <div className="space-y-3">
                 {todayEvents.map(event => (
-                  <div key={event.id} className={cn("p-3 neo-border", EVENT_TYPES[event.type]?.color || 'bg-gray-100')}>
+                  <div key={event.id} className={cn("p-3 neo-border", EVENT_TYPES[event.type]?.color || 'bg-[var(--bg-tertiary)]')}>
                     <p className="font-black text-sm">{event.title}</p>
                     {event.className && (
-                      <p className="text-xs font-bold text-gray-600 mt-1">{event.className}</p>
+                      <p className="text-xs font-bold text-[var(--text-muted)] mt-1">{event.className}</p>
                     )}
                   </div>
                 ))}
@@ -212,14 +212,14 @@ export const TeacherCalendar = () => {
                 {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
               </h3>
               {selectedDateEvents.length === 0 ? (
-                <p className="text-sm font-bold text-gray-500">No events on this day</p>
+                <p className="text-sm font-bold text-[var(--text-muted)]">No events on this day</p>
               ) : (
                 <div className="space-y-3">
                   {selectedDateEvents.map(event => (
-                    <div key={event.id} className={cn("p-3 neo-border", EVENT_TYPES[event.type]?.color || 'bg-gray-100')}>
+                    <div key={event.id} className={cn("p-3 neo-border", EVENT_TYPES[event.type]?.color || 'bg-[var(--bg-tertiary)]')}>
                       <p className="font-black">{event.title}</p>
                       {event.className && (
-                        <p className="text-xs font-bold text-gray-600 mt-1">
+                        <p className="text-xs font-bold text-[var(--text-muted)] mt-1">
                           <Users size={12} className="inline" /> {event.className}
                         </p>
                       )}
@@ -241,25 +241,25 @@ export const TeacherCalendar = () => {
                 <p className="text-2xl font-black text-violet-600">
                   {events.filter(e => e.type === 'lecture').length}
                 </p>
-                <p className="text-xs font-bold text-gray-500">Lectures</p>
+                <p className="text-xs font-bold text-[var(--text-muted)]">Lectures</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl font-black text-purple-600">
                   {events.filter(e => e.type === 'exam').length}
                 </p>
-                <p className="text-xs font-bold text-gray-500">Exams</p>
+                <p className="text-xs font-bold text-[var(--text-muted)]">Exams</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl font-black text-amber-600">
                   {events.filter(e => e.type === 'assignment').length}
                 </p>
-                <p className="text-xs font-bold text-gray-500">Due</p>
+                <p className="text-xs font-bold text-[var(--text-muted)]">Due</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-black text-green-600">
+                <p className="text-2xl font-black text-[var(--text-success)]">
                   {events.filter(e => e.type === 'meeting').length}
                 </p>
-                <p className="text-xs font-bold text-gray-500">Meetings</p>
+                <p className="text-xs font-bold text-[var(--text-muted)]">Meetings</p>
               </div>
             </div>
           </Card>

@@ -56,7 +56,7 @@ export const MoodGuard = ({ children }: { children: React.ReactNode }) => {
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
         <Card className="max-w-sm w-full text-center">
           <h2 className="text-2xl font-black mb-2">How are you feeling?</h2>
-          <p className="text-sm font-bold text-gray-600 mb-6">This helps your teacher understand how you're feeling.</p>
+          <p className="text-sm font-bold text-[var(--text-muted)] mb-6">This helps your teacher understand how you're feeling.</p>
           <div className="grid grid-cols-2 gap-4 mb-6">
             {['ok', 'tired', 'stressed', 'very stressed'].map(m => (
               <button

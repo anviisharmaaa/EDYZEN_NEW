@@ -1,13 +1,15 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, BookOpen, LogOut, Users, ClipboardList, BarChart2, Heart, Brain, Calendar, StickyNote, Menu, X } from 'lucide-react';
+import { LayoutDashboard, BookOpen, LogOut, Users, ClipboardList, BarChart2, Heart, Brain, Calendar, StickyNote, Menu, X, Sun, Moon } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useState } from 'react';
+import { useTheme } from '../contexts/ThemeContext';
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
 
   const { user, logout } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -46,27 +48,50 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-[var(--surface-card)]">
       {/* Top Bar */}
-      <header className="border-b border-gray-200 bg-white sticky top-0 z-40">
+      <header className="border-b border-[var(--border-color)] bg-[var(--surface-card)] sticky top-0 z-40">
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
             <span className="text-xl font-bold text-blue-600">EDYZEN</span>
-            <span className="text-sm font-medium text-gray-600">·</span>
-            <span className="text-xs font-medium text-gray-600 uppercase">{role}</span>
+            <span className="text-sm font-medium text-[var(--text-muted)]">·</span>
+            <span className="text-xs font-medium text-[var(--text-muted)] uppercase">{role}</span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-gray-700 hidden sm:block">{user?.name}</span>
+            <span className="text-sm font-medium text-[var(--text-secondary)] hidden sm:block">{user?.name}</span>
+            <button
+              onClick={toggleTheme}
+              className={cn(
+                "relative inline-flex h-7 w-14 items-center rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
+                isDark ? "bg-blue-600" : "bg-gray-300"
+              )}
+              title="Toggle Theme"
+              aria-label="Toggle Theme"
+            >
+              <span className="sr-only">Toggle Theme</span>
+              <span
+                className={cn(
+                  "inline-block h-5 w-5 transform rounded-full bg-white transition-transform duration-300 ease-in-out shadow-sm flex items-center justify-center",
+                  isDark ? "translate-x-8" : "translate-x-1"
+                )}
+              >
+                {isDark ? (
+                  <Moon size={12} className="text-blue-600" />
+                ) : (
+                  <Sun size={12} className="text-amber-500" />
+                )}
+              </span>
+            </button>
             <button
               onClick={handleLogout}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-[var(--bg-tertiary)] rounded-lg transition-colors"
               title="Logout"
             >
-              <LogOut size={18} className="text-gray-600" />
+              <LogOut size={18} className="text-[var(--text-muted)]" />
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="lg:hidden p-2 hover:bg-[var(--bg-tertiary)] rounded-lg transition-colors"
             >
               {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
@@ -77,7 +102,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <aside className={cn(
-          "w-64 border-r border-gray-200 bg-gray-50 transition-all duration-300",
+          "w-64 border-r border-[var(--border-color)] bg-[var(--bg-secondary)] transition-all duration-300",
           "hidden lg:block"
         )}>
           <nav className="p-4 space-y-1">
@@ -88,8 +113,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 className={({ isActive }) => cn(
                   "w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors",
                   isActive
-                    ? "bg-blue-100 text-blue-700"
-                    : "text-gray-700 hover:bg-gray-100"
+                    ? "bg-[var(--bg-tertiary)] text-blue-700"
+                    : "text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]"
                 )}
               >
                 <item.icon size={18} />
@@ -101,7 +126,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 
         {/* Mobile Sidebar */}
         {mobileMenuOpen && (
-          <aside className="lg:hidden absolute left-0 top-16 w-48 bg-white border-r border-gray-200 shadow-lg z-30">
+          <aside className="lg:hidden absolute left-0 top-16 w-48 bg-[var(--surface-card)] border-r border-[var(--border-color)] shadow-lg z-30">
             <nav className="p-4 space-y-1">
               {navItems[role].map(item => (
                 <NavLink
@@ -111,8 +136,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                   className={({ isActive }) => cn(
                     "w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors",
                     isActive
-                      ? "bg-blue-100 text-blue-700"
-                      : "text-gray-700 hover:bg-gray-100"
+                      ? "bg-[var(--bg-tertiary)] text-blue-700"
+                      : "text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]"
                   )}
                 >
                   <item.icon size={18} />
@@ -124,7 +149,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 p-6 lg:p-8 overflow-y-auto bg-white">
+        <main className="flex-1 p-6 lg:p-8 overflow-y-auto bg-[var(--surface-card)]">
           {children}
         </main>
       </div>
