@@ -8,6 +8,7 @@ import {
   Lock,
   Sparkles,
 } from 'lucide-react';
+
 import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils';
 
@@ -264,7 +265,7 @@ export const StudentRoadmap = () => {
                       className={cn(
                         'w-full neo-card-interactive transition-all duration-200 cursor-pointer',
                         topic.status === 'current' &&
-                          'ring-2 ring-violet-500 ring-offset-2 bg-violet-50/80',
+                        'ring-2 ring-violet-500 ring-offset-2 bg-violet-50/80',
                         topic.status === 'completed' && 'bg-emerald-50/70',
                         topic.status === 'locked' && 'opacity-75 grayscale-[0.3]'
                       )}
@@ -298,7 +299,7 @@ export const StudentRoadmap = () => {
                             className={cn(
                               'text-[10px] font-black uppercase px-2 py-0.5 border-2 border-black rounded',
                               diffColor[topic.difficulty] ||
-                                'bg-gray-100 text-gray-800'
+                              'bg-gray-100 text-gray-800'
                             )}
                           >
                             {topic.difficulty}
@@ -330,8 +331,8 @@ export const StudentRoadmap = () => {
                             topic.status === 'completed'
                               ? 'bg-emerald-500'
                               : topic.status === 'current'
-                              ? 'bg-violet-500'
-                              : 'bg-zinc-300'
+                                ? 'bg-violet-500'
+                                : 'bg-zinc-300'
                           )}
                           style={{ width: `${topic.progress}%` }}
                         />
@@ -349,7 +350,7 @@ export const StudentRoadmap = () => {
                               variant="primary"
                               className={cn(
                                 topic.status === 'completed' &&
-                                  'bg-emerald-600 hover:bg-emerald-700'
+                                'bg-emerald-600 hover:bg-emerald-700'
                               )}
                             >
                               {topic.status === 'completed'

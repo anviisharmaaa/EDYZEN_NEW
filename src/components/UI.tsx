@@ -8,6 +8,7 @@ interface CardProps {
 }
 
 export const Card = ({ children, className, ...props }: CardProps) => (
+
   <div className={cn("neo-card", className)} {...props}>
     {children}
   </div>
@@ -24,13 +25,13 @@ interface ButtonProps {
 }
 
 export const Button = ({ children, className, variant = 'default', ...props }: ButtonProps) => (
-  <button 
+  <button
     className={cn(
-      "neo-button", 
+      "neo-button",
       variant === 'primary' && "neo-button-primary",
       variant === 'outline' && "bg-gray-50 border border-gray-300 hover:bg-gray-100",
       className
-    )} 
+    )}
     {...props}
   >
     {children}
@@ -38,7 +39,7 @@ export const Button = ({ children, className, variant = 'default', ...props }: B
 );
 
 export const Tag = ({ children, className, color, ...props }: { children: React.ReactNode, className?: string, color?: string, [key: string]: any }) => (
-  <span 
+  <span
     className={cn(
       "border border-gray-300 px-2 py-0.5 text-xs font-medium uppercase rounded",
       className
@@ -52,8 +53,8 @@ export const Tag = ({ children, className, color, ...props }: { children: React.
 
 export const ProgressBar = ({ value, max = 100, className, ...props }: { value: number, max?: number, className?: string, [key: string]: any }) => (
   <div className={cn("w-full h-2 neo-border bg-gray-200 overflow-hidden rounded", className)} {...props}>
-    <div 
-      className="h-full bg-blue-600 transition-all duration-500" 
+    <div
+      className="h-full bg-blue-600 transition-all duration-500"
       style={{ width: `${(value / max) * 100}%` }}
     />
   </div>
@@ -115,14 +116,14 @@ export const MoodIcon = ({ mood, size = "md", ...props }: { mood: string | null,
     stressed: "#f87171",
     "very stressed": "#ef4444",
   };
-  
+
   const sizes = { xs: "text-xs", sm: "text-xl", md: "text-3xl", lg: "text-5xl" };
   const containerSizes = { xs: "w-6 h-6", sm: "w-8 h-8", md: "w-12 h-12", lg: "w-16 h-16" };
-  
+
   if (!mood) return <span className={cn("neo-border bg-gray-200 flex items-center justify-center rounded-full inline-flex", containerSizes[size])}>?</span>;
 
   return (
-    <span 
+    <span
       className={cn("neo-border flex items-center justify-center rounded-full inline-flex", containerSizes[size])}
       style={{ backgroundColor: colors[mood] || "#ddd" }}
     >

@@ -7,8 +7,7 @@ import { cn } from '../lib/utils';
 interface ChildEvent {
   id: string;
   title: string;
-  start: string;
-  end: string;
+  date: string;
   type: 'study' | 'assignment' | 'quiz' | 'general';
   subject?: string;
   childId?: string;
@@ -40,7 +39,7 @@ export const ParentCalendar = () => {
   ]);
 
   useEffect(() => {
-    // Simulate loading
+
     setTimeout(() => setLoading(false), 500);
   }, []);
 
@@ -50,15 +49,15 @@ export const ParentCalendar = () => {
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
     const days: (Date | null)[] = [];
-    
+
     for (let i = 0; i < firstDay.getDay(); i++) {
       days.push(null);
     }
-    
+
     for (let i = 1; i <= lastDay.getDate(); i++) {
       days.push(new Date(year, month, i));
     }
-    
+
     return days;
   };
 
@@ -146,7 +145,7 @@ export const ParentCalendar = () => {
             <div className="grid grid-cols-7 gap-1">
               {days.map((day, idx) => {
                 const dayEvents = day ? getEventsForDate(day) : [];
-                
+
                 return (
                   <button
                     key={idx}
@@ -169,8 +168,8 @@ export const ParentCalendar = () => {
                             className={cn(
                               "w-1.5 h-1.5 rounded-full",
                               e.type === 'assignment' ? 'bg-amber-500' :
-                              e.type === 'quiz' ? 'bg-purple-500' :
-                              e.type === 'study' ? 'bg-blue-500' : 'bg-gray-500'
+                                e.type === 'quiz' ? 'bg-purple-500' :
+                                  e.type === 'study' ? 'bg-blue-500' : 'bg-gray-500'
                             )}
                           />
                         ))}

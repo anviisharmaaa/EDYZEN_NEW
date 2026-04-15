@@ -2,28 +2,34 @@ import React, { useState, useEffect, Component, ReactNode } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 
-class ErrorBoundary extends Component<{children: ReactNode}, {hasError: boolean}> {
-  constructor(props: {children: ReactNode}) {
+class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+
+  constructor(props: { children: ReactNode }) {
     super(props);
     this.state = { hasError: false };
+
   }
-  
+
   static getDerivedStateFromError() {
     return { hasError: true };
   }
-  
+
   componentDidCatch(error: Error, errorInfo: any) {
+
     console.error('React Error Boundary caught:', error, errorInfo);
+
   }
-  
+
   render() {
+
     if (this.state.hasError) {
+
       return (
         <div className="min-h-screen flex items-center justify-center p-4 bg-white">
           <div className="neo-card max-w-md text-center border-red-200 bg-red-50">
             <h1 className="text-2xl font-bold text-red-900 mb-4">Something went wrong</h1>
             <p className="text-sm font-normal text-red-800 mb-6">Please refresh the page and try again.</p>
-            <button 
+            <button
               onClick={() => window.location.reload()}
               className="neo-button-primary px-6 py-2 rounded-lg w-full"
             >
@@ -31,6 +37,7 @@ class ErrorBoundary extends Component<{children: ReactNode}, {hasError: boolean}
             </button>
           </div>
         </div>
+
       );
     }
     return this.props.children;
@@ -91,14 +98,14 @@ const AppContent = () => {
             )
           }
         />
-        
+
         {/* Student Routes */}
         <Route path="/student/onboarding" element={
           <ProtectedRoute allowedRole="student">
             <StudentOnboarding />
           </ProtectedRoute>
         } />
-        
+
         <Route path="/student/*" element={
           <ProtectedRoute allowedRole="student">
             <MoodGuard>
@@ -112,17 +119,17 @@ const AppContent = () => {
                   <Route path="topic/:topicId" element={<StudentTopic />} />
                   <Route path="topic/:topicId/course-map" element={<CourseMapPage />} />
                   <Route path="assignment/:assignmentId" element={<AssignmentPage />} />
-                   <Route path="calendar" element={<CalendarPage />} />
-                   <Route path="notes" element={<StudentNotes />} />
-                   <Route path="ai/mental" element={<StudentAIMental />} />
-                   <Route path="ai/study" element={<StudentAIStudy />} />
-                   
+                  <Route path="calendar" element={<CalendarPage />} />
+                  <Route path="notes" element={<StudentNotes />} />
+                  <Route path="ai/mental" element={<StudentAIMental />} />
+                  <Route path="ai/study" element={<StudentAIStudy />} />
+
                 </Routes>
               </Layout>
             </MoodGuard>
           </ProtectedRoute>
         } />
-        
+
         <Route path="/student/quiz/:quizId" element={
           <ProtectedRoute allowedRole="student">
             <StudentQuiz />
@@ -141,7 +148,7 @@ const AppContent = () => {
                 <Route path="calendar" element={<TeacherCalendar />} />
                 <Route path="students" element={<TeacherStudents />} />
                 <Route path="student/:studentId" element={<TeacherStudentProfile />} />
-                
+
               </Routes>
             </Layout>
           </ProtectedRoute>
@@ -167,7 +174,7 @@ const AppContent = () => {
             <AdminDashboard />
           </ProtectedRoute>
         } />
-        
+
         <Route path="/admin/*" element={
           <ProtectedRoute allowedRole="admin">
             <AdminDashboard />

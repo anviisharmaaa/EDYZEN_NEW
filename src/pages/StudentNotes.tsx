@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Card, Button, PageSpinner } from '../components/UI';
 import { useSearchParams } from 'react-router-dom';
-import { 
-  Plus, Search, Folder, Tag, Pin, Lock, Trash2, Edit, 
+import {
+  Plus, Search, Folder, Tag, Pin, Lock, Trash2, Edit,
   Image, Mic, CheckSquare, Bold, Italic, List, Pencil,
   Save, X, ChevronDown, MoreVertical, Share2
 } from 'lucide-react';
@@ -48,11 +48,12 @@ export const StudentNotes = () => {
   const [showNewNote, setShowNewNote] = useState(false);
   const [showDrawing, setShowDrawing] = useState(false);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [drawingPoints, setDrawingPoints] = useState<{x: number, y: number}[]>([]);
+  const [drawingPoints, setDrawingPoints] = useState<{ x: number, y: number }[]>([]);
   const [searchParams] = useSearchParams();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const loadNotes = () => {
+
     setLoading(true);
     fetch('/api/students/me/notes', fetchOpts)
       .then(res => res.json())
@@ -82,7 +83,7 @@ export const StudentNotes = () => {
 
   const filteredNotes = notes.filter(note => {
     const matchesFolder = selectedFolder === 'all' || note.folder === selectedFolder;
-    const matchesSearch = !searchQuery || 
+    const matchesSearch = !searchQuery ||
       note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       note.content.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesFolder && matchesSearch;
@@ -111,7 +112,7 @@ export const StudentNotes = () => {
 
   const handleSave = async () => {
     if (!editTitle.trim()) return;
-    
+
     const noteData = {
       title: editTitle,
       content: editContent,
@@ -255,8 +256,8 @@ export const StudentNotes = () => {
                 key={folder.id}
                 className={cn(
                   "w-full text-left p-3 font-bold flex items-center gap-2 transition",
-                  selectedFolder === folder.id 
-                    ? "bg-black text-white" 
+                  selectedFolder === folder.id
+                    ? "bg-black text-white"
                     : "hover:bg-gray-100"
                 )}
                 onClick={() => setSelectedFolder(folder.id)}
@@ -275,8 +276,8 @@ export const StudentNotes = () => {
                 <Pin size={12} /> Pinned
               </p>
               {pinnedNotes.map(note => (
-                <Card 
-                  key={note.id} 
+                <Card
+                  key={note.id}
                   className={cn(
                     "p-4 cursor-pointer hover:bg-gray-50 transition",
                     selectedNote?.id === note.id && "ring-2 ring-violet-500"
@@ -288,7 +289,7 @@ export const StudentNotes = () => {
                       <h3 className="font-black">{note.title}</h3>
                       <p className="text-sm text-gray-500 line-clamp-2">{note.content}</p>
                     </div>
-                    <button 
+                    <button
                       onClick={e => { e.stopPropagation(); handleTogglePin(note); }}
                       className="text-amber-500"
                     >
@@ -301,8 +302,8 @@ export const StudentNotes = () => {
           )}
 
           {unpinnedNotes.map(note => (
-            <Card 
-              key={note.id} 
+            <Card
+              key={note.id}
               className={cn(
                 "p-4 cursor-pointer hover:bg-gray-50 transition",
                 selectedNote?.id === note.id && "ring-2 ring-violet-500"
@@ -315,13 +316,13 @@ export const StudentNotes = () => {
                   <p className="text-sm text-gray-500 line-clamp-2">{note.content}</p>
                 </div>
                 <div className="flex gap-2">
-                  <button 
+                  <button
                     onClick={e => { e.stopPropagation(); handleTogglePin(note); }}
                     className="text-gray-400 hover:text-amber-500"
                   >
                     <Pin size={16} />
                   </button>
-                  <button 
+                  <button
                     onClick={e => { e.stopPropagation(); handleDelete(note.id); }}
                     className="text-gray-400 hover:text-red-500"
                   >
@@ -374,9 +375,9 @@ export const StudentNotes = () => {
                     value={editTitle}
                     onChange={e => setEditTitle(e.target.value)}
                   />
-                  
+
                   <div className="flex gap-2 flex-wrap">
-                    <button 
+                    <button
                       className={cn("p-2 neo-border", showDrawing ? "bg-violet-100" : "bg-white")}
                       onClick={() => setShowDrawing(!showDrawing)}
                       title="Draw"
@@ -415,7 +416,7 @@ export const StudentNotes = () => {
                         onMouseUp={handleEndDraw}
                         onMouseLeave={handleEndDraw}
                       />
-                      <button 
+                      <button
                         className="text-xs font-bold text-gray-500"
                         onClick={clearCanvas}
                       >

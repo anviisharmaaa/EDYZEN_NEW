@@ -4,12 +4,14 @@ import { Bell, Calendar, Search, ChevronRight, User, Heart } from 'lucide-react'
 import { cn } from '../lib/utils';
 
 interface Announcement {
+
   id: string;
   title: string;
   content: string;
   date: string;
   type: 'general' | 'urgent' | 'event';
   author: string;
+
 }
 
 export const ParentAnnouncements = () => {
@@ -35,8 +37,8 @@ export const ParentAnnouncements = () => {
       });
   }, []);
 
-  const filteredAnnouncements = announcements.filter(a => 
-    a.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+  const filteredAnnouncements = announcements.filter(a =>
+    a.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     a.content.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -59,9 +61,9 @@ export const ParentAnnouncements = () => {
       <Card className="p-4">
         <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-          <input 
-            type="text" 
-            placeholder="Search announcements..." 
+          <input
+            type="text"
+            placeholder="Search announcements..."
             className="w-full pl-12 pr-4 py-3 neo-border font-bold focus:outline-none focus:ring-2 focus:ring-black"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -73,25 +75,25 @@ export const ParentAnnouncements = () => {
         {filteredAnnouncements.map(announcement => (
           <Card key={announcement.id} className={cn(
             "p-8 space-y-6 transition-all",
-            announcement.type === 'urgent' ? "bg-red-50 border-red-400" : 
-            announcement.type === 'event' ? "bg-blue-50 border-blue-400" : "bg-white"
+            announcement.type === 'urgent' ? "bg-red-50 border-red-400" :
+              announcement.type === 'event' ? "bg-blue-50 border-blue-400" : "bg-white"
           )}>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div className={cn(
                   "p-3 neo-border rounded-full",
-                  announcement.type === 'urgent' ? "bg-red-100" : 
-                  announcement.type === 'event' ? "bg-blue-100" : "bg-gray-100"
+                  announcement.type === 'urgent' ? "bg-red-100" :
+                    announcement.type === 'event' ? "bg-blue-100" : "bg-gray-100"
                 )}>
-                  {announcement.type === 'urgent' ? <Bell size={24} className="text-red-600" /> : 
-                   announcement.type === 'event' ? <Calendar size={24} className="text-blue-600" /> : <Bell size={24} />}
+                  {announcement.type === 'urgent' ? <Bell size={24} className="text-red-600" /> :
+                    announcement.type === 'event' ? <Calendar size={24} className="text-blue-600" /> : <Bell size={24} />}
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="text-2xl font-black">{announcement.title}</h3>
                     <Tag color={
-                      announcement.type === 'urgent' ? '#f87171' : 
-                      announcement.type === 'event' ? '#3b82f6' : '#ddd'
+                      announcement.type === 'urgent' ? '#f87171' :
+                        announcement.type === 'event' ? '#3b82f6' : '#ddd'
                     }>
                       {announcement.type}
                     </Tag>

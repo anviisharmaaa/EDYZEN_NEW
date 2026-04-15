@@ -1,31 +1,32 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EDYZEN</title>
-    <script>
-      const originalError = window.onerror;
-      window.onerror = function(msg, src, ln, col, err) {
-        if (msg && msg.includes && msg.includes('Cannot read image')) {
-          return true;
-        }
-        if (originalError) {
-          return originalError(msg, src, ln, col, err);
-        }
-        return false;
-      };
-      
-      window.onunhandledrejection = function(e) {
-        if (e.reason && typeof e.reason === 'string' && e.reason.includes('Cannot read image')) {
-          e.preventDefault();
-        }
-      };
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDYZEN</title>
+  <script>
+    const originalError = window.onerror;
+    window.onerror = function (msg, src, ln, col, err) {
+      if (msg && msg.includes && msg.includes('Cannot read image')) {
+        return true;
+      }
+      if (originalError) {
+        return originalError(msg, src, ln, col, err);
+      }
+      return false;
+    };
+    window.onunhandledrejection = function (e) {
+      if (e.reason && typeof e.reason === 'string' && e.reason.includes('Cannot read image')) {
+        e.preventDefault();
+      }
+    };
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>

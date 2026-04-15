@@ -43,6 +43,7 @@ const SUBJECT_PROGRESS = [
 ];
 
 export const ParentChildOverview = () => {
+
   const [searchParams] = useSearchParams();
   const childId = searchParams.get('childId');
   const navigate = useNavigate();
@@ -161,8 +162,8 @@ export const ParentChildOverview = () => {
                   <div className={cn(
                     "w-12 h-12 flex items-center justify-center rounded-full font-black",
                     grade.score >= 80 ? "bg-green-100 text-green-700" :
-                    grade.score >= 60 ? "bg-yellow-100 text-yellow-700" :
-                    "bg-red-100 text-red-700"
+                      grade.score >= 60 ? "bg-yellow-100 text-yellow-700" :
+                        "bg-red-100 text-red-700"
                   )}>
                     {grade.score}
                   </div>

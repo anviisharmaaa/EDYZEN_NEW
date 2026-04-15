@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import ReactMarkdown from 'react-markdown';
 import { Button } from '../components/UI';
+
 import {
   Brain,
   Sparkles,
@@ -50,17 +51,17 @@ export const PersonalityReportPage = () => {
     fetch('/api/students/me/behavior-summary', { credentials: 'include' })
       .then((res) => res.json())
       .then((data) => setBehaviorData(data))
-      .catch(() => {});
+      .catch(() => { });
     fetch('/api/students/me/profile', { credentials: 'include' })
       .then((res) => res.json())
       .then((data) => setProfileData(data))
-      .catch(() => {});
+      .catch(() => { });
     fetch('/api/students/me/personality', { credentials: 'include' })
       .then((res) => res.json())
       .then((data) => {
         if (data?.report) setReport(data.report);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const aiPersonalityPills = useMemo(() => {
@@ -77,7 +78,7 @@ export const PersonalityReportPage = () => {
     ];
   }, [behaviorData]);
 
-const generateReport = async () => {
+  const generateReport = async () => {
     if (!behaviorData) return;
     setLoading(true);
     try {
@@ -90,7 +91,7 @@ const generateReport = async () => {
           ? profileData.weakTopics
           : ['(not enough quiz data yet)']
       ).join(', ');
-      
+
       // Generate a simple mock report based on student data
       const report = `
 ## Personality Type
@@ -117,7 +118,6 @@ const generateReport = async () => {
 `;
 
       setReport(report);
-      setGenerated(true);
     } catch (err) {
       console.error('Error generating report:', err);
     } finally {

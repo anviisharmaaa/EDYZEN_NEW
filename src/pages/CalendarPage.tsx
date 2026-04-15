@@ -25,6 +25,7 @@ interface DiaryEntry {
 const fetchOpts: RequestInit = { credentials: 'include' };
 
 const EVENT_TYPES = {
+
   study: { label: 'Study Session', color: 'bg-blue-100 border-blue-400 text-blue-700' },
   assignment: { label: 'Assignment Due', color: 'bg-amber-100 border-amber-400 text-amber-700' },
   quiz: { label: 'Quiz', color: 'bg-purple-100 border-purple-400 text-purple-700' },
@@ -78,15 +79,15 @@ export const CalendarPage = () => {
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
     const days: (Date | null)[] = [];
-    
+
     for (let i = 0; i < firstDay.getDay(); i++) {
       days.push(null);
     }
-    
+
     for (let i = 1; i <= lastDay.getDate(); i++) {
       days.push(new Date(year, month, i));
     }
-    
+
     return days;
   };
 
@@ -200,7 +201,7 @@ export const CalendarPage = () => {
                 const dayDiary = day ? getDiaryEntriesForDate(day) : [];
                 const hasEvents = dayEvents.length > 0;
                 const hasDiary = dayDiary.length > 0;
-                
+
                 return (
                   <button
                     key={idx}
@@ -258,7 +259,7 @@ export const CalendarPage = () => {
           <Card className="p-6 border-2 border-black">
             <h3 className="text-xl font-black flex items-center gap-2 mb-4">
               <Clock size={18} className="text-sky-600" />
-              {selectedDate 
+              {selectedDate
                 ? selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })
                 : 'Today'
               }
@@ -282,8 +283,8 @@ export const CalendarPage = () => {
                   </Button>
                 </Link>
                 {!showDiaryForm && (
-                  <Button 
-                    variant="primary" 
+                  <Button
+                    variant="primary"
                     className="bg-violet-600 py-1 px-3 text-sm"
                     onClick={() => setShowDiaryForm(true)}
                   >

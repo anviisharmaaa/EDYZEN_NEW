@@ -4,8 +4,10 @@ import { useAuth } from '../contexts/AuthContext';
 import { Card, Button } from '../components/UI';
 
 interface Organization {
+
   id: number;
   name: string;
+
 }
 
 export const LoginPage = () => {
@@ -47,11 +49,11 @@ export const LoginPage = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ 
-          name: newOrgName, 
-          adminName, 
-          adminEmail, 
-          adminPassword 
+        body: JSON.stringify({
+          name: newOrgName,
+          adminName,
+          adminEmail,
+          adminPassword
         })
       });
       const data = await res.json();

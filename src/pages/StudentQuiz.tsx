@@ -41,9 +41,11 @@ interface QuizResult {
 const fetchOpts: RequestInit = { credentials: 'include' };
 
 function formatTime(totalSec: number) {
+
   const m = Math.floor(Math.max(0, totalSec) / 60);
   const s = Math.max(0, totalSec) % 60;
   return `${m}:${s.toString().padStart(2, '0')}`;
+
 }
 
 export const StudentQuiz = () => {

@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, {
+  createContext, useContext, useState, useEffect
+} from 'react';
 
 interface User {
   id: string;
@@ -57,39 +59,39 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     restoreSession();
   }, []);
 
-const login = async (email: string, password: string): Promise<User> => {
-  const res = await fetch("/api/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    credentials: "include",
-    body: JSON.stringify({
-      email,
-      password
-    })
-  });
+  const login = async (email: string, password: string): Promise<User> => {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        email,
+        password
+      })
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  if (!res.ok) {
-    throw new Error(data.error || "Login failed");
-  }
+    if (!res.ok) {
+      throw new Error(data.error || "Login failed");
+    }
 
-  const normalized: User = {
-    id: String(data.id),
-    role: data.role,
-    name: data.name,
-    email: data.email,
-    organizationId: data.organizationId
+    const normalized: User = {
+      id: String(data.id),
+      role: data.role,
+      name: data.name,
+      email: data.email,
+      organizationId: data.organizationId
+    };
+    localStorage.setItem("user", JSON.stringify(normalized));
+    if (data.organizationId) {
+      localStorage.setItem("orgId", String(data.organizationId));
+    }
+    setUser(normalized);
+    return normalized;
   };
-  localStorage.setItem("user", JSON.stringify(normalized));
-  if (data.organizationId) {
-    localStorage.setItem("orgId", String(data.organizationId));
-  }
-  setUser(normalized);
-  return normalized;
-};
 
   const logout = async () => {
     await fetch("/api/logout", { method: "POST", credentials: "include" });

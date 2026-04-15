@@ -60,10 +60,32 @@ let materials: any[] = [];
 let studentNotes: any[] = [];
 
 // SHARED STUDENT DATA
-const STUDENTS = {
+const STUDENTS: Record<string, any> = {
   "s1": { id: "s1", name: "Anvi Sharma", email: "anvi@edyzen.com", accuracy: 85, mood: "ok", progress: 75, timePerQuestion: 25, className: "Grade 7 - Mathematics" },
-  "s2": { id: "s2", name: "Jordan Smith", email: "jordan@edyzen.com", accuracy: 55, mood: "stressed", progress: 45, timePerQuestion: 45, className: "Grade 7 - Mathematics" },
-  "s3": { id: "s3", name: "Emma Wilson", email: "emma@edyzen.com", accuracy: 95, mood: "happy", progress: 90, timePerQuestion: 20, className: "Grade 7 - Mathematics" },
+  "s2": { id: "s2", name: "Aarav Patel", email: "aarav@edyzen.com", accuracy: 92, mood: "happy", progress: 88, timePerQuestion: 20, className: "Grade 7 - Mathematics" },
+  "s3": { id: "s3", name: "Diya Gupta", email: "diya@edyzen.com", accuracy: 78, mood: "tired", progress: 65, timePerQuestion: 30, className: "Grade 7 - Mathematics" },
+  "s4": { id: "s4", name: "Kabir Singh", email: "kabir@edyzen.com", accuracy: 88, mood: "ok", progress: 82, timePerQuestion: 22, className: "Grade 7 - Mathematics" },
+  "s5": { id: "s5", name: "Neha Desai", email: "neha@edyzen.com", accuracy: 65, mood: "stressed", progress: 50, timePerQuestion: 40, className: "Grade 7 - Mathematics" },
+  "s6": { id: "s6", name: "Rohan Kumar", email: "rohan@edyzen.com", accuracy: 95, mood: "happy", progress: 95, timePerQuestion: 18, className: "Grade 7 - Mathematics" },
+  "s7": { id: "s7", name: "Aanya Verma", email: "aanya@edyzen.com", accuracy: 82, mood: "ok", progress: 78, timePerQuestion: 24, className: "Grade 7 - Mathematics" },
+  "s8": { id: "s8", name: "Ishaan Joshi", email: "ishaan@edyzen.com", accuracy: 60, mood: "stressed", progress: 45, timePerQuestion: 45, className: "Grade 7 - Mathematics" },
+  "s9": { id: "s9", name: "Myra Reddy", email: "myra@edyzen.com", accuracy: 90, mood: "happy", progress: 85, timePerQuestion: 21, className: "Grade 7 - Mathematics" },
+  "s10": { id: "s10", name: "Vivaan Bhatia", email: "vivaan@edyzen.com", accuracy: 75, mood: "tired", progress: 70, timePerQuestion: 28, className: "Grade 7 - Mathematics" },
+  "s11": { id: "s11", name: "Zara Khan", email: "zara@edyzen.com", accuracy: 88, mood: "ok", progress: 80, timePerQuestion: 23, className: "Grade 7 - Mathematics" },
+  "s12": { id: "s12", name: "Reyansh Malik", email: "reyansh@edyzen.com", accuracy: 72, mood: "ok", progress: 68, timePerQuestion: 29, className: "Grade 7 - Mathematics" },
+  "s13": { id: "s13", name: "Priya Mehta", email: "priya.m@edyzen.com", accuracy: 91, mood: "happy", progress: 89, timePerQuestion: 19, className: "Grade 7 - Mathematics" },
+  "s14": { id: "s14", name: "Arjun Nair", email: "arjun@edyzen.com", accuracy: 68, mood: "tired", progress: 55, timePerQuestion: 35, className: "Grade 7 - Mathematics" },
+  "s15": { id: "s15", name: "Kiara Pillai", email: "kiara@edyzen.com", accuracy: 86, mood: "ok", progress: 81, timePerQuestion: 26, className: "Grade 7 - Mathematics" },
+  "s16": { id: "s16", name: "Kian Rao", email: "kian@edyzen.com", accuracy: 94, mood: "happy", progress: 92, timePerQuestion: 17, className: "Grade 7 - Mathematics" },
+  "s17": { id: "s17", name: "Riya Kapoor", email: "riya@edyzen.com", accuracy: 79, mood: "ok", progress: 74, timePerQuestion: 27, className: "Grade 7 - Mathematics" },
+  "s18": { id: "s18", name: "Sai Iyer", email: "sai@edyzen.com", accuracy: 84, mood: "ok", progress: 79, timePerQuestion: 25, className: "Grade 7 - Mathematics" },
+  "s19": { id: "s19", name: "Tara Bose", email: "tara@edyzen.com", accuracy: 55, mood: "stressed", progress: 42, timePerQuestion: 48, className: "Grade 7 - Mathematics" },
+  "s20": { id: "s20", name: "Vihaan Menon", email: "vihaan@edyzen.com", accuracy: 89, mood: "happy", progress: 86, timePerQuestion: 20, className: "Grade 7 - Mathematics" },
+  "s21": { id: "s21", name: "Ahana Soni", email: "ahana@edyzen.com", accuracy: 77, mood: "tired", progress: 72, timePerQuestion: 31, className: "Grade 7 - Mathematics" },
+  "s22": { id: "s22", name: "Advik Chawla", email: "advik@edyzen.com", accuracy: 96, mood: "happy", progress: 94, timePerQuestion: 16, className: "Grade 7 - Mathematics" },
+  "s23": { id: "s23", name: "Sana Mistry", email: "sana@edyzen.com", accuracy: 71, mood: "ok", progress: 66, timePerQuestion: 32, className: "Grade 7 - Mathematics" },
+  "s24": { id: "s24", name: "Krish Tandon", email: "krish@edyzen.com", accuracy: 83, mood: "ok", progress: 77, timePerQuestion: 24, className: "Grade 7 - Mathematics" },
+  "s25": { id: "s25", name: "Meher Dhawan", email: "meher@edyzen.com", accuracy: 64, mood: "stressed", progress: 50, timePerQuestion: 38, className: "Grade 7 - Mathematics" },
 };
 
 // --- Auth Middleware ---
@@ -167,7 +189,7 @@ app.post("/api/logout", authenticate, (req: any, res) => {
 // ======================
 
 // POST /api/admin/create-user - Only admin can create teacher or student
-app.post("/api/admin/create-user", authenticate, requireAdmin, async (req, res) => {
+app.post("/api/admin/create-user", authenticate, requireAdmin, async (req: any, res) => {
   try {
     const { name, email, password, role, organizationId } = req.body;
     
@@ -223,7 +245,7 @@ app.get("/api/admin/users", authenticate, requireAdmin, async (req, res) => {
 });
 
 // DELETE /api/admin/users/:id
-app.delete("/api/admin/users/:id", authenticate, requireAdmin, async (req, res) => {
+app.delete("/api/admin/users/:id", authenticate, requireAdmin, async (req: any, res) => {
   try {
     const userId = parseInt(req.params.id);
     

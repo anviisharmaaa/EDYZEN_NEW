@@ -30,6 +30,7 @@ const STEPS = [
 ];
 
 export const StudentOnboarding = () => {
+
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [selections, setSelections] = useState<Record<number, string | string[]>>({});
@@ -134,7 +135,7 @@ export const StudentOnboarding = () => {
       </Card>
 
       <div className="flex justify-between items-center">
-        <Button 
+        <Button
           onClick={() => setCurrentStep(prev => prev - 1)}
           disabled={currentStep === 0}
           className="flex items-center gap-2"
@@ -142,13 +143,13 @@ export const StudentOnboarding = () => {
           <ArrowLeft size={18} /> Previous
         </Button>
 
-        <Button 
-          variant="primary" 
+        <Button
+          variant="primary"
           className="flex items-center gap-2"
           disabled={!canContinue || submitting}
           onClick={handleNext}
         >
-          {currentStep === STEPS.length - 1 ? (submitting ? 'Finishing...' : 'Finish Onboarding') : 'Next Step'} 
+          {currentStep === STEPS.length - 1 ? (submitting ? 'Finishing...' : 'Finish Onboarding') : 'Next Step'}
           <ArrowRight size={18} />
         </Button>
       </div>

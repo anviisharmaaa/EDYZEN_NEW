@@ -20,6 +20,7 @@ export const ParentDashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
     fetch('/api/parents/me/children')
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch children');
@@ -47,8 +48,8 @@ export const ParentDashboard = () => {
           <p className="font-bold text-gray-600 uppercase tracking-widest">Parent Dashboard Overview</p>
         </div>
         <div className="flex gap-4">
-          <Button 
-            variant="primary" 
+          <Button
+            variant="primary"
             className="bg-purple-400 hover:bg-purple-500 flex items-center gap-2"
             onClick={() => navigate('/parent/announcements')}
           >
@@ -57,8 +58,8 @@ export const ParentDashboard = () => {
           <Button variant="primary" className="bg-green-400 hover:bg-green-500 flex items-center gap-2">
             <Heart size={18} /> Support Resources
           </Button>
-          <Button 
-            variant="primary" 
+          <Button
+            variant="primary"
             className="bg-blue-400 hover:bg-blue-500 flex items-center gap-2"
             onClick={() => navigate('/parent/calendar')}
           >
@@ -88,7 +89,7 @@ export const ParentDashboard = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="flex-1 max-w-xs w-full space-y-2">
                     <div className="flex justify-between font-black text-sm">
                       <span>Overall Progress</span>
@@ -139,7 +140,7 @@ export const ParentDashboard = () => {
             <Bell /> School Announcements
           </h2>
           <div className="space-y-4">
-            <Card 
+            <Card
               className="p-4 space-y-2 border-blue-400 bg-blue-50 cursor-pointer hover:bg-blue-100 transition-colors"
               onClick={() => navigate('/parent/announcements?id=1')}
             >
@@ -148,7 +149,7 @@ export const ParentDashboard = () => {
               <p className="text-sm font-bold text-gray-600">The next parent-teacher meeting is scheduled for April 5th. Please book your slot.</p>
               <Button className="text-xs py-1 w-full mt-2">Book Slot</Button>
             </Card>
-            <Card 
+            <Card
               className="p-4 space-y-2 border-green-400 bg-green-50 cursor-pointer hover:bg-green-100 transition-colors"
               onClick={() => navigate('/parent/announcements?id=2')}
             >
