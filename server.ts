@@ -35,7 +35,7 @@ app.use(cors({
 app.use("/api", chatRoute);
 
 // Database import
-import { initDatabase, query, logActivity, supabase } from "./db.js";
+import { initDatabase, query, logActivity } from "./db.js";
 
 let topics = [
   { id: "top1", classId: "c1", title: "Algebra Basics", description: "Learn the basics of algebra", orderIndex: 1, status: "completed", difficulty: "Easy", estMinutes: 45, materials: [] },
@@ -298,26 +298,6 @@ app.get("/api/organizations/:id/teachers", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch teachers" });
   }
 });
-
-// Supabase test endpoint
-app.get("/api/supabase-test", async (req, res) => {
-  try {
-    const { data, error } = await supabase
-      .from("students")
-      .select("*")
-
-    if (error) {
-      return res.status(500).json({ error })
-    }
-
-    res.json({
-      success: true,
-      data
-    })
-  } catch (err) {
-    res.status(500).json({ err })
-  }
-})
 
 // GET STUDENTS BY ORG
 app.get("/api/organizations/:id/students", async (req, res) => {
@@ -991,7 +971,8 @@ async function startServer() {
       console.log("Created default organization");
     }
   } catch (error) {
-    console.warn("MySQL not available, using fallback mode");
+    console.error("Database initialization failed:", error);
+    process.exit(1);
   }
 
   app.get("/test", async (req, res) => {
