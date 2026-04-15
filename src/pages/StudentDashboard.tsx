@@ -206,8 +206,8 @@ export const StudentDashboard = () => {
         </div>
 
         {weakTopics.length > 0 && (
-          <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-sm font-medium text-red-900">
+          <div className="p-4 rounded-lg" style={{ backgroundColor: 'rgba(239,68,68,0.10)', border: '1px solid rgba(239,68,68,0.25)' }}>
+            <p className="text-sm font-medium text-red-500">
               <span className="font-semibold">Focus areas:</span> {weakTopics.join(', ')}
             </p>
           </div>
@@ -231,14 +231,14 @@ export const StudentDashboard = () => {
           </div>
 
           <div className="space-y-3">
-            <div className="flex justify-between text-sm font-medium text-gray-700 mb-1">
+            <div className="flex justify-between text-sm font-medium mb-1" style={{ color: 'var(--text-secondary)' }}>
               <span>Progress</span>
               <span>{dailyGoal.progressPct}%</span>
             </div>
-            <div className="w-full h-2 bg-gray-200 rounded overflow-hidden">
+            <div className="w-full h-2 rounded overflow-hidden" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
               <div
-                className="h-full bg-blue-600 transition-all duration-700"
-                style={{ width: `${dailyGoal.progressPct}%` }}
+                className="h-full transition-all duration-700"
+                style={{ width: `${dailyGoal.progressPct}%`, backgroundColor: 'var(--accent-blue)' }}
               />
             </div>
           </div>
@@ -275,8 +275,8 @@ export const StudentDashboard = () => {
           </div>
 
           {adaptiveHint && (
-            <div className="pt-3 border-t border-gray-200">
-              <p className="text-xs font-medium text-gray-600">
+            <div className="pt-3" style={{ borderTop: '1px solid var(--border-color)' }}>
+              <p className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>
                 💡 {adaptiveHint === 'more_practice' ? 'Extra practice recommended based on your recent performance.' : adaptiveHint}
               </p>
             </div>
@@ -334,7 +334,8 @@ export const StudentDashboard = () => {
             {insights.length > 0 ? insights.map((ins, i) => (
               <div
                 key={i}
-                className="flex gap-3 text-sm p-3 bg-gray-50 rounded-lg"
+                className="flex gap-3 text-sm p-3 rounded-lg"
+                style={{ backgroundColor: 'var(--bg-secondary)' }}
               >
                 {ins.type === 'warning' ? (
                   <AlertTriangle className="text-amber-600 shrink-0" size={18} />
@@ -403,20 +404,20 @@ export const StudentDashboard = () => {
             Activity Summary
           </h3>
           <div className="grid grid-cols-3 gap-4">
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
-              <Clock size={20} className="mx-auto mb-2 text-gray-600" />
-              <p className="text-lg font-bold text-gray-900">{behaviorSnapshot.timeSpentMin}</p>
-              <p className="text-xs text-gray-600 font-medium">minutes</p>
+            <div className="text-center p-3 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+              <Clock size={20} className="mx-auto mb-2" style={{ color: 'var(--text-muted)' }} />
+              <p className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>{behaviorSnapshot.timeSpentMin}</p>
+              <p className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>minutes</p>
             </div>
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
-              <MousePointer2 size={20} className="mx-auto mb-2 text-gray-600" />
-              <p className="text-lg font-bold text-gray-900">{behaviorSnapshot.clicks}</p>
-              <p className="text-xs text-gray-600 font-medium">interactions</p>
+            <div className="text-center p-3 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+              <MousePointer2 size={20} className="mx-auto mb-2" style={{ color: 'var(--text-muted)' }} />
+              <p className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>{behaviorSnapshot.clicks}</p>
+              <p className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>interactions</p>
             </div>
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
-              <ClipboardList size={20} className="mx-auto mb-2 text-gray-600" />
-              <p className="text-lg font-bold text-gray-900">{behaviorSnapshot.quizAttempts}</p>
-              <p className="text-xs text-gray-600 font-medium">attempts</p>
+            <div className="text-center p-3 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+              <ClipboardList size={20} className="mx-auto mb-2" style={{ color: 'var(--text-muted)' }} />
+              <p className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>{behaviorSnapshot.quizAttempts}</p>
+              <p className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>attempts</p>
             </div>
           </div>
         </Card>

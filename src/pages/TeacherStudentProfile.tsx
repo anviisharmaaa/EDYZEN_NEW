@@ -159,11 +159,11 @@ export const TeacherStudentProfile = () => {
                 <MoodIcon mood={profile.mood} size="sm" />
               </div>
             {(profile.accuracy < 50 || profile.mood === "stressed") && (
-            <div className="p-4 bg-red-100 neo-border mt-4">
-              <p className="font-black text-red-700">
+            <div className="p-4 neo-border mt-4" style={{ backgroundColor: 'rgba(239,68,68,0.12)' }}>
+              <p className="font-black text-red-500">
                 ⚠️ High Risk Student
               </p>
-              <p className="text-xs font-bold">
+              <p className="text-xs font-bold" style={{ color: 'var(--text-muted)' }}>
                 Low performance or negative mood detected
               </p>
             </div>
@@ -284,20 +284,20 @@ export const TeacherStudentProfile = () => {
           </Card>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             
-            <Card className="bg-blue-50 border-blue-400 p-6 space-y-2">
+            <Card className="p-6 space-y-2" style={{ backgroundColor: 'rgba(37,99,235,0.12)', borderColor: 'rgba(37,99,235,0.4)' }}>
               <BarChart2 size={24} className="text-blue-600" />
               <p className="text-xs font-black uppercase text-gray-500">Accuracy</p>
-              <p className="text-3xl font-black">{profile.accuracy}%</p>
+              <p className="text-3xl font-black" style={{ color: 'var(--text-primary)' }}>{profile.accuracy}%</p>
             </Card>
-            <Card className="bg-green-50 border-green-400 p-6 space-y-2">
+            <Card className="p-6 space-y-2" style={{ backgroundColor: 'rgba(16,185,129,0.12)', borderColor: 'rgba(16,185,129,0.4)' }}>
               <TrendingUp size={24} className="text-green-600" />
               <p className="text-xs font-black uppercase text-gray-500">Progress</p>
-              <p className="text-3xl font-black">{profile.progress}%</p>
+              <p className="text-3xl font-black" style={{ color: 'var(--text-primary)' }}>{profile.progress}%</p>
             </Card>
-            <Card className="bg-purple-50 border-purple-400 p-6 space-y-2">
+            <Card className="p-6 space-y-2" style={{ backgroundColor: 'rgba(124,58,237,0.12)', borderColor: 'rgba(124,58,237,0.4)' }}>
               <Clock size={24} className="text-purple-600" />
               <p className="text-xs font-black uppercase text-gray-500">Time / Q</p>
-              <p className="text-3xl font-black">{profile.timePerQuestion}s</p>
+              <p className="text-3xl font-black" style={{ color: 'var(--text-primary)' }}>{profile.timePerQuestion}s</p>
             </Card>
           </div>
 
@@ -340,9 +340,9 @@ export const TeacherStudentProfile = () => {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {profile.weakTopics.map(topic => (
-                <div key={topic} className="p-4 neo-border bg-red-50 flex items-center justify-between">
-                  <span className="font-black">{topic}</span>
-                  <Tag color="#f87171">Weak</Tag>
+                <div key={topic} className="p-4 neo-border flex items-center justify-between" style={{ backgroundColor: 'rgba(239,68,68,0.12)' }}>
+                  <span className="font-black" style={{ color: 'var(--text-primary)' }}>{topic}</span>
+                  <Tag color="#ef4444">Weak</Tag>
                 </div>
               ))}
             </div>

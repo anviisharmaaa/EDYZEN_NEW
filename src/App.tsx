@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Component, ReactNode } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
 
@@ -25,10 +26,10 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
     if (this.state.hasError) {
 
       return (
-        <div className="min-h-screen flex items-center justify-center p-4 bg-white">
-          <div className="neo-card max-w-md text-center border-red-200 bg-red-50">
-            <h1 className="text-2xl font-bold text-red-900 mb-4">Something went wrong</h1>
-            <p className="text-sm font-normal text-red-800 mb-6">Please refresh the page and try again.</p>
+        <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: 'var(--bg-primary)' }}>
+          <div className="neo-card max-w-md text-center" style={{ borderColor: '#fca5a5', backgroundColor: 'rgba(239,68,68,0.08)' }}>
+            <h1 className="text-2xl font-bold mb-4 text-red-500">Something went wrong</h1>
+            <p className="text-sm font-normal mb-6" style={{ color: 'var(--text-muted)' }}>Please refresh the page and try again.</p>
             <button
               onClick={() => window.location.reload()}
               className="neo-button-primary px-6 py-2 rounded-lg w-full"
@@ -36,6 +37,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
               Refresh Page
             </button>
           </div>
+
         </div>
 
       );
@@ -78,10 +80,10 @@ import { AdminDashboard } from './pages/AdminDashboard';
 const AppContent = () => {
   const { user, loading } = useAuth();
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center bg-white">
+  if (loading) return <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--bg-primary)' }}>
     <div className="text-center">
-      <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-300 border-t-blue-600 mb-4"></div>
-      <p className="font-medium text-gray-600">Loading...</p>
+      <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-t-blue-600 mb-4" style={{ borderColor: 'var(--border-color)', borderTopColor: 'var(--accent-blue)' }}></div>
+      <p className="font-medium" style={{ color: 'var(--text-muted)' }}>Loading...</p>
     </div>
   </div>;
 
@@ -190,9 +192,11 @@ const AppContent = () => {
 export default function App() {
   return (
     <ErrorBoundary>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }

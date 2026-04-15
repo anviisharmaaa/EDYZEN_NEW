@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, Tag } from '../components/UI';
-import { Users, UserPlus, Trash2, Building2, LogOut, GraduationCap, UserCog } from 'lucide-react';
+import { Users, UserPlus, Trash2, Building2, LogOut, GraduationCap, UserCog, Sun, Moon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface Teacher {
 
@@ -35,6 +36,7 @@ interface Organization {
 export const AdminDashboard = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
 
   const handleLogout = async () => {
     await logout();
@@ -219,28 +221,34 @@ export const AdminDashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="font-black text-4xl">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--bg-primary)' }}>
+        <div className="font-black text-4xl" style={{ color: 'var(--text-primary)' }}>Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen p-8" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)' }}>
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs font-black uppercase tracking-widest text-blue-600">Admin Dashboard</p>
-            <h1 className="text-4xl font-black tracking-tight flex items-center gap-3">
-              <Building2 className="text-blue-600" />
+            <p className="text-xs font-black uppercase tracking-widest" style={{ color: 'var(--accent-blue)' }}>Admin Dashboard</p>
+            <h1 className="text-4xl font-black tracking-tight flex items-center gap-3" style={{ color: 'var(--text-primary)' }}>
+              <Building2 style={{ color: 'var(--accent-blue)' }} />
               {org?.name || 'Organisation'}
             </h1>
-            <p className="font-bold text-gray-600 mt-1">Manage your organisation members</p>
+            <p className="font-bold mt-1" style={{ color: 'var(--text-muted)' }}>Manage your organisation members</p>
           </div>
-          <Button onClick={handleLogout} className="flex items-center gap-2">
-            <LogOut size={18} /> Logout
-          </Button>
+          <div className="flex items-center gap-3">
+            <button className="theme-toggle" onClick={toggleTheme} title={isDark ? 'Light mode' : 'Dark mode'}>
+              <span className="theme-toggle-knob" />
+            </button>
+            {isDark ? <Moon size={14} style={{ color: 'var(--text-muted)' }} /> : <Sun size={14} style={{ color: 'var(--text-muted)' }} />}
+            <Button onClick={handleLogout} className="flex items-center gap-2">
+              <LogOut size={18} /> Logout
+            </Button>
+          </div>
         </div>
 
         {/* Teachers Section */}
@@ -265,7 +273,7 @@ export const AdminDashboard = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {(Array.isArray(teachers) ? teachers : []).map(teacher => (
-                <div key={teacher._id} className="p-4 neo-border bg-white flex items-center justify-between">
+            <div className="p-4 neo-border neo-card flex items-center justify-between">
                   <div>
                     <h3 className="font-black">{teacher.name}</h3>
                     <p className="text-sm font-bold text-gray-500">{teacher.email}</p>
@@ -302,7 +310,7 @@ export const AdminDashboard = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {(Array.isArray(students) ? students : []).map(student => (
-                <div key={student._id} className="p-4 neo-border bg-white flex items-center justify-between">
+            <div className="p-4 neo-border neo-card flex items-center justify-between">
                   <div>
                     <h3 className="font-black">{student.name}</h3>
                     <p className="text-sm font-bold text-gray-500">{student.email}</p>
@@ -339,7 +347,7 @@ export const AdminDashboard = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {(Array.isArray(parents) ? parents : []).map(parent => (
-                <div key={parent._id} className="p-4 neo-border bg-white flex items-center justify-between">
+            <div className="p-4 neo-border neo-card flex items-center justify-between">
                   <div>
                     <h3 className="font-black">{parent.name}</h3>
                     <p className="text-sm font-bold text-gray-500">{parent.email}</p>

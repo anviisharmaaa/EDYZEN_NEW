@@ -164,15 +164,13 @@ export const TeacherAttendance = () => {
             <Card
               key={student.id}
               onClick={() => window.location.href = `/teacher/student/${student.id}`}
-              className={cn(
-                "cursor-pointer",
-
-                student.alert === "high"
-                  ? "bg-red-200 border-red-500"
-                  : student.alert === "medium"
-                    ? "bg-yellow-200 border-yellow-500"
-                    : "bg-white"
-              )}
+              className="cursor-pointer"
+              style={student.alert === 'high'
+                ? { backgroundColor: 'rgba(239,68,68,0.12)', borderColor: 'rgba(239,68,68,0.5)' }
+                : student.alert === 'medium'
+                ? { backgroundColor: 'rgba(245,158,11,0.10)', borderColor: 'rgba(245,158,11,0.4)' }
+                : undefined
+              }
             >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 neo-border bg-blue-100 flex items-center justify-center rounded-full">
@@ -182,22 +180,22 @@ export const TeacherAttendance = () => {
                   <h3 className="font-black">{student.name}</h3>
 
                   {student.alert === "high" && (
-                    <p className="text-red-700 text-xs font-black">
+                    <p className="text-xs font-black" style={{ color: '#ef4444' }}>
                       ⚠️ High Risk Student
                     </p>
                   )}
 
                   {student.alert === "medium" && (
-                    <p className="text-yellow-700 text-xs font-black">
+                    <p className="text-xs font-black" style={{ color: '#f59e0b' }}>
                       ⚠️ Needs Attention
                     </p>
                   )}
 
-                  <p className="text-xs font-bold">
+                  <p className="text-xs font-bold" style={{ color: 'var(--text-secondary)' }}>
                     {student.percentage ? `${student.percentage}% - ${student.status}` : ""}
                   </p>
                   {student.alert === "high" && (
-                    <p className="text-[10px] font-bold text-gray-700">
+                    <p className="text-[10px] font-bold" style={{ color: 'var(--text-muted)' }}>
                       Low attendance or negative mood detected.
                     </p>
                   )}

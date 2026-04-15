@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Card, Button, PageSpinner } from '../components/UI';
-import { HeartHandshake, Send, Bot, User, Loader2 } from 'lucide-react';
+import { HeartHandshake, Send, Bot, User, Loader2, Sparkles } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { cn } from '../lib/utils';
 
 interface Message {
   id: string;
@@ -16,7 +17,7 @@ export const StudentAIMental = () => {
   const initialMessage: Message = {
     id: '1',
     role: 'assistant',
-    content: "Hello",
+    content: "Hi there. I'm your AI companion. I'm here to listen and help you process whatever is on your mind today in a safe, judgment-free space.",
     timestamp: new Date(),
   };
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
@@ -78,7 +79,7 @@ export const StudentAIMental = () => {
       setMessages(prev => [...prev, {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: "Please try again",
+        content: "Please try again.",
         timestamp: new Date(),
       }]);
     } finally {
@@ -94,83 +95,94 @@ export const StudentAIMental = () => {
   };
 
   return (
-    <div className="space-y-6 max-w-4xl mx-auto pb-12">
-      <div className="flex items-center gap-4">
-        <div className="p-3 bg-rose-400 neo-border rounded-full">
-          <HeartHandshake size={28} className="text-white" />
-        </div>
-        <div>
-          <h1 className="text-3xl font-black">Mental Evaluator</h1>
-          <p className="font-bold text-gray-600">
-            Your AI companion for emotional well-being
-          </p>
+    <div className="space-y-6 max-w-4xl mx-auto pb-12 px-4 sm:px-6 relative">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative z-10 pt-4">
+        <div className="flex items-center gap-5">
+          <div className="p-4 rounded-[1.5rem] border flex items-center justify-center shrink-0" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-strong)' }}>
+            <HeartHandshake size={32} style={{ color: 'var(--accent-blue)' }} />
+          </div>
+          <div>
+            <h1 className="text-4xl font-black tracking-tight" style={{ color: 'var(--text-primary)' }}>Mental Support</h1>
+            <p className="font-bold mt-1 flex items-center gap-2" style={{ color: 'var(--text-muted)' }}>
+              <Sparkles size={14} style={{ color: 'var(--accent-blue)' }} />
+              Your AI companion for emotional well-being
+            </p>
+          </div>
         </div>
       </div>
 
-      <Card className="p-0 overflow-hidden">
-        <div className="h-[500px] overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-rose-50 to-white">
+      <Card className="p-0 overflow-hidden shadow-xl shadow-black/5 relative z-10 rounded-[2rem] border-none" style={{ backgroundColor: 'var(--surface-card)' }}>
+        <div className="h-[600px] overflow-y-auto p-6 md:p-8 space-y-6 custom-scrollbar" style={{ backgroundColor: 'var(--bg-secondary)' }}>
           {messages.map(message => (
             <div
               key={message.id}
-              className={`flex gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              className={`flex gap-4 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {message.role === 'assistant' && (
-                <div className="w-8 h-8 bg-rose-400 rounded-full flex items-center justify-center shrink-0">
-                  <Bot size={16} className="text-white" />
+                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm border" style={{ backgroundColor: 'var(--surface-card)', borderColor: 'var(--border-strong)' }}>
+                  <Bot size={20} style={{ color: 'var(--text-primary)' }} />
                 </div>
               )}
               <div
-                className={`max-w-[80%] p-4 neo-border ${message.role === 'user'
-                    ? 'bg-black text-white'
-                    : 'bg-white'
-                  }`}
+                className={`max-w-[75%] p-5 rounded-2xl shadow-sm border`}
+                style={{
+                  backgroundColor: message.role === 'user' ? 'var(--text-primary)' : 'var(--surface-card)',
+                  borderColor: message.role === 'user' ? 'transparent' : 'var(--border-color)',
+                  color: message.role === 'user' ? 'var(--bg-primary)' : 'var(--text-primary)',
+                  borderBottomRightRadius: message.role === 'user' ? '2px' : undefined,
+                  borderBottomLeftRadius: message.role === 'user' ? undefined : '2px',
+                }}
               >
-                <p className="text-sm font-bold whitespace-pre-wrap">{message.content}</p>
-                <p className={`text-[10px] mt-2 ${message.role === 'user' ? 'text-gray-400' : 'text-gray-500'
-                  }`}>
+                <p className="text-[15px] font-semibold whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                <p className="text-[10px] mt-2 font-bold" style={{ color: message.role === 'user' ? 'var(--bg-tertiary)' : 'var(--text-muted)' }}>
                   {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>
               {message.role === 'user' && (
-                <div className="w-8 h-8 bg-violet-400 rounded-full flex items-center justify-center shrink-0">
-                  <User size={16} className="text-white" />
+                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm border" style={{ backgroundColor: 'var(--surface-card)', borderColor: 'var(--border-strong)' }}>
+                  <User size={20} style={{ color: 'var(--text-primary)' }} />
                 </div>
               )}
             </div>
           ))}
           {loading && (
-            <div className="flex gap-3 justify-start">
-              <div className="w-8 h-8 bg-rose-400 rounded-full flex items-center justify-center shrink-0">
-                <Bot size={16} className="text-white" />
+            <div className="flex gap-4 justify-start animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm border" style={{ backgroundColor: 'var(--surface-card)', borderColor: 'var(--border-strong)' }}>
+                <Bot size={20} style={{ color: 'var(--text-primary)' }} />
               </div>
-              <div className="p-4 neo-border bg-white">
-                <Loader2 className="animate-spin text-rose-500" size={20} />
+              <div className="p-5 rounded-2xl rounded-bl-sm border flex items-center gap-2 shadow-sm" style={{ backgroundColor: 'var(--surface-card)', borderColor: 'var(--border-color)' }}>
+                <Loader2 className="animate-spin" size={18} style={{ color: 'var(--accent-blue)' }} />
+                <span className="text-sm font-bold" style={{ color: 'var(--text-muted)' }}>Listening...</span>
               </div>
             </div>
           )}
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="p-4 border-t bg-white">
-          <div className="flex gap-2">
-            <input
-              type="text"
-              className="flex-1 px-4 py-3 neo-border font-bold focus:outline-none focus:ring-2 focus:ring-rose-500"
-              placeholder="Share your thoughts..."
+        <div className="p-5 md:p-6 border-t" style={{ backgroundColor: 'var(--surface-card)', borderColor: 'var(--border-color)' }}>
+          <div className="flex gap-3 max-w-4xl mx-auto items-end">
+            <textarea
+              className="flex-1 px-5 py-4 border-2 rounded-[1.5rem] font-medium focus:outline-none transition-all resize-none min-h-[60px] max-h-[160px] shadow-sm"
+              style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-strong)', color: 'var(--text-primary)' }}
+              placeholder="Share what's on your mind..."
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyPress={handleKeyPress}
               disabled={loading}
+              rows={1}
             />
             <Button
-              variant="primary"
-              className="bg-rose-500 hover:bg-rose-600 px-4"
+              className="h-[60px] w-[60px] rounded-[1.5rem] shadow-sm flex items-center justify-center shrink-0 border border-transparent transition-all hover:opacity-90"
+              style={{ backgroundColor: 'var(--text-primary)', color: 'var(--bg-primary)' }}
               onClick={handleSend}
               disabled={loading || !input.trim()}
             >
-              <Send size={20} />
+              <Send size={22} className={cn(input.trim() && "translate-x-0.5 -translate-y-0.5 transition-transform")} />
             </Button>
           </div>
+          <p className="text-center text-[11px] font-bold mt-3 hidden sm:block" style={{ color: 'var(--text-muted)' }}>
+            Press Enter to deeply reflect and send, Shift + Enter for a new line.
+          </p>
         </div>
       </Card>
     </div>

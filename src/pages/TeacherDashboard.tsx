@@ -213,9 +213,9 @@ export const TeacherDashboard = () => {
         {alerts.length > 0 ? (
           <div className="grid gap-3">
             {alerts.slice(0, 5).map((alert, idx) => (
-              <Card key={idx} className="p-4 border-l-4 border-l-red-600 bg-red-50">
-                <p className="font-medium text-red-900 mb-1">{alert.name}</p>
-                <p className="text-sm text-red-800">{alert.reason}</p>
+              <Card key={idx} className="p-4 border-l-4 border-l-red-600" style={{ backgroundColor: 'rgba(239,68,68,0.12)' }}>
+                <p className="font-medium text-red-500 mb-1">{alert.name}</p>
+                <p className="text-sm text-red-400">{alert.reason}</p>
               </Card>
             ))}
           </div>

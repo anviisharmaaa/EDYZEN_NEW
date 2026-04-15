@@ -219,21 +219,21 @@ export const TeacherStudents = () => {
       {(highRiskStudents.length > 0 || mediumRiskStudents.length > 0) && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {highRiskStudents.length > 0 && (
-            <Card className="p-4 bg-red-50 border-red-400">
-              <div className="flex items-center gap-2 font-black text-red-700">
+            <Card className="p-4" style={{ backgroundColor: 'rgba(239,68,68,0.12)', borderColor: 'rgba(239,68,68,0.5)' }}>
+              <div className="flex items-center gap-2 font-black text-red-500">
                 <AlertCircle size={18} /> High Risk Students
               </div>
-              <p className="text-sm font-bold text-red-600 mt-1">
+              <p className="text-sm font-bold text-red-400 mt-1">
                 {highRiskStudents.length} student(s) need immediate attention
               </p>
             </Card>
           )}
           {mediumRiskStudents.length > 0 && (
-            <Card className="p-4 bg-yellow-50 border-yellow-400">
-              <div className="flex items-center gap-2 font-black text-yellow-700">
+            <Card className="p-4" style={{ backgroundColor: 'rgba(245,158,11,0.10)', borderColor: 'rgba(245,158,11,0.4)' }}>
+              <div className="flex items-center gap-2 font-black text-yellow-600">
                 <AlertCircle size={18} /> At Risk Students
               </div>
-              <p className="text-sm font-bold text-yellow-600 mt-1">
+              <p className="text-sm font-bold text-yellow-500 mt-1">
                 {mediumRiskStudents.length} student(s) may need support
               </p>
             </Card>
@@ -285,11 +285,13 @@ export const TeacherStudents = () => {
           return (
             <Card
               key={student.id}
-              className={cn(
-                "p-6 cursor-pointer hover:translate-x-1 transition-all",
-                alert === 'high' && 'border-red-400 bg-red-50',
-                alert === 'medium' && 'border-yellow-400 bg-yellow-50'
-              )}
+              className="p-6 cursor-pointer hover:translate-x-1 transition-all"
+              style={alert === 'high'
+                ? { backgroundColor: 'rgba(239,68,68,0.12)', borderColor: 'rgba(239,68,68,0.5)' }
+                : alert === 'medium'
+                ? { backgroundColor: 'rgba(245,158,11,0.10)', borderColor: 'rgba(245,158,11,0.4)' }
+                : undefined
+              }
               onClick={() => navigate(`/teacher/student/${student.id}`)}
             >
               {/* Student Header */}

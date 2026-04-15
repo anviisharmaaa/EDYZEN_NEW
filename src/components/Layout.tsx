@@ -1,13 +1,15 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, BookOpen, LogOut, Users, ClipboardList, BarChart2, Heart, Brain, Calendar, StickyNote, Menu, X } from 'lucide-react';
+import { LayoutDashboard, BookOpen, LogOut, Users, ClipboardList, BarChart2, Heart, Brain, Calendar, StickyNote, Menu, X, Sun, Moon } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useState } from 'react';
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
 
   const { user, logout } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -46,27 +48,53 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
       {/* Top Bar */}
-      <header className="border-b border-gray-200 bg-white sticky top-0 z-40">
+      <header
+        className="sticky top-0 z-40"
+        style={{
+          backgroundColor: 'var(--header-bg)',
+          borderBottom: '1px solid var(--border-color)',
+        }}
+      >
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <span className="text-xl font-bold text-blue-600">EDYZEN</span>
-            <span className="text-sm font-medium text-gray-600">·</span>
-            <span className="text-xs font-medium text-gray-600 uppercase">{role}</span>
+            <span className="text-xl font-bold" style={{ color: 'var(--accent-blue)' }}>EDYZEN</span>
+            <span className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>·</span>
+            <span className="text-xs font-medium uppercase" style={{ color: 'var(--text-muted)' }}>{role}</span>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-gray-700 hidden sm:block">{user?.name}</span>
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-medium hidden sm:block" style={{ color: 'var(--text-secondary)' }}>{user?.name}</span>
+
+            {/* Dark Mode Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="theme-toggle"
+              title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              aria-label="Toggle dark mode"
+            >
+              <span className="theme-toggle-knob" />
+            </button>
+            <span style={{ color: 'var(--text-muted)' }}>
+              {isDark ? <Moon size={14} /> : <Sun size={14} />}
+            </span>
+
             <button
               onClick={handleLogout}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 rounded-lg transition-colors"
+              style={{ color: 'var(--text-muted)' }}
+              onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)')}
+              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
               title="Logout"
             >
-              <LogOut size={18} className="text-gray-600" />
+              <LogOut size={18} />
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="lg:hidden p-2 rounded-lg transition-colors"
+              style={{ color: 'var(--text-muted)' }}
+              onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)')}
+              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
             >
               {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
@@ -76,10 +104,13 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 
       <div className="flex flex-1">
         {/* Sidebar */}
-        <aside className={cn(
-          "w-64 border-r border-gray-200 bg-gray-50 transition-all duration-300",
-          "hidden lg:block"
-        )}>
+        <aside
+          className="w-64 transition-all duration-300 hidden lg:block"
+          style={{
+            backgroundColor: 'var(--sidebar-bg)',
+            borderRight: '1px solid var(--border-color)',
+          }}
+        >
           <nav className="p-4 space-y-1">
             {navItems[role].map(item => (
               <NavLink
@@ -87,10 +118,24 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 to={item.path}
                 className={({ isActive }) => cn(
                   "w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors",
-                  isActive
-                    ? "bg-blue-100 text-blue-700"
-                    : "text-gray-700 hover:bg-gray-100"
+                  isActive ? "nav-active" : "nav-inactive"
                 )}
+                style={({ isActive }) => isActive
+                  ? { backgroundColor: 'var(--accent-blue-bg)', color: 'var(--accent-blue)' }
+                  : { color: 'var(--text-secondary)' }
+                }
+                onMouseEnter={e => {
+                  const el = e.currentTarget;
+                  if (!el.classList.contains('nav-active')) {
+                    el.style.backgroundColor = 'var(--surface-hover)';
+                  }
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget;
+                  if (!el.classList.contains('nav-active')) {
+                    el.style.backgroundColor = 'transparent';
+                  }
+                }}
               >
                 <item.icon size={18} />
                 {item.name}
@@ -101,7 +146,13 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 
         {/* Mobile Sidebar */}
         {mobileMenuOpen && (
-          <aside className="lg:hidden absolute left-0 top-16 w-48 bg-white border-r border-gray-200 shadow-lg z-30">
+          <aside
+            className="lg:hidden absolute left-0 top-16 w-48 shadow-lg z-30"
+            style={{
+              backgroundColor: 'var(--header-bg)',
+              border: '1px solid var(--border-color)',
+            }}
+          >
             <nav className="p-4 space-y-1">
               {navItems[role].map(item => (
                 <NavLink
@@ -109,11 +160,12 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                   to={item.path}
                   onClick={() => setMobileMenuOpen(false)}
                   className={({ isActive }) => cn(
-                    "w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors",
-                    isActive
-                      ? "bg-blue-100 text-blue-700"
-                      : "text-gray-700 hover:bg-gray-100"
+                    "w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors"
                   )}
+                  style={({ isActive }) => isActive
+                    ? { backgroundColor: 'var(--accent-blue-bg)', color: 'var(--accent-blue)' }
+                    : { color: 'var(--text-secondary)' }
+                  }
                 >
                   <item.icon size={18} />
                   {item.name}
@@ -124,7 +176,10 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 p-6 lg:p-8 overflow-y-auto bg-white">
+        <main
+          className="flex-1 p-6 lg:p-8 overflow-y-auto"
+          style={{ backgroundColor: 'var(--bg-primary)' }}
+        >
           {children}
         </main>
       </div>

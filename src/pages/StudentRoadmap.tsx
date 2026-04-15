@@ -93,21 +93,6 @@ const TOPIC_SUBTOPICS: Record<string, RoadmapSubtopicSection[]> = {
         'Graph of a linear equation',
       ],
     },
-    {
-      title: 'Forms of Linear Equations',
-      items: [
-        'Slope-intercept form (y = mx + b)',
-        'Point-slope form',
-        'Standard form',
-      ],
-    },
-    {
-      title: 'Concepts',
-      items: [
-        'Slope (gradient)',
-        'Parallel and perpendicular lines',
-      ],
-    },
   ],
   top3: [
     {
@@ -132,41 +117,27 @@ const TOPIC_SUBTOPICS: Record<string, RoadmapSubtopicSection[]> = {
         'Real and complex roots',
       ],
     },
-    {
-      title: 'Graphs (Parabolas)',
-      items: [
-        'Shape of parabola',
-        'Vertex and axis of symmetry',
-        'Maximum & minimum values',
-      ],
-    },
-    {
-      title: 'Applications',
-      items: [
-        'Word problems (area, motion, etc.)',
-      ],
-    },
   ],
 };
 
 const statusMeta = {
-  locked: { label: 'Locked', Icon: Lock, chip: 'bg-zinc-200 text-zinc-700' },
+  locked: { label: 'Locked', Icon: Lock, chip: 'bg-gray-100 text-gray-500 border-gray-200' },
   current: {
-    label: 'In progress',
+    label: 'In Progress',
     Icon: CircleDot,
-    chip: 'bg-amber-300 text-black',
+    chip: 'bg-violet-100 text-violet-700 border-violet-200 shadow-[0_0_8px_rgba(139,92,246,0.3)]',
   },
   completed: {
     label: 'Completed',
     Icon: CheckCircle2,
-    chip: 'bg-emerald-400 text-black',
+    chip: 'bg-emerald-100 text-emerald-700 border-emerald-200',
   },
 };
 
 const diffColor: Record<string, string> = {
-  Easy: 'bg-emerald-100 text-emerald-900 border-emerald-500',
-  Medium: 'bg-amber-100 text-amber-950 border-amber-500',
-  Hard: 'bg-rose-100 text-rose-900 border-rose-500',
+  Easy: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  Medium: 'bg-amber-50 text-amber-700 border-amber-200',
+  Hard: 'bg-rose-50 text-rose-700 border-rose-200',
 };
 
 export const StudentRoadmap = () => {
@@ -213,7 +184,7 @@ export const StudentRoadmap = () => {
   if (!roadmap.length) {
     return (
       <div className="max-w-lg mx-auto py-12 space-y-6">
-        <h1 className="text-3xl font-black text-center">Your learning path</h1>
+        <h1 className="text-3xl font-black text-center text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-fuchsia-500">Your learning path</h1>
         <EmptyState
           title="No roadmap yet"
           hint="Topics will appear here once your teacher publishes your class sequence."
@@ -223,27 +194,30 @@ export const StudentRoadmap = () => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-10 py-4 pb-16">
-      <div className="text-center space-y-2">
-        <p className="text-xs font-black uppercase tracking-[0.2em] text-violet-600">
-          Learning core
+    <div className="max-w-4xl mx-auto space-y-12 py-8 pb-20 px-4 sm:px-6 lg:px-8">
+      {/* Header Section */}
+      <div className="text-center space-y-4">
+        <div className="inline-flex items-center justify-center p-3 bg-violet-100 rounded-full mb-2 shadow-[0_0_20px_rgba(139,92,246,0.3)]">
+          <BookOpen className="text-violet-600 animate-pulse" size={32} />
+        </div>
+        <p className="text-xs font-black uppercase tracking-[0.25em] text-violet-500">
+          Learning Core
         </p>
-        <h1 className="text-4xl font-black tracking-tight flex items-center justify-center gap-3">
-          <BookOpen className="text-violet-600" />
-          Your path
+        <h1 className="text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 drop-shadow-sm pb-2">
+          Your Mastery Path
         </h1>
-        <p className="font-bold text-gray-600 max-w-md mx-auto text-sm">
-          Complete each node to unlock the next — like a skill tree, but for
-          class.
+        <p className="font-bold text-gray-500 max-w-lg mx-auto text-base leading-relaxed">
+          Embark on your journey. Complete each node to unlock new concepts, build your foundation, and master the curriculum.
         </p>
       </div>
 
-      <div className="relative pl-4 sm:pl-0">
-        <div
-          className="absolute left-[27px] sm:left-1/2 top-8 bottom-8 w-1 bg-black sm:-translate-x-1/2 rounded-full hidden sm:block"
-          aria-hidden
-        />
-        <ul className="space-y-0 relative">
+      <div className="relative pl-6 sm:pl-0 mt-12">
+        {/* Dynamic Glowing Progress Line */}
+        <div className="absolute left-[39px] sm:left-1/2 top-10 bottom-10 w-1 sm:-translate-x-1/2 rounded-full hidden sm:block overflow-hidden bg-gray-100" aria-hidden>
+          <div className="w-full h-full bg-gradient-to-b from-emerald-400 via-violet-500 to-transparent opacity-80" />
+        </div>
+
+        <ul className="space-y-0 relative z-10 w-full">
           {roadmap.map((topic, idx) => {
             const next = roadmap[idx + 1];
             const meta = statusMeta[topic.status];
@@ -255,20 +229,24 @@ export const StudentRoadmap = () => {
               <li
                 key={topic.id}
                 className={cn(
-                  'relative flex flex-col sm:flex-row sm:items-stretch gap-4 pb-14 last:pb-4',
+                  'relative flex flex-col sm:flex-row sm:items-stretch gap-6 pb-20 last:pb-8 group',
                   !isEven && 'sm:flex-row-reverse'
                 )}
               >
-                <div className="flex sm:flex-1 sm:justify-end sm:pr-10">
-                  <div className="w-full max-w-sm">
+                {/* Card Container */}
+                <div className="flex sm:flex-1 sm:justify-end sm:px-12 w-full">
+                  <div className="w-full max-w-lg">
                     <Card
                       className={cn(
-                        'w-full neo-card-interactive transition-all duration-200 cursor-pointer',
+                        'w-full transition-all duration-300 relative overflow-hidden backdrop-blur-md shadow-xl hover:shadow-2xl border border-gray-100 cursor-pointer',
                         topic.status === 'current' &&
-                        'ring-2 ring-violet-500 ring-offset-2 bg-violet-50/80',
-                        topic.status === 'completed' && 'bg-emerald-50/70',
-                        topic.status === 'locked' && 'opacity-75 grayscale-[0.3]'
+                        'ring-2 ring-violet-500/50 hover:-translate-y-1',
+                        topic.status === 'completed' && 'hover:-translate-y-1',
+                        topic.status === 'locked' && 'opacity-70 backdrop-blur-none cursor-not-allowed hover:shadow-none hover:-translate-y-0 filter grayscale-[0.5]'
                       )}
+                      style={{
+                        backgroundColor: topic.status === 'completed' ? 'rgba(16, 185, 129, 0.05)' : topic.status === 'current' ? 'rgba(139, 92, 246, 0.05)' : 'rgba(255,255,255,0.02)'
+                      }}
                       onClick={() => {
                         if (!unlocked) return;
                         setExpandedTopicId(
@@ -285,132 +263,141 @@ export const StudentRoadmap = () => {
                         }
                       }}
                     >
-                      <div className="flex flex-wrap items-center gap-2 mb-3">
-                        <span
-                          className={cn(
-                            'text-[10px] font-black uppercase px-2 py-0.5 border-2 border-black rounded',
-                            meta.chip
-                          )}
-                        >
-                          {meta.label}
-                        </span>
-                        {topic.difficulty && (
+                      {/* Subtle background glow effect for current topic */}
+                      {topic.status === 'current' && (
+                         <div className="absolute -top-24 -right-24 w-48 h-48 bg-violet-400/20 rounded-full blur-3xl pointer-events-none" />
+                      )}
+                      {topic.status === 'completed' && (
+                         <div className="absolute -top-24 -right-24 w-48 h-48 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
+                      )}
+
+                      <div className="relative z-10 p-2">
+                        <div className="flex flex-wrap items-center gap-2 mb-4">
                           <span
                             className={cn(
-                              'text-[10px] font-black uppercase px-2 py-0.5 border-2 border-black rounded',
-                              diffColor[topic.difficulty] ||
-                              'bg-gray-100 text-gray-800'
+                              'text-[10px] font-black uppercase px-3 py-1 border rounded-full transition-colors',
+                              meta.chip
                             )}
                           >
-                            {topic.difficulty}
+                            {meta.label}
                           </span>
-                        )}
-                        {topic.stressful && (
-                          <span className="text-[10px] font-black uppercase px-2 py-0.5 border-2 border-rose-500 bg-rose-100 text-rose-900 rounded flex items-center gap-1">
-                            <Sparkles size={12} />
-                            Stretch topic
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="text-xl font-black leading-tight">
-                        {topic.title}
-                      </h3>
-                      <p className="text-sm font-bold text-gray-600 mt-2 leading-snug">
-                        {topic.description}
-                      </p>
-                      <div className="mt-4 flex items-center gap-3 text-xs font-black text-gray-500">
-                        <Clock size={14} />
-                        ~{topic.estMinutes ?? 45} min
-                        <span className="text-gray-300">|</span>
-                        {topic.progress}% done
-                      </div>
-                      <div className="mt-3 h-2 neo-border bg-white overflow-hidden rounded-sm">
-                        <div
-                          className={cn(
-                            'h-full transition-all duration-500',
-                            topic.status === 'completed'
-                              ? 'bg-emerald-500'
-                              : topic.status === 'current'
-                                ? 'bg-violet-500'
-                                : 'bg-zinc-300'
-                          )}
-                          style={{ width: `${topic.progress}%` }}
-                        />
-                      </div>
-                      <div className="mt-4">
-                        {unlocked ? (
-                          <Link
-                            to={`/student/topic/${topic.id}`}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setExpandedTopicId(topic.id);
-                            }}
-                          >
-                            <Button
-                              variant="primary"
+                          {topic.difficulty && (
+                            <span
                               className={cn(
-                                topic.status === 'completed' &&
-                                'bg-emerald-600 hover:bg-emerald-700'
+                                'text-[10px] font-black uppercase px-3 py-1 border rounded-full',
+                                diffColor[topic.difficulty] ||
+                                'bg-gray-100 text-gray-700 border-gray-200'
                               )}
                             >
-                              {topic.status === 'completed'
-                                ? 'Review topic'
-                                : 'Continue'}
+                              {topic.difficulty}
+                            </span>
+                          )}
+                          {topic.stressful && (
+                            <span className="text-[10px] font-black uppercase px-3 py-1 border border-rose-200 bg-rose-50 text-rose-700 rounded-full flex items-center gap-1 shadow-sm shadow-rose-200/50">
+                              <Sparkles size={12} className="text-rose-500" />
+                              Stretch
+                            </span>
+                          )}
+                        </div>
+
+                        <h3 className={cn("text-2xl font-black leading-tight transition-colors", topic.status === 'locked' ? 'text-gray-500' : 'text-gray-900', topic.status === 'current' && 'group-hover:text-violet-600')}>
+                          {topic.title}
+                        </h3>
+                        <p className="text-sm font-bold text-gray-500 mt-2 leading-relaxed">
+                          {topic.description}
+                        </p>
+
+                        <div className="mt-6 flex items-center gap-4 text-xs font-black text-gray-400 uppercase tracking-wide">
+                          <span className="flex items-center gap-1.5"><Clock size={14} className="text-gray-500" /> ~{topic.estMinutes ?? 45} MIN</span>
+                          <div className="w-1 h-1 rounded-full bg-gray-300" />
+                          <span className={cn(
+                            topic.progress === 100 ? "text-emerald-500" : topic.progress > 0 ? "text-violet-500" : "text-gray-400"
+                          )}>{topic.progress}% DONE</span>
+                        </div>
+
+                        <div className="mt-3 h-2 bg-gray-100 overflow-hidden rounded-full shadow-inner border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
+                          <div
+                            className={cn(
+                              'h-full transition-all duration-1000 ease-out relative',
+                              topic.status === 'completed'
+                                ? 'bg-gradient-to-r from-emerald-400 to-emerald-500'
+                                : topic.status === 'current'
+                                  ? 'bg-gradient-to-r from-violet-400 to-fuchsia-500'
+                                  : 'bg-transparent'
+                            )}
+                            style={{ width: `${topic.progress}%` }}
+                          >
+                             {topic.status === 'current' && (
+                                <div className="absolute inset-0 bg-white/20 animate-[pulse_2s_ease-in-out_infinite]" />
+                             )}
+                          </div>
+                        </div>
+
+                        <div className="mt-6 flex justify-between items-center">
+                          {unlocked ? (
+                            <Link
+                              to={`/student/topic/${topic.id}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                              }}
+                              className="w-full"
+                            >
+                              <Button
+                                className={cn(
+                                  'w-full py-3.5 text-sm font-black rounded-xl text-white transition-all duration-300 shadow-md border-none',
+                                  topic.status === 'completed'
+                                    ? 'bg-emerald-500 hover:bg-emerald-600 hover:shadow-emerald-500/30'
+                                    : 'bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 hover:shadow-violet-600/40'
+                                )}
+                              >
+                                {topic.status === 'completed'
+                                  ? 'Review Topic'
+                                  : 'Continue Learning'}
+                              </Button>
+                            </Link>
+                          ) : (
+                            <Button disabled className="w-full py-3 text-sm font-black rounded-xl bg-gray-100 text-gray-400 border border-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-500">
+                              <Lock size={16} className="inline mr-2" />
+                              Locked
                             </Button>
-                          </Link>
-                        ) : (
-                          <Button disabled className="opacity-60 cursor-not-allowed">
-                            <Lock size={16} className="inline mr-1" />
-                            Locked
-                          </Button>
-                        )}
+                          )}
+                        </div>
                       </div>
                     </Card>
 
+                    {/* Expandable Subtopics Section */}
                     {expandedTopicId === topic.id && (
-                      <div className="mt-4 rounded-3xl border border-violet-200 bg-violet-50/80 p-4 shadow-sm">
-                        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                      <div className="mt-4 rounded-[1.5rem] border border-violet-100 bg-violet-50/50 p-6 shadow-inner transition-all animate-in fade-in slide-in-from-top-4 duration-300 dark:bg-violet-900/10 dark:border-violet-500/20">
+                        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
                           <div>
-                            <p className="text-xs font-black uppercase tracking-[0.2em] text-violet-600">
-                              Subtopics
+                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-violet-500">
+                              Curriculum Map
                             </p>
-                            <h4 className="text-lg font-black mt-1">{topic.title} outline</h4>
+                            <h4 className="text-xl font-black mt-1 text-gray-800 dark:text-gray-200">Topic Outline</h4>
                           </div>
                           <Link
                             to={`/student/notes?query=${encodeURIComponent(topic.title)}&topic=${encodeURIComponent(topic.title)}`}
                             onClick={(e) => e.stopPropagation()}
                           >
-                            <Button variant="outline" className="text-xs py-2 px-3 text-violet-700 border-violet-700 hover:bg-violet-50">
-                              Notes for topic
+                            <Button className="text-xs py-2 px-5 bg-white text-violet-700 border border-violet-200 hover:bg-violet-50 rounded-full shadow-sm dark:bg-gray-800 dark:text-violet-400 dark:border-violet-500/30 dark:hover:bg-gray-700">
+                              View Notes
                             </Button>
                           </Link>
                         </div>
+                        
                         <div className="space-y-4">
                           {(TOPIC_SUBTOPICS[topic.id] || []).map((section) => (
-                            <div key={section.title} className="space-y-2 rounded-2xl bg-white p-4 border border-violet-100">
-                              <div className="flex items-center justify-between gap-3">
-                                <p className="font-bold text-sm uppercase tracking-[0.15em] text-gray-500">
+                            <div key={section.title} className="rounded-2xl bg-white/80 p-5 border border-violet-50 shadow-sm hover:shadow-md transition-shadow dark:bg-gray-800/80 dark:border-gray-700">
+                              <div className="flex items-center justify-between gap-3 mb-3">
+                                <p className="font-black text-xs uppercase tracking-[0.1em] text-gray-700 dark:text-gray-300">
                                   {section.title}
                                 </p>
-                                <Link
-                                  to={`/student/notes?query=${encodeURIComponent(section.title)}&topic=${encodeURIComponent(topic.title)}`}
-                                  onClick={(e) => e.stopPropagation()}
-                                  className="text-xs font-black uppercase text-violet-700"
-                                >
-                                  Notes
-                                </Link>
                               </div>
-                              <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+                              <ul className="space-y-2.5 text-sm font-semibold text-gray-500 dark:text-gray-400">
                                 {section.items.map((item) => (
-                                  <li key={item} className="flex items-center justify-between gap-3">
-                                    <span>{item}</span>
-                                    <Link
-                                      to={`/student/notes?query=${encodeURIComponent(item)}&topic=${encodeURIComponent(topic.title)}`}
-                                      onClick={(e) => e.stopPropagation()}
-                                      className="text-xs font-black uppercase text-violet-700"
-                                    >
-                                      Notes
-                                    </Link>
+                                  <li key={item} className="flex items-start gap-3">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-violet-400 mt-1.5 shrink-0" />
+                                    <span className="leading-tight">{item}</span>
                                   </li>
                                 ))}
                               </ul>
@@ -422,48 +409,57 @@ export const StudentRoadmap = () => {
                   </div>
                 </div>
 
-                <div className="absolute left-0 sm:left-1/2 sm:-translate-x-1/2 top-6 z-10 flex flex-col items-center w-14 sm:w-auto">
+                {/* Central Node Icon */}
+                <div className="absolute left-6 sm:left-1/2 sm:-translate-x-1/2 top-10 z-20 flex flex-col items-center justify-center w-10 sm:w-16">
                   <div
                     className={cn(
-                      'w-14 h-14 rounded-full border-[3px] border-black flex items-center justify-center shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-transform',
-                      topic.status === 'current' && 'bg-amber-400 scale-110',
-                      topic.status === 'completed' && 'bg-emerald-400',
-                      topic.status === 'locked' && 'bg-zinc-200'
+                      'w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-lg transition-transform duration-500 relative z-10 group-hover:scale-110',
+                      topic.status === 'current' && 'bg-gradient-to-tr from-violet-500 to-fuchsia-500 shadow-[0_0_25px_rgba(139,92,246,0.5)] text-white border-0',
+                      topic.status === 'completed' && 'bg-gradient-to-tr from-emerald-400 to-teal-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.3)] border-0',
+                      topic.status === 'locked' && 'bg-gray-100 text-gray-400 border-[3px] border-gray-200 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-500 shadow-none'
                     )}
                   >
+                     {topic.status === 'current' && (
+                        <div className="absolute inset-0 rounded-full border-4 border-white/30 animate-pulse" />
+                     )}
+                     {topic.status === 'completed' && (
+                        <div className="absolute inset-0 rounded-full border border-white/50" />
+                     )}
                     <Icon
-                      size={26}
+                      size={isEven ? 28 : 24}
                       className={cn(
-                        topic.status === 'current' && 'animate-pulse'
+                        "relative z-10",
+                        topic.status === 'current' && 'animate-bounce'
                       )}
+                      strokeWidth={2.5}
                     />
                   </div>
-                  {next && (
-                    <div
-                      className={cn(
-                        'w-1 flex-1 min-h-[48px] mt-2 sm:hidden rounded-full',
-                        next.status === 'locked' ? 'bg-zinc-300' : 'bg-black'
-                      )}
-                      aria-hidden
-                    />
-                  )}
                 </div>
 
-                <div className="hidden sm:flex sm:flex-1 sm:pl-10" />
+                <div className="hidden sm:flex sm:flex-1 sm:px-12 w-full" />
               </li>
             );
           })}
         </ul>
       </div>
 
-      <Card className="text-center bg-violet-50 border-violet-400 neo-card-interactive">
-        <p className="font-black text-lg">
-          {roadmap.filter((t) => t.status === 'completed').length}/
-          {roadmap.length} topics complete
-        </p>
-        <p className="text-sm font-bold text-gray-600 mt-1">
-          Steady progress beats perfect plans.
-        </p>
+      <Card className="max-w-md mx-auto text-center border-none shadow-2xl relative overflow-hidden p-10 rounded-[2.5rem]" style={{ background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(217, 70, 239, 0.05) 100%)' }}>
+        <div className="absolute -top-10 -left-10 w-40 h-40 bg-violet-400/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-fuchsia-400/20 rounded-full blur-3xl pointer-events-none" />
+        
+        <div className="relative z-10 backdrop-blur-sm">
+          <p className="font-black text-4xl text-gray-900 tracking-tight flex items-baseline justify-center">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-600">{roadmap.filter((t) => t.status === 'completed').length}</span>
+            <span className="text-gray-400 text-2xl mx-2">/</span>
+            {roadmap.length} <span className="text-2xl ml-2 tracking-wide font-extrabold uppercase text-gray-500">topics</span>
+          </p>
+          <div className="mt-6 inline-flex items-center gap-2 bg-white/60 dark:bg-slate-800/60 px-5 py-2 rounded-full border border-violet-100 dark:border-slate-700">
+             <Sparkles size={16} className="text-violet-500" />
+             <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
+               Steady progress beats perfect plans. Keep going!
+             </p>
+          </div>
+        </div>
       </Card>
     </div>
   );

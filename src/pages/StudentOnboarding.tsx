@@ -122,10 +122,11 @@ export const StudentOnboarding = () => {
             <button
               key={option}
               onClick={() => handleSelect(option)}
-              className={cn(
-                "p-6 text-left font-black neo-border transition-all flex items-center justify-between",
-                isSelected(option) ? "bg-black text-white translate-x-2" : "bg-white hover:bg-gray-50"
-              )}
+              className="p-6 text-left font-black neo-border transition-all flex items-center justify-between"
+              style={isSelected(option)
+                ? { backgroundColor: 'var(--accent-blue)', color: '#fff', borderColor: 'var(--accent-blue)', transform: 'translateX(8px)' }
+                : { backgroundColor: 'var(--surface-card)', color: 'var(--text-primary)' }
+              }
             >
               <span className="text-xl">{option}</span>
               {isSelected(option) && <CheckCircle size={24} />}

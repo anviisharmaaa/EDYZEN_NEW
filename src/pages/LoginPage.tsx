@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext';
 import { Card, Button } from '../components/UI';
+import { Sun, Moon } from 'lucide-react';
 
 interface Organization {
-
   id: number;
   name: string;
-
 }
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -92,23 +93,50 @@ export const LoginPage = () => {
     }
   };
 
+  const pageStyle: React.CSSProperties = {
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '1rem',
+    backgroundColor: 'var(--bg-primary)',
+    position: 'relative',
+  };
+
+  const ThemeToggleBtn = () => (
+    <button
+      onClick={toggleTheme}
+      className="theme-toggle"
+      title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      aria-label="Toggle theme"
+    >
+      <span className="theme-toggle-knob" />
+    </button>
+  );
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="font-black text-4xl">Loading...</div>
+      <div style={pageStyle}>
+        <div className="font-black text-4xl" style={{ color: 'var(--text-primary)' }}>Loading...</div>
       </div>
     );
   }
 
   if (showCreateOrg) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
+      <div style={pageStyle}>
+        {/* Theme toggle in corner */}
+        <div className="absolute top-4 right-4 flex items-center gap-2">
+          {isDark ? <Moon size={14} style={{ color: 'var(--text-muted)' }} /> : <Sun size={14} style={{ color: 'var(--text-muted)' }} />}
+          <ThemeToggleBtn />
+        </div>
         <Card className="w-full max-w-md">
-          <h1 className="text-4xl font-black mb-6 text-center">EDYZEN</h1>
-          <p className="font-bold mb-4">Create your Organisation</p>
+          <h1 className="text-4xl font-black mb-2 text-center" style={{ color: 'var(--accent-blue)' }}>EDYZEN</h1>
+          <p className="text-center text-sm mb-6" style={{ color: 'var(--text-muted)' }}>Adaptive Learning Platform</p>
+          <p className="font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Create your Organisation</p>
           <div className="space-y-4">
             <div>
-              <label className="block font-bold mb-1">Organisation Name</label>
+              <label className="block font-bold mb-1" style={{ color: 'var(--text-secondary)' }}>Organisation Name</label>
               <input
                 type="text"
                 className="neo-input w-full"
@@ -118,7 +146,7 @@ export const LoginPage = () => {
               />
             </div>
             <div>
-              <label className="block font-bold mb-1">Admin Name</label>
+              <label className="block font-bold mb-1" style={{ color: 'var(--text-secondary)' }}>Admin Name</label>
               <input
                 type="text"
                 className="neo-input w-full"
@@ -128,7 +156,7 @@ export const LoginPage = () => {
               />
             </div>
             <div>
-              <label className="block font-bold mb-1">Admin Email</label>
+              <label className="block font-bold mb-1" style={{ color: 'var(--text-secondary)' }}>Admin Email</label>
               <input
                 type="email"
                 className="neo-input w-full"
@@ -138,7 +166,7 @@ export const LoginPage = () => {
               />
             </div>
             <div>
-              <label className="block font-bold mb-1">Admin Password</label>
+              <label className="block font-bold mb-1" style={{ color: 'var(--text-secondary)' }}>Admin Password</label>
               <input
                 type="password"
                 className="neo-input w-full"
@@ -147,7 +175,11 @@ export const LoginPage = () => {
                 placeholder="Set admin password"
               />
             </div>
-            {error && <p className="text-red-600 font-bold text-sm">{error}</p>}
+            {error && (
+              <p className="text-red-500 font-bold text-sm" style={{ backgroundColor: 'rgba(239,68,68,0.1)', padding: '0.75rem', borderRadius: '0.5rem' }}>
+                {error}
+              </p>
+            )}
             <Button
               type="button"
               variant="primary"
@@ -164,12 +196,20 @@ export const LoginPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div style={pageStyle}>
+      {/* Theme toggle in corner */}
+      <div className="absolute top-4 right-4 flex items-center gap-2">
+        {isDark ? <Moon size={14} style={{ color: 'var(--text-muted)' }} /> : <Sun size={14} style={{ color: 'var(--text-muted)' }} />}
+        <ThemeToggleBtn />
+      </div>
+
       <Card className="w-full max-w-md">
-        <h1 className="text-4xl font-black mb-6 text-center">EDYZEN</h1>
+        <h1 className="text-4xl font-black mb-2 text-center" style={{ color: 'var(--accent-blue)' }}>EDYZEN</h1>
+        <p className="text-center text-sm mb-6" style={{ color: 'var(--text-muted)' }}>Adaptive Learning Platform</p>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block font-bold mb-1">Organisation</label>
+            <label className="block font-bold mb-1" style={{ color: 'var(--text-secondary)' }}>Organisation</label>
             <select
               className="neo-input w-full"
               value={selectedOrg}
@@ -181,14 +221,15 @@ export const LoginPage = () => {
             </select>
             <button
               type="button"
-              className="text-xs font-bold text-blue-600 mt-2"
+              className="text-xs font-bold mt-2"
+              style={{ color: 'var(--accent-blue)' }}
               onClick={() => setShowCreateOrg(true)}
             >
               + Create new organisation
             </button>
           </div>
           <div>
-            <label className="block font-bold mb-1">Email</label>
+            <label className="block font-bold mb-1" style={{ color: 'var(--text-secondary)' }}>Email</label>
             <input
               type="email"
               className="neo-input w-full"
@@ -199,7 +240,7 @@ export const LoginPage = () => {
             />
           </div>
           <div>
-            <label className="block font-bold mb-1">Password</label>
+            <label className="block font-bold mb-1" style={{ color: 'var(--text-secondary)' }}>Password</label>
             <input
               type="password"
               className="neo-input w-full"
@@ -209,7 +250,11 @@ export const LoginPage = () => {
               required
             />
           </div>
-          {error && <p className="text-red-600 font-bold text-sm bg-red-100 p-3 border border-red-400">{error}</p>}
+          {error && (
+            <p className="text-red-500 font-bold text-sm" style={{ backgroundColor: 'rgba(239,68,68,0.1)', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid rgba(239,68,68,0.3)' }}>
+              {error}
+            </p>
+          )}
           <Button type="submit" variant="primary" className="w-full text-xl py-4">
             Login
           </Button>
