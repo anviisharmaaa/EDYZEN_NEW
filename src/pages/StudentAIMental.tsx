@@ -108,7 +108,7 @@ export const StudentAIMental = () => {
       </div>
 
       <Card className="p-0 overflow-hidden">
-        <div className="h-[500px] overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-rose-50 to-white">
+        <div className="h-[500px] overflow-y-auto p-6 space-y-4 bg-[var(--bg-secondary)]">
           {messages.map(message => (
             <div
               key={message.id}

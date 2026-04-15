@@ -150,7 +150,7 @@ const TOPIC_SUBTOPICS: Record<string, RoadmapSubtopicSection[]> = {
 };
 
 const statusMeta = {
-  locked: { label: 'Locked', Icon: Lock, chip: 'bg-zinc-200 text-zinc-700' },
+  locked: { label: 'Locked', Icon: Lock, chip: 'bg-[var(--bg-tertiary)] text-[var(--text-muted)]' },
   current: {
     label: 'In progress',
     Icon: CircleDot,
@@ -164,9 +164,9 @@ const statusMeta = {
 };
 
 const diffColor: Record<string, string> = {
-  Easy: 'bg-emerald-100 text-emerald-900 border-emerald-500',
+  Easy: 'bg-[var(--bg-success)] text-[var(--text-success)] border-[var(--border-success)]',
   Medium: 'bg-[var(--bg-warning)] text-amber-950 border-amber-500',
-  Hard: 'bg-rose-100 text-rose-900 border-rose-500',
+  Hard: 'bg-[var(--bg-danger)] text-[var(--text-danger)] border-[var(--border-danger)]',
 };
 
 export const StudentRoadmap = () => {
@@ -266,7 +266,7 @@ export const StudentRoadmap = () => {
                         'w-full neo-card-interactive transition-all duration-200 cursor-pointer',
                         topic.status === 'current' &&
                         'ring-2 ring-violet-500 ring-offset-2 bg-[var(--bg-tertiary)]/80',
-                        topic.status === 'completed' && 'bg-emerald-50/70',
+                        topic.status === 'completed' && 'bg-[var(--bg-success)]/70',
                         topic.status === 'locked' && 'opacity-75 grayscale-[0.3]'
                       )}
                       onClick={() => {
@@ -306,7 +306,7 @@ export const StudentRoadmap = () => {
                           </span>
                         )}
                         {topic.stressful && (
-                          <span className="text-[10px] font-black uppercase px-2 py-0.5 border-2 border-rose-500 bg-rose-100 text-rose-900 rounded flex items-center gap-1">
+                          <span className="text-[10px] font-black uppercase px-2 py-0.5 border-2 border-[var(--border-danger)] bg-[var(--bg-danger)] text-[var(--text-danger)] rounded flex items-center gap-1">
                             <Sparkles size={12} />
                             Stretch topic
                           </span>
@@ -428,7 +428,7 @@ export const StudentRoadmap = () => {
                       'w-14 h-14 rounded-full border-[3px] border-black flex items-center justify-center shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-transform',
                       topic.status === 'current' && 'bg-amber-400 scale-110',
                       topic.status === 'completed' && 'bg-emerald-400',
-                      topic.status === 'locked' && 'bg-zinc-200'
+                      topic.status === 'locked' && 'bg-[var(--bg-tertiary)]'
                     )}
                   >
                     <Icon

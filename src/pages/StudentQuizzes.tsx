@@ -108,7 +108,7 @@ export const StudentQuizzes = () => {
             key={quiz.id}
             className={cn(
               'p-6 space-y-5 neo-card-interactive',
-              quiz.status === 'completed' && 'bg-emerald-50/80',
+              quiz.status === 'completed' && 'bg-[var(--bg-success)]/80',
               quiz.status === 'locked' && 'opacity-65 grayscale'
             )}
           >
@@ -117,7 +117,7 @@ export const StudentQuizzes = () => {
                 className={cn(
                   'p-3 neo-border rounded-full',
                   quiz.status === 'completed'
-                    ? 'bg-emerald-100'
+                    ? 'bg-[var(--bg-success)]'
                     : 'bg-[var(--bg-tertiary)]'
                 )}
               >

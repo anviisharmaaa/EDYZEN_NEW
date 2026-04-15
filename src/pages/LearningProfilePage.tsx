@@ -140,7 +140,7 @@ export const LearningProfilePage = () => {
         </Button>
       </Card>
 
-      <Card className="bg-emerald-50 border-emerald-400 neo-card-interactive">
+      <Card className="bg-[var(--bg-success)] border-[var(--border-success)] neo-card-interactive">
         <h2 className="text-xl font-black flex items-center gap-2 mb-4">
           <Brain className="text-emerald-600" /> Previous Cognitive Test Results
         </h2>
@@ -205,7 +205,7 @@ export const LearningProfilePage = () => {
             <TrendingUp className="text-emerald-500" /> Learning stats
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
-            <div className="neo-card p-6 text-center bg-emerald-50/80">
+            <div className="neo-card p-6 text-center bg-[var(--bg-success)]">
               <p className="text-[10px] font-black uppercase text-[var(--text-muted)] mb-2">
                 Accuracy
               </p>
@@ -222,13 +222,13 @@ export const LearningProfilePage = () => {
                 Strong topics
               </p>
               <div className="flex flex-wrap gap-2">
-                {(profile.strongTopics ?? []).map((topic) => (
-                  <span
-                    key={topic}
-                    className="neo-border bg-emerald-50 px-3 py-1.5 text-sm font-bold rounded"
+                {(profile.strongTopics ?? []).map((topic, idx) => (
+                  <div
+                    key={idx}
+                    className="neo-border bg-[var(--bg-success)] px-3 py-1.5 text-sm font-bold rounded"
                   >
                     {topic}
-                  </span>
+                  </div>
                 ))}
                 {!profile.strongTopics?.length && (
                   <span className="text-sm font-bold text-[var(--text-muted)]">
@@ -243,13 +243,13 @@ export const LearningProfilePage = () => {
                 Weak topics
               </p>
               <div className="flex flex-wrap gap-2">
-                {(profile.weakTopics ?? []).map((topic) => (
-                  <span
-                    key={topic}
-                    className="neo-border bg-rose-50 px-3 py-1.5 text-sm font-bold rounded"
+                {(profile.weakTopics ?? []).map((topic, idx) => (
+                  <div
+                    key={idx}
+                    className="neo-border bg-[var(--bg-danger)] px-3 py-1.5 text-sm font-bold rounded"
                   >
                     {topic}
-                  </span>
+                  </div>
                 ))}
               </div>
             </div>

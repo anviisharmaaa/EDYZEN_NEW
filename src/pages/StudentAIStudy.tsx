@@ -14,7 +14,7 @@ interface Message {
 const QUICK_ACTIONS = [
   { label: 'Roadmap', icon: BookOpen, path: '/student/roadmap', color: 'bg-[var(--bg-tertiary)] border-violet-400' },
   { label: 'Calendar', icon: Calendar, path: '/student/calendar', color: 'bg-[var(--bg-tertiary)] border-sky-400' },
-  { label: 'Profile', icon: Brain, path: '/student/profile', color: 'bg-emerald-100 border-emerald-400' },
+  { label: 'Profile', icon: Brain, path: '/student/profile', color: 'bg-[var(--bg-success)] border-[var(--border-success)]' },
   { label: 'Quizzes', icon: Target, path: '/student/quizzes', color: 'bg-[var(--bg-warning)] border-[var(--border-warning)]' },
 ];
 
@@ -128,7 +128,7 @@ export const StudentAIStudy = () => {
       </div>
 
       <Card className="p-0 overflow-hidden">
-        <div className="h-[500px] overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-violet-50 to-white">
+        <div className="h-[500px] overflow-y-auto p-6 space-y-4 bg-[var(--bg-secondary)]">
           {messages.map(message => (
             <div
               key={message.id}
