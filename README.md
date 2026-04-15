@@ -1,135 +1,124 @@
-# EDYZEN
+# EDYZEN: AI-Powered Adaptive Learning Platform
 
-EDYZEN is a modern educational web platform designed for students, teachers, parents, and administrators. It provides personalized learning paths, quiz management, attendance tracking, behavior analytics, and AI-assisted insights in a clean and easy-to-use interface.
+![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite_6-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Google AI](https://img.shields.io/badge/Generative_AI-4285F4?style=for-the-badge&logo=google&logoColor=white)
 
-## Key Features
-- Student dashboard with progress tracking, mood insight, and recommended learning goals
-- Teacher dashboard with student analytics, curriculum planning, attendance, and student profiles
-- Parent dashboard with announcements, child progress overview, and calendar support
-- Role-based authentication for students, teachers, parents, and admins
-- Quiz and assignment management
-- Learning roadmap and course map navigation
-- **AI-enhanced study and mental health assistance** with context-aware responses
-- MySQL database integration with automatic schema initialization
-- Server-side Express API and React front-end powered by Vite
+EDYZEN is a modern, responsive educational web platform designed to unify the learning experience for **students, teachers, parents, and administrators**. By leveraging real-time data, role-based dashboards, and Google's Generative AI, EDYZEN provides personalized learning paths, behavior analytics, attendance tracking, and context-aware insights within a clean, intuitive interface.
 
-## Tech Stack
+## ✨ Key Features
 
-- React 19
-- TypeScript
-- Vite
-- Express
-- MySQL / mysql2
-- Tailwind CSS
-- React Router DOM
-- Recharts
-- JWT authentication
-- bcryptjs for password hashing
-- **Google Generative AI (Gemini)** for AI assistance
+- **Role-Based Workspaces:**
+  - **👨‍🎓 Student Dashboard:** Progress tracking, mood insights, cognitive load monitoring, and recommended learning goals.
+  - **👩‍🏫 Teacher Dashboard:** Comprehensive student analytics, curriculum planning, attendance tracking, and individual student profiles.
+  - **👪 Parent Dashboard:** Live announcements, child progress overview, and integrated calendar support.
+  - **🔐 Admin Dashboard:** Organization scaling and global management.
+- **Intelligent Learning Paths:** Seamless course map navigation, quiz/assignment management, and adaptive content delivery.
+- **AI-Enhanced Ecosystem (Powered by Gemini):**
+  - **📚 Study Assistant:** Clarifies concepts, helps with study planning, and provides concise, structured educational explanations.
+  - **🧠 Mental Health Companion:** Empathetic emotional support, well-being check-ins, and crisis detection.
+- **Zero-Config Database:** Runs locally with an **in-memory SQLite database** pre-seeded with test users for rapid prototyping and testing.
+- **Modern Architecture:** Full-stack TypeScript mono-repo with a React + Vite frontend and an Express backend.
 
-## AI Features
+## 🚀 Tech Stack
 
-EDYZEN includes two specialized AI assistants:
+- **Frontend:** React 19, HTML/Vanilla CSS via Tailwind CSS, React Router DOM, Recharts, Framer Motion, Lucide React
+- **Backend:** Node.js, Express, `tsx` handling execution
+- **Database:** Node Built-in SQLite (`node:sqlite`)
+- **Authentication:** JWT (JSON Web Tokens), `bcryptjs`
+- **AI Integration:** `@google/generative-ai`
 
-### Study Assistant
-- Educational explanations and concept clarification
-- Study planning and organization guidance
-- Clear, concise responses optimized for learning
+## 📂 Project Structure
 
-### Mental Health Companion
-- Empathetic support for student well-being
-- Crisis detection and professional help recommendations
-- Warm, conversational responses focused on emotional support
+```text
+edyzen-web/
+├── server.ts         # Express server, unified API routes, authentication logic
+├── db.ts             # SQLite memory database initialization, schema, and auto-seeder
+├── routes/           # Domain-specific route handlers (e.g. chat.ts)
+├── src/              # React frontend source code
+│   ├── components/   # Reusable UI components & layouts
+│   ├── contexts/     # Application state (Authentication, etc.)
+│   ├── lib/          # Utilities, API wrappers, constants
+│   ├── pages/        # Route page components categorized by User Role
+│   └── index.css     # Global styles and Tailwind imports
+└── package.json      # Dependencies and scripts workflows
+```
 
-Both assistants use a unified API endpoint with intelligent prompt differentiation based on context.
-
-## Folder Structure
-
-- `server.ts` — Express server, authentication, and API routes
-- `db.ts` — MySQL database initialization and query helper
-- `routes/chat.ts` — Unified AI chat endpoint for study and mental health assistance
-- `src/` — React application source code
-  - `src/pages/` — Role-specific pages for students, teachers, parents, admins
-  - `src/components/` — Shared UI components and layout
-  - `src/contexts/` — Auth context and session handling
-  - `src/lib/` — Utility helpers
-
-## Setup and Run Locally
+## 🛠️ Getting Started
 
 ### Prerequisites
+- [Node.js](https://nodejs.org/en/) (v22.14.0+ recommended to fully map `node:sqlite`)
+- Google Gemini API Key: Required for AI functionality. Get yours at [Google AI Studio](https://aistudio.google.com/app/apikey).
 
-- Node.js 20+ or compatible version
-- MySQL server running locally or accessible remotely
-- Google Gemini API key (get one at [Google AI Studio](https://makersuite.google.com/app/apikey))
-
-### Install Dependencies
+### 1. Installation
 
 ```bash
+git clone <repository-url>
+cd EDYZEN_NEW
 npm install
 ```
 
-### Configure Environment
+### 2. Environment Configuration
 
-Create a `.env` file at the project root or update `.env.example` with your values.
+Create a `.env` file at the root of the project by copying the example:
 
-Required environment variables:
-
-```env
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=your_mysql_password
-DB_NAME=edyzen
-JWT_SECRET=your_jwt_secret
-GEMINI_API_KEY=your_gemini_api_key
-APP_URL=http://localhost:3000
+```bash
+cp .env.example .env
 ```
 
-> `JWT_SECRET` is used for signing authentication tokens. If it is not provided, a default secret is used, but production deployments should always set a secure secret.
->
-> `GEMINI_API_KEY` is required for AI functionality. Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey).
+Populate the `.env` file:
 
-### Start the App
+```env
+JWT_SECRET=super_secret_dev_key
+GEMINI_API_KEY=your_gemini_api_key_here
+APP_URL=http://localhost:3000
+```
+> Note: The database connection values (e.g. `DB_HOST`, `DB_USER`) from previous versions are ignored in the prototype setting, as it currently runs using an SQLite in-memory database to facilitate testing.
+
+### 3. Run Development Server
 
 ```bash
 npm run dev
 ```
 
-The server will start on `http://localhost:3000` by default.
+The unified React+Express local server will spin up on `http://localhost:3000`.
 
-## Production Build
+### 4. Build for Production
 
 ```bash
-npm run build
-npm run preview
+npm run build     # Generates customized production bundles in /dist
+npm run preview   # Previews the production build locally
 ```
 
-## Database Notes
+## 🧪 Prototype Seed Data
 
-The app automatically creates the configured MySQL database and required tables when it starts. The database connection is configured through the `DB_HOST`, `DB_USER`, `DB_PASSWORD`, and `DB_NAME` environment variables.
+Upon starting, the in-memory database is **automatically seeded** with working prototype accounts. You can log in immediately upon booting the app.
 
-## API Endpoints
+**Default Passwords:** All seed users use the password format: `[role]123` *(e.g., student123)*.
+
+| Role | Email | Password |
+|---|---|---|
+| **Admin** | `admin@edyzen.com` | `admin123` |
+| **Teacher** | `teacher@edyzen.com` | `teacher123` |
+| **Student** | `anvi@edyzen.com` | `student123` |
+| **Parent** | `priya@edyzen.com` | `parent123` |
+
+## 🔌 API Endpoints
+The backend runs alongside Vite and provides the following core routes under `/api`:
 
 ### Authentication
-- `POST /api/login` — User authentication
-- `GET /api/me` — Get current user info
+- `POST /api/login` — Verifies credentials and returns a signed JWT.
+- `GET /api/me` — Fetches current user profile based on active session.
 
-### AI Chat
-- `POST /api/chat` — Unified AI chat endpoint
-  - Body: `{ "message": "user message", "type": "study" | "mental" }`
-  - Returns: `{ "reply": "AI response" }`
+### AI Processing
+- `POST /api/chat` — Unified chat inference stream.
+  - **Body:** `{ "message": "Explain osmosis", "type": "study" | "mental" }`
+  - **Response:** `{ "reply": "Osmosis is the spontaneous net movement..." }`
 
-## Scripts
+---
 
-- `npm run dev` — start development server
-- `npm run build` — build the front-end for production
-- `npm run preview` — preview the production build locally
-- `npm run clean` — remove generated `dist` output
-- `npm run lint` — run TypeScript checks with `tsc --noEmit`
-
-## Notes
-
-- The project is built with role-based pages for students, teachers, parents, and admins.
-- Visual analytics are rendered with `recharts` and the UI is designed for clarity and simplicity.
-- AI responses are optimized for natural conversation without markdown formatting.
-- The AI system automatically differentiates between study and mental health contexts for appropriate responses.
-- The server uses Express, Vite, and `tsx` to run TypeScript directly.
+*Redefining accessible and adaptive learning for the next generation.*

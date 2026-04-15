@@ -11,6 +11,7 @@ interface Message {
 }
 
 export const StudentAIMental = () => {
+
   const { user } = useAuth();
   const initialMessage: Message = {
     id: '1',
@@ -119,16 +120,14 @@ export const StudentAIMental = () => {
                 </div>
               )}
               <div
-                className={`max-w-[80%] p-4 neo-border ${
-                  message.role === 'user'
+                className={`max-w-[80%] p-4 neo-border ${message.role === 'user'
                     ? 'bg-black text-white'
                     : 'bg-white'
-                }`}
+                  }`}
               >
                 <p className="text-sm font-bold whitespace-pre-wrap">{message.content}</p>
-                <p className={`text-[10px] mt-2 ${
-                  message.role === 'user' ? 'text-gray-400' : 'text-gray-500'
-                }`}>
+                <p className={`text-[10px] mt-2 ${message.role === 'user' ? 'text-gray-400' : 'text-gray-500'
+                  }`}>
                   {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>

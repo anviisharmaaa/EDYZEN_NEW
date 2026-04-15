@@ -1,14 +1,15 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { Card, Button } from '../components/UI';
-import { 
-  ChevronLeft, 
-  Play, 
-  FileText, 
-  CheckCircle, 
-  Lock, 
-  MessageSquare, 
-  Highlighter, 
+import {
+
+  ChevronLeft,
+  Play,
+  FileText,
+  CheckCircle,
+  Lock,
+  MessageSquare,
+  Highlighter,
   Award,
   Clock,
   ArrowRight
@@ -127,7 +128,7 @@ export const CourseMapPage = () => {
                     {lesson.description ||
                       (typeof lesson.content === 'string'
                         ? lesson.content.slice(0, 120) +
-                          (lesson.content.length > 120 ? '…' : '')
+                        (lesson.content.length > 120 ? '…' : '')
                         : 'No description')}
                   </p>
                   <Button
@@ -149,7 +150,7 @@ export const CourseMapPage = () => {
                         .then((data) => {
                           setAiExplanation(
                             data?.explanation ||
-                              'No explanation returned. Try again.'
+                            'No explanation returned. Try again.'
                           );
                         })
                         .catch(() =>
@@ -190,21 +191,19 @@ export const CourseMapPage = () => {
               <div className="space-y-4 relative">
                 {/* Vertical Line */}
                 <div className="absolute left-[19px] top-4 bottom-4 w-1 bg-black opacity-10" />
-                
+
                 {topicData.lessons.map((lesson: any, idx: number) => (
                   <div key={lesson.id} className="relative flex items-center gap-4">
-                    <div className={`w-10 h-10 rounded-full neo-border flex items-center justify-center font-black z-10 ${
-                      lesson.status === 'completed' ? 'bg-green-400' : 
-                      lesson.status === 'in-progress' ? 'bg-blue-400' : 'bg-gray-200'
-                    }`}>
+                    <div className={`w-10 h-10 rounded-full neo-border flex items-center justify-center font-black z-10 ${lesson.status === 'completed' ? 'bg-green-400' :
+                        lesson.status === 'in-progress' ? 'bg-blue-400' : 'bg-gray-200'
+                      }`}>
                       {lesson.status === 'completed' ? <CheckCircle size={20} /> : idx + 1}
                     </div>
                     <button
                       onClick={() => lesson.status !== 'locked' && setSelectedLesson(lesson)}
-                      className={`flex-1 text-left p-4 neo-card transition-all ${
-                        selectedLesson?.id === lesson.id ? 'bg-black text-white translate-x-2' : 
-                        lesson.status === 'locked' ? 'opacity-50 cursor-not-allowed' : 'bg-white hover:translate-x-1'
-                      }`}
+                      className={`flex-1 text-left p-4 neo-card transition-all ${selectedLesson?.id === lesson.id ? 'bg-black text-white translate-x-2' :
+                          lesson.status === 'locked' ? 'opacity-50 cursor-not-allowed' : 'bg-white hover:translate-x-1'
+                        }`}
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-black">{lesson.title}</span>
@@ -319,8 +318,8 @@ export const CourseMapPage = () => {
                     }
                   />
                 </div>
-                <Button 
-                  onClick={() => handleAskAI('variables')} 
+                <Button
+                  onClick={() => handleAskAI('variables')}
                   className="bg-black hover:bg-gray-900"
                   disabled={askPanelLoading}
                 >
@@ -329,7 +328,7 @@ export const CourseMapPage = () => {
               </div>
 
               {aiResponse && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   className="p-6 bg-white text-black neo-border space-y-4"

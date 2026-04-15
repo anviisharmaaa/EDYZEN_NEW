@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 interface Teacher {
+
   _id: string;
   name: string;
   email: string;

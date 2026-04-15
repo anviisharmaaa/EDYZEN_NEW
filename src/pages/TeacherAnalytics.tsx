@@ -16,6 +16,7 @@ interface ClassAnalytics {
 }
 
 export const TeacherAnalytics = () => {
+
   const [searchParams] = useSearchParams();
   const classId = searchParams.get('classId');
   const [analytics, setAnalytics] = useState<ClassAnalytics | null>(null);

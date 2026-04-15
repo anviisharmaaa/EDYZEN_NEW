@@ -6,11 +6,13 @@ import { cn } from '../lib/utils';
 import { useState } from 'react';
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
+
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = {
+
     student: [
       { name: 'Dashboard', icon: LayoutDashboard, path: '/student/dashboard' },
       { name: 'Roadmap', icon: BookOpen, path: '/student/roadmap' },
@@ -55,14 +57,14 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm font-medium text-gray-700 hidden sm:block">{user?.name}</span>
-            <button 
-              onClick={handleLogout} 
+            <button
+              onClick={handleLogout}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
               title="Logout"
             >
               <LogOut size={18} className="text-gray-600" />
             </button>
-            <button 
+            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
@@ -85,8 +87,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 to={item.path}
                 className={({ isActive }) => cn(
                   "w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors",
-                  isActive 
-                    ? "bg-blue-100 text-blue-700" 
+                  isActive
+                    ? "bg-blue-100 text-blue-700"
                     : "text-gray-700 hover:bg-gray-100"
                 )}
               >
@@ -108,8 +110,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                   onClick={() => setMobileMenuOpen(false)}
                   className={({ isActive }) => cn(
                     "w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors",
-                    isActive 
-                      ? "bg-blue-100 text-blue-700" 
+                    isActive
+                      ? "bg-blue-100 text-blue-700"
                       : "text-gray-700 hover:bg-gray-100"
                   )}
                 >

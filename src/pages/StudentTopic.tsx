@@ -5,6 +5,7 @@ import { ArrowLeft, BookOpen, CheckCircle, FileText, Play, Video, ChevronRight, 
 import { cn } from '../lib/utils';
 
 interface Material {
+
   id: string;
   title: string;
   type: 'video' | 'reading' | 'interactive';
@@ -104,7 +105,7 @@ export const StudentTopic = () => {
           <h2 className="text-2xl font-black flex items-center gap-2">
             <Folder /> Subtopics
           </h2>
-          
+
           {topic.subTopics?.length === 0 ? (
             <Card className="p-8 text-center text-gray-500">
               No subtopics available yet.
@@ -124,9 +125,9 @@ export const StudentTopic = () => {
                       onClick={() => toggleSubtopic(subtopic.id)}
                     >
                       <div className="flex items-center gap-4">
-                        <ChevronRight 
-                          className={cn("transition-transform", isExpanded && "rotate-90")} 
-                          size={20} 
+                        <ChevronRight
+                          className={cn("transition-transform", isExpanded && "rotate-90")}
+                          size={20}
                         />
                         <div>
                           <h3 className="font-black">{subtopic.title}</h3>
@@ -138,14 +139,14 @@ export const StudentTopic = () => {
                           {completedCount}/{totalCount}
                         </span>
                         <div className="w-24 h-2 neo-border bg-white overflow-hidden rounded">
-                          <div 
-                            className="h-full bg-black" 
+                          <div
+                            className="h-full bg-black"
                             style={{ width: `${progress}%` }}
                           />
                         </div>
                       </div>
                     </button>
-                    
+
                     {isExpanded && subtopic.materials && subtopic.materials.length > 0 && (
                       <div className="border-t p-4 space-y-3 bg-gray-50">
                         {subtopic.materials.map(material => (
@@ -205,8 +206,8 @@ export const StudentTopic = () => {
             <p className="text-sm font-bold text-gray-600 mb-6">
               Ready to test your knowledge on {topic.title}?
             </p>
-            <Button 
-              variant="primary" 
+            <Button
+              variant="primary"
               className="w-full bg-purple-400 hover:bg-purple-500"
               disabled={topicProgress < 100}
               onClick={() => navigate(`/student/quiz/q_${topic.id}`)}

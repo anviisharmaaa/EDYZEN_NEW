@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, Button, Tag } from '../components/UI';
-import { 
-  ChevronLeft, 
-  FileText, 
-  Upload, 
-  Link as LinkIcon, 
-  Mic, 
-  Video, 
-  Clock, 
-  CheckCircle, 
+import {
+
+  ChevronLeft,
+  FileText,
+  Upload,
+  Link as LinkIcon,
+  Mic,
+  Video,
+  Clock,
+  CheckCircle,
   AlertCircle,
   Sparkles,
   MessageSquare
@@ -77,7 +78,7 @@ export const AssignmentPage = () => {
             <Card className="p-6 space-y-4">
               <h2 className="text-2xl font-black uppercase tracking-tight">Instructions</h2>
               <p className="font-bold text-gray-700 leading-relaxed">{assignment.instructions}</p>
-              
+
               <div className="pt-4 border-t-2 border-black">
                 <h3 className="text-lg font-black uppercase mb-2">Grading Rubric</h3>
                 <p className="text-sm font-bold text-gray-600">{assignment.rubric}</p>
@@ -93,7 +94,7 @@ export const AssignmentPage = () => {
                 Help me structure <ArrowRight size={16} />
               </Button>
               {aiHelp && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="p-4 bg-white neo-border text-sm font-bold whitespace-pre-line"
@@ -108,7 +109,7 @@ export const AssignmentPage = () => {
           <div className="lg:col-span-2 space-y-6">
             <Card className="p-8 space-y-6">
               <h1 className="text-4xl font-black uppercase tracking-tighter">{assignment.title}</h1>
-              
+
               <div className="flex flex-wrap gap-4 p-2 neo-border bg-gray-50">
                 {[
                   { id: 'text', icon: FileText, label: 'Text Editor' },
@@ -119,9 +120,8 @@ export const AssignmentPage = () => {
                   <button
                     key={type.id}
                     onClick={() => setSubmissionType(type.id as any)}
-                    className={`flex-1 flex items-center justify-center gap-2 p-3 font-black transition-all ${
-                      submissionType === type.id ? 'bg-black text-white neo-card' : 'hover:bg-gray-200'
-                    }`}
+                    className={`flex-1 flex items-center justify-center gap-2 p-3 font-black transition-all ${submissionType === type.id ? 'bg-black text-white neo-card' : 'hover:bg-gray-200'
+                      }`}
                   >
                     <type.icon size={18} /> {type.label}
                   </button>
@@ -149,8 +149,8 @@ export const AssignmentPage = () => {
                 {submissionType === 'url' && (
                   <div className="space-y-4">
                     <p className="font-black uppercase text-sm text-gray-500">External Link (e.g., Google Docs, GitHub)</p>
-                    <input 
-                      type="url" 
+                    <input
+                      type="url"
                       placeholder="https://..."
                       className="w-full p-4 neo-border font-bold text-lg outline-none"
                     />
@@ -173,8 +173,8 @@ export const AssignmentPage = () => {
               </div>
 
               <div className="flex justify-end pt-6 border-t-4 border-black">
-                <Button 
-                  onClick={handleSubmit} 
+                <Button
+                  onClick={handleSubmit}
                   disabled={submitting || assignment.status === 'SUBMITTED'}
                   className="px-12 py-4 text-xl font-black bg-green-500 hover:bg-green-600 flex items-center gap-2"
                 >
@@ -205,15 +205,15 @@ export const AssignmentPage = () => {
 };
 
 const ArrowRight = ({ size, className }: { size?: number, className?: string }) => (
-  <svg 
-    width={size || 24} 
-    height={size || 24} 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
+  <svg
+    width={size || 24}
+    height={size || 24}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     className={className}
   >
     <path d="M5 12h14" />

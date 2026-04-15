@@ -8,6 +8,7 @@ interface DiaryEntry {
   content: string;
   mood: string;
   timestamp: string;
+
 }
 
 const fetchOpts: RequestInit = { credentials: 'include' };
@@ -126,7 +127,7 @@ export const DiaryPage = () => {
               onChange={e => setNewEntry({ ...newEntry, title: e.target.value })}
             />
           </div>
-          
+
           <div>
             <label className="text-xs font-black uppercase text-gray-500 block mb-1">
               How are you feeling?
@@ -136,11 +137,10 @@ export const DiaryPage = () => {
                 <button
                   key={mood.value}
                   type="button"
-                  className={`px-3 py-2 neo-border font-bold text-sm transition-all ${
-                    newEntry.mood === mood.value
+                  className={`px-3 py-2 neo-border font-bold text-sm transition-all ${newEntry.mood === mood.value
                       ? 'bg-violet-400 text-white border-violet-600'
                       : 'bg-white hover:bg-violet-100'
-                  }`}
+                    }`}
                   onClick={() => setNewEntry({ ...newEntry, mood: mood.value })}
                 >
                   {mood.emoji} {mood.label}

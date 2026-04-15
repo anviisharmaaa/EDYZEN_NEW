@@ -67,6 +67,11 @@ const seedDatabase = () => {
   insertUser.run("Anvi Sharma", "anvi@edyzen.com", studentPass, "student", orgId);
   insertUser.run("Jordan Smith", "jordan@edyzen.com", studentPass, "student", orgId);
   insertUser.run("Emma Wilson", "emma@edyzen.com", studentPass, "student", orgId);
+  insertUser.run("Aarav Patel", "aarav@edyzen.com", studentPass, "student", orgId);
+  insertUser.run("Diya Gupta", "diya@edyzen.com", studentPass, "student", orgId);
+  insertUser.run("Kabir Singh", "kabir@edyzen.com", studentPass, "student", orgId);
+  insertUser.run("Neha Desai", "neha@edyzen.com", studentPass, "student", orgId);
+  insertUser.run("Rohan Kumar", "rohan@edyzen.com", studentPass, "student", orgId);
 
   // Insert Parent
   const parentPass = bcrypt.hashSync("parent123", 10);

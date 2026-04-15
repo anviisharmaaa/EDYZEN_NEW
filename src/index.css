@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+
   --font-sans: "Inter", "Nunito", ui-sans-serif, system-ui, sans-serif;
   --color-bg: #ffffff;
   --color-accent-ok: #10b981;
@@ -27,15 +28,19 @@
   .neo-card {
     @apply bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow;
   }
+
   .neo-button {
     @apply bg-white border border-gray-300 rounded-lg px-4 py-2 font-medium transition-all hover:bg-gray-50 cursor-pointer;
   }
+
   .neo-button-primary {
     @apply bg-blue-600 text-white border border-blue-600 hover:bg-blue-700;
   }
+
   .neo-input {
     @apply border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
   }
+
   .neo-border {
     @apply border border-gray-200;
   }
@@ -48,13 +53,24 @@
   .report-card {
     @apply bg-white rounded-lg shadow-sm border border-gray-200 p-8 md:p-12 mb-8;
   }
-  
+
   .pill-tag {
     @apply px-4 py-1.5 rounded-full text-sm font-medium uppercase tracking-wider border border-current;
   }
 }
 
-.report-body h1 { @apply text-4xl font-bold mb-6 tracking-tight; }
-.report-body h2 { @apply text-2xl font-bold mb-4 tracking-tight; }
-.report-body h3 { @apply text-xl font-semibold mb-2 tracking-tight; }
-.report-body p { @apply leading-relaxed text-base mb-6 text-gray-700; }
+.report-body h1 {
+  @apply text-4xl font-bold mb-6 tracking-tight;
+}
+
+.report-body h2 {
+  @apply text-2xl font-bold mb-4 tracking-tight;
+}
+
+.report-body h3 {
+  @apply text-xl font-semibold mb-2 tracking-tight;
+}
+
+.report-body p {
+  @apply leading-relaxed text-base mb-6 text-gray-700;
+}

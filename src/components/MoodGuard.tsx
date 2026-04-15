@@ -3,6 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Card, MoodIcon, Button } from '../components/UI';
 
 export const MoodGuard = ({ children }: { children: React.ReactNode }) => {
+
   const { user } = useAuth();
   const [hasMood, setHasMood] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -68,9 +69,9 @@ export const MoodGuard = ({ children }: { children: React.ReactNode }) => {
               </button>
             ))}
           </div>
-          <Button 
-            variant="primary" 
-            className="w-full" 
+          <Button
+            variant="primary"
+            className="w-full"
             disabled={!selectedMood}
             onClick={handleSubmit}
           >

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Card, Button, MoodIcon, PageSpinner, ErrorState, EmptyState } from '../components/UI';
 import {
+
   BookOpen,
   ClipboardList,
   Clock,
@@ -14,6 +15,7 @@ import {
   AlertTriangle,
   CheckCircle2,
 } from 'lucide-react';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import {
@@ -115,13 +117,13 @@ export const StudentDashboard = () => {
           fetch('/api/students/me/status', fetchOpts),
           fetch('/api/students/me/summary', fetchOpts),
         ]);
-        
+
         let summaryData = null;
         if (summaryRes.ok) {
           summaryData = await summaryRes.json();
           setSummary(summaryData);
         }
-        
+
         try {
           const a1 = await (
             await fetch('/api/assignments/a1', fetchOpts)
@@ -202,7 +204,7 @@ export const StudentDashboard = () => {
             Welcome, {user?.name}
           </h1>
         </div>
-        
+
         {weakTopics.length > 0 && (
           <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
             <p className="text-sm font-medium text-red-900">
@@ -227,7 +229,7 @@ export const StudentDashboard = () => {
               {dailyGoal.quizzesRemaining} quiz{dailyGoal.quizzesRemaining === 1 ? '' : 'zes'} · ~{dailyGoal.minutesEstimate} min
             </p>
           </div>
-          
+
           <div className="space-y-3">
             <div className="flex justify-between text-sm font-medium text-gray-700 mb-1">
               <span>Progress</span>
@@ -240,7 +242,7 @@ export const StudentDashboard = () => {
               />
             </div>
           </div>
-          
+
           <Button
             variant="primary"
             className="w-full"
@@ -271,7 +273,7 @@ export const StudentDashboard = () => {
               </div>
             </div>
           </div>
-          
+
           {adaptiveHint && (
             <div className="pt-3 border-t border-gray-200">
               <p className="text-xs font-medium text-gray-600">
@@ -284,7 +286,7 @@ export const StudentDashboard = () => {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card 
+        <Card
           className="cursor-pointer hover:bg-gray-50 transition-colors text-center p-4"
           onClick={() => navigate(continuePath)}
         >
@@ -292,8 +294,8 @@ export const StudentDashboard = () => {
           <p className="font-semibold text-sm">Resume</p>
           <p className="text-xs text-gray-600 mt-1">Last topic</p>
         </Card>
-        
-        <Card 
+
+        <Card
           className="cursor-pointer hover:bg-gray-50 transition-colors text-center p-4"
           onClick={() => navigate('/student/quizzes')}
         >
@@ -301,8 +303,8 @@ export const StudentDashboard = () => {
           <p className="font-semibold text-sm">Quizzes</p>
           <p className="text-xs text-gray-600 mt-1">{quizzesAvailable} available</p>
         </Card>
-        
-        <Card 
+
+        <Card
           className="cursor-pointer hover:bg-gray-50 transition-colors text-center p-4"
           onClick={() => navigate('/student/profile')}
         >
@@ -310,8 +312,8 @@ export const StudentDashboard = () => {
           <p className="font-semibold text-sm">Analysis</p>
           <p className="text-xs text-gray-600 mt-1">Weak areas</p>
         </Card>
-        
-        <Card 
+
+        <Card
           className="cursor-pointer hover:bg-gray-50 transition-colors text-center p-4"
           onClick={() => navigate('/student/roadmap')}
         >
