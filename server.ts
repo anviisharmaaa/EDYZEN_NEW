@@ -19,7 +19,7 @@ process.on('unhandledRejection', (reason) => {
 });
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || "edyzen-secret-key-123";
 
 app.use(express.json());
