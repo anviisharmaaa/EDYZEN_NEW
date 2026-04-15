@@ -1,11 +1,29 @@
-// @ts-ignore
+import mysql from "mysql2/promise";
+import dotenv from "dotenv";
+import { createClient } from "@supabase/supabase-js";
 import { DatabaseSync } from "node:sqlite";
 import bcrypt from "bcryptjs";
+
+dotenv.config();
 
 // Use an in-memory temp DB for prototyping
 const db = new DatabaseSync(":memory:");
 
-export let pool: any; // Retained for compatibility if needed
+const supabaseUrl = process.env.SUPABASE_URL || "https://aysucntiklrymddmzuuq.supabase.co";
+const supabaseKey = process.env.SUPABASE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1dGBlb3BhYmFzZSIsImlhdCI6MTc3NjEyNzIwMiwiZXhwIjoyMDkxNzAzMjAyfQ.sNbXvL8Nls3P9XJ9DB2K9wiw_VZkcr0FwdjStPmKBNE";
+
+export const supabase = createClient(supabaseUrl, supabaseKey, {
+  auth: { persistSession: false },
+});
+
+const dbConfig = {
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "",
+  database: process.env.DB_NAME || "edyzen",
+};
+
+export let pool: mysql.Pool;
 
 export const initDatabase = async () => {
   try {
@@ -97,6 +115,12 @@ export const query = async (sql: string, params: any[] = []): Promise<any> => {
     console.error("SQL Error running query:", sql, "\nError:", error);
     throw error;
   }
+};
+
+export const testSupabaseConnection = async () => {
+  const { data, error } = await supabase.from("students").select("*");
+  if (error) throw error;
+  return data;
 };
 
 export const logActivity = async (userId: string, userType: string, action: string, details?: any) => {
